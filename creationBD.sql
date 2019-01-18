@@ -11,9 +11,9 @@ drop table Article;
 drop table ArticleImpression;
 drop table PhotoAlbumPhoto;
 drop table PhotoCalendrier;
-drop table ;
-drop table Adresse;
-drop table Adresse;
+drop table photoAgenda;
+drop table photoTirage;
+drop table bureau; 
 
 /*==============================================================*/
 /* Table: ADRESSE                                               */
