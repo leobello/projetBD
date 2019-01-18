@@ -1,129 +1,507 @@
-create table Client (
-    mailClient varchar2(20) PRIMARY KEY,
-    nom varchar2(20),
-    prenom varchar2(20),
-    motDePasse varchar2(20)
+/*==============================================================*/
+/* DBMS name:      Sybase SQL Anywhere 11                       */
+/* Created on:     17/01/2019 19:32:16                          */
+/*==============================================================*/
+
+drop table Adresse;
+drop table AdresseClient;
+drop table Agenda;
+drop table AlbumPhoto;
+drop table Article;
+drop table ArticleImpression;
+drop table PhotoAlbumPhoto;
+drop table PhotoCalendrier;
+drop table ;
+drop table Adresse;
+drop table Adresse;
+
+/*==============================================================*/
+/* Table: ADRESSE                                               */
+/*==============================================================*/
+create table ADRESSE 
+(
+   ID_ADRESSE           integer                        not null,
+   CODEPOSTAL           integer                        not null,
+   VILLE                long varchar                   not null,
+   NOM_ADRESSE          long varchar                   null,
+   PRENOM_ADRESSE       long varchar                   null,
+   RUE                  long varchar                   null,
+   constraint PK_ADRESSE primary key (ID_ADRESSE)
 );
 
-create table CodePromo(
-    idCodePromo number(5) PRIMARY KEY,
-    code varchar2(20)
+/*==============================================================*/
+/* Table: ADRESSECLIENT                                         */
+/*==============================================================*/
+create table ADRESSECLIENT 
+(
+   MAILCLIENT           long varchar                   not null,
+   ID_ADRESSE           integer                        not null,
+   constraint PK_ADRESSECLIENT primary key (MAILCLIENT, ID_ADRESSE)
 );
 
-create table CodePromoClient(
-    idCodePromo number(5) PRIMARY KEY,
-    mailClient varchar2(20),
-    Utilise boolean,
-    constraint pk_cp PRIMARY KEY (idCodePromo, mailClient),
-    constraint fk1_cp FOREIGN KEY (idCodePromo) 
-    REFERENCES CodePromo(idCodePromo) ON DELETE CASCADE,
-    constraint fk2_cp FOREIGN KEY (mailClient)
-    REFERENCES Client(mailClient) ON DELETE CASCADE 
+/*==============================================================*/
+/* Table: AGENDA                                                */
+/*==============================================================*/
+create table AGENDA 
+(
+   NUMIPRESSION         integer                        not null,
+   PATH_IMPRESSION      long varchar                   not null,
+   NOPAGEAGENDA         integer                        null,
+   constraint PK_AGENDA primary key (NUMIPRESSION)
 );
 
-create table Adresse(
-    idAdresse number(5) PRIMARY KEY,
-    codePostale number(5),
-    ville varchar2(20),
-    nomAdresse varchar2(20),
-    prenomAdresse varchar2(20)
+/*==============================================================*/
+/* Table: ALBUMPHOTO                                            */
+/*==============================================================*/
+create table ALBUMPHOTO 
+(
+   NUMIPRESSION         integer                        not null,
+   PATH_IMPRESSION      long varchar                   not null,
+   ID_PHOTO             integer                        not null,
+   TITRE                long varchar                   null,
+   QUALITE              long varchar                   null,
+   FORMATALBUM          long varchar                   null,
+   constraint PK_ALBUMPHOTO primary key (NUMIPRESSION)
 );
 
-create table Commande(
-    numCommande number(5) PRIMARY KEY,
-    dateC date,
-    modeLivraison varchar2(20),
-    statutCommande boolean,
-    idCodePromo number(5),
-    mailClient varchar2(20),
-    idAdresse number(5),
-    montant float(5) check (montant >= 0),
-    constraint fk1_commande (idCodePromo)
-    REFERENCES CodePromo(idCodePromo) ON DELETE CASCADE,
-    constraint fk2_commande FOREIGN KEY (mailClient)
-    REFERENCES Client(mailClient) ON DELETE CASCADE,
-    constraint fk2_commande FOREIGN KEY (idAdresse)
-    REFERENCES Adresse(idAdresse) ON DELETE CASCADE
+/*==============================================================*/
+/* Table: ARTICLE                                               */
+/*==============================================================*/
+create table ARTICLE 
+(
+   ID_ARTICLE           integer                        not null,
+   NUMCOMMANDE          integer                        not null,
+   PRIX                 decimal                        not null,
+   QUANTITE             integer                        not null,
+   constraint PK_ARTICLE primary key (ID_ARTICLE)
 );
 
-create table AdresseClient(
-    mailClient varchar2(20),
-    idAdresse number(5),
-    constraint pk_adresseClient PRIMARY KEY (mailClient, idAdresse),
-    constraint fk1_adresseClient FOREIGN KEY (mailClient)
-    REFERENCES Client(mailClient) ON DELETE CASCADE,
-    constraint fk2_adresseClient FOREIGN KEY (idAdresse)
-    REFERENCES Adresse(idAdresse) ON DELETE CASCADE,
+/*==============================================================*/
+/* Table: ARTICLEIMPRESSION                                     */
+/*==============================================================*/
+create table ARTICLEIMPRESSION 
+(
+   ID_ARTICLE           integer                        not null,
+   NUMIPRESSION         integer                        not null,
+   constraint PK_ARTICLEIMPRESSION primary key (ID_ARTICLE, NUMIPRESSION)
 );
 
-
--- le propriétaire devrait être identifié par son mail non?
-create table FichierImage(
-    pathImage varchar2(100),
-    proprietaire varchar2(20), --???
-    mailClient varchar2(20),
-    infosPriseDeVue varchar2(20),
-    resolution varchar2(20);
-    partage boolean,
-    dateAcces date,
-    constraint pk_fichierImage PRIMARY KEY (pathImage, proprietaire),
-    constraint fk1_fichierImage FOREIGN KEY (mailClient)
-    REFERENCES Client(mailClient) ON DELETE CASCADE,
+/*==============================================================*/
+/* Table: PHOTOALBUMPHOTO                                        */
+/*==============================================================*/
+create table PHOTOALBUMPHOTO
+(
+   NUMIPRESSION         integer                        not null,
+   ID_PHOTO             integer                        not null,
+   NOPAGEPHOTOALBUMPHOTO integer                        null,
+   constraint PK_ASSOCIATION_13 primary key (NUMIPRESSION, ID_PHOTO)
 );
 
-create table Photo(
-    idPhoto number(5) PRIMARY KEY,
-    pathImage varchar2(100),
-    proprietaire varchar2(20),
-    retouche varchar2(20),
-    description varchar2(20),
-    constraint fk1_photo FOREIGN KEY (pathImage)
-    REFERENCES FichierImage(pathImage) ON DELETE CASCADE,
-    constraint fk2_photo FOREIGN KEY (proprietaire)
-    REFERENCES FichierImage(proprietaire) ON DELETE CASCADE
+/*==============================================================*/
+/* Table: PHOTOCALENDRIER                                        */
+/*==============================================================*/
+create table PHOTOCALENDRIER
+(
+   NUMIPRESSION         integer                        not null,
+   ID_PHOTO             integer                        not null,
+   NOPAGEPHOTOCALENDRIER integer                        null,
+   constraint PK_ASSOCIATION_14 primary key (NUMIPRESSION, ID_PHOTO)
 );
 
-create table Impression(
-    numImpression number(5) PRIMARY KEY,
-    pathImpression varchar2(100)
+/*==============================================================*/
+/* Table: PHOTOAGENDA                                        */
+/*==============================================================*/
+create table PHOTOAGENDA
+(
+   NUMIPRESSION         integer                        not null,
+   ID_PHOTO             integer                        not null,
+   NOPAGEPHOTOAGENDA    integer                        null,
+   constraint PK_ASSOCIATION_16 primary key (NUMIPRESSION, ID_PHOTO)
 );
 
-create table PhotoImpression (
-    idPhoto number(5),
-    numImpression number(5),
-    constraint pk_photoImpression PRIMARY KEY (idPhoto, numImpression),
-    constraint fk1_photoImpression FOREIGN KEY (idPhoto)
-    REFERENCES Photo(idPhoto) ON DELETE CASCADE,
-    constraint fk2_photoImpression FOREIGN KEY (numImpression)
-    REFERENCES Impression(numImpression) ON DELETE CASCADE,
+/*==============================================================*/
+/* Table: PHOTOTIRAGE                                         */
+/*==============================================================*/
+create table PHOTOTIRAGE
+(
+   NUMIPRESSION         integer                        not null,
+   ID_PHOTO             integer                        not null,
+   NBEXEMPLAIRE         integer                        null,
+   constraint PK_ASSOCIATION_17 primary key (NUMIPRESSION, ID_PHOTO)
 );
 
-create table Article(
-    idArticle number(5) PRIMARY KEY,
-    numCommande number(5),
-    prix float(5) check (prix >= 0),
-    quantite number(5) check (quantite >= 0),
-    constraint fk1_article FOREIGN KEY (numCommande)
-    REFERENCES Commande(numCommande) ON DELETE CASCADE
+/*==============================================================*/
+/* Table: BUREAU                                                */
+/*==============================================================*/
+create table BUREAU 
+(
+   NUMIPRESSION         integer                        not null,
+   PATH_IMPRESSION      long varchar                   not null,
+   constraint PK_BUREAU primary key (NUMIPRESSION)
 );
 
-create table ArticleImpression(
-    idArticle number(5),
-    numImpression number(5),
-    constraint pk_articleImpression PRIMARY KEY (idArticle, numImpression),
-    constraint fk1_articleImpression FOREIGN KEY (idArticle)
-    REFERENCES Article(idArticle) ON DELETE CASCADE,
-    constraint fk2_articleImpression FOREIGN KEY (numImpression)
-    REFERENCES Impression(numImpression) ON DELETE CASCADE
+/*==============================================================*/
+/* Table: CADRE                                                 */
+/*==============================================================*/
+create table CADRE 
+(
+   NUMIPRESSION         integer                        not null,
+   PATH_IMPRESSION      long varchar                   not null,
+   constraint PK_CADRE primary key (NUMIPRESSION)
 );
 
-/**
-reste à faire:
-- albumPhoto
-- calendrier
-- agenda 
-- tirage
-- bureau
-- mural
-etc ...
-**/
+/*==============================================================*/
+/* Table: CALENDRIER                                            */
+/*==============================================================*/
+create table CALENDRIER 
+(
+   NUMIPRESSION         integer                        not null,
+   PATH_IMPRESSION      long varchar                   not null,
+   constraint PK_CALENDRIER primary key (NUMIPRESSION)
+);
+
+/*==============================================================*/
+/* Table: CLIENT                                                */
+/*==============================================================*/
+create table CLIENT 
+(
+   MAILCLIENT           long varchar                   not null,
+   NOM                  long varchar                   not null,
+   PRENOM               long varchar                   not null,
+   MOTDEPASSE           long varchar                   not null,
+   constraint PK_CLIENT primary key (MAILCLIENT)
+);
+
+/*==============================================================*/
+/* Table: CODEPROMO                                             */
+/*==============================================================*/
+create table CODEPROMO 
+(
+   CODE                 long varchar                   not null,
+   ID_CODEPROMO         integer                        not null,
+   constraint PK_CODEPROMO primary key (ID_CODEPROMO)
+);
+
+/*==============================================================*/
+/* Table: CODEPROMOCLIENT                                       */
+/*==============================================================*/
+create table CODEPROMOCLIENT 
+(
+   ID_CODEPROMO         integer                        not null,
+   MAILCLIENT           long varchar                   not null,
+   DEJAUTILISE          smallint                       not null,
+   constraint PK_CODEPROMOCLIENT primary key (ID_CODEPROMO, MAILCLIENT)
+);
+
+/*==============================================================*/
+/* Table: COMMANDE                                              */
+/*==============================================================*/
+create table COMMANDE 
+(
+   "DATE"               date                           null,
+   MODELIVRAISON        long varchar                   null,
+   STATUT_COMMANDE      smallint                       null,
+   NUMCOMMANDE          integer                        not null,
+   ID_CODEPROMO         integer                        null,
+   MAILCLIENT           long varchar                   not null,
+   ID_ADRESSE           integer                        null,
+   MONTANT              decimal                        not null,
+   constraint PK_COMMANDE primary key (NUMCOMMANDE)
+);
+
+/*==============================================================*/
+/* Table: FICHIERIMAGE                                          */
+/*==============================================================*/
+create table FICHIERIMAGE 
+(
+   PATH                 long varchar                   not null,
+   PROPRIETAIRE         long varchar                   not null,
+   MAILCLIENT           long varchar                   not null,
+   INFOPRISEDEVUE       long varchar                   not null,
+   RESOLUTION           long varchar                   not null,
+   PARTAGE              smallint                       not null,
+   DATEACCES            date                           not null,
+   constraint PK_FICHIERIMAGE primary key (PATH, PROPRIETAIRE)
+);
+
+/*==============================================================*/
+/* Table: IMPRESSION                                            */
+/*==============================================================*/
+create table IMPRESSION 
+(
+   NUMIPRESSION         integer                        not null,
+   PATH_IMPRESSION      long varchar                   not null,
+   constraint PK_IMPRESSION primary key (NUMIPRESSION)
+);
+
+/*==============================================================*/
+/* Table: JOURS                                                 */
+/*==============================================================*/
+create table JOURS 
+(
+   NUMIPRESSION         integer                        not null,
+   PATH_IMPRESSION      long varchar                   not null,
+   NOPAGEAGENDA         integer                        null,
+   constraint PK_JOURS primary key (NUMIPRESSION)
+);
+
+/*==============================================================*/
+/* Table: MURAL                                                 */
+/*==============================================================*/
+create table MURAL 
+(
+   NUMIPRESSION         integer                        not null,
+   PATH_IMPRESSION      long varchar                   not null,
+   constraint PK_MURAL primary key (NUMIPRESSION)
+);
+
+/*==============================================================*/
+/* Table: PHOTO                                                 */
+/*==============================================================*/
+create table PHOTO 
+(
+   ID_PHOTO             integer                        not null,
+   PATH                 long varchar                   not null,
+   PROPRIETAIRE         long varchar                   not null,
+   RETOUCHE             long varchar                   null,
+   DESCRIPTION          long varchar                   null,
+   constraint PK_PHOTO primary key (ID_PHOTO)
+);
+
+/*==============================================================*/
+/* Table: SEMAINES                                              */
+/*==============================================================*/
+create table SEMAINES 
+(
+   NUMIPRESSION         integer                        not null,
+   PATH_IMPRESSION      long varchar                   not null,
+   NOPAGEAGENDA         integer                        null,
+   constraint PK_SEMAINES primary key (NUMIPRESSION)
+);
+
+/*==============================================================*/
+/* Table: STOCK                                                 */
+/*==============================================================*/
+create table STOCK 
+(
+   TYPE_IMPRESSION      long varchar                   not null,
+   QUANTITESTOCK        integer                        not null,
+   IDSTOCK              integer                        not null,
+   constraint PK_STOCK primary key (IDSTOCK)
+);
+
+/*==============================================================*/
+/* Table: STOCKARTICLE                                          */
+/*==============================================================*/
+create table STOCKARTICLE 
+(
+   IDSTOCK              integer                        not null,
+   ID_ARTICLE           integer                        not null,
+   constraint PK_STOCKARTICLE primary key (IDSTOCK, ID_ARTICLE)
+);
+
+/*==============================================================*/
+/* Table: TIRAGE                                                */
+/*==============================================================*/
+create table TIRAGE 
+(
+   NUMIPRESSION         integer                        not null,
+   PATH_IMPRESSION      long varchar                   not null,
+   QUALITEPAPIER        long varchar                   null,
+   FORMATTIRAGE         long varchar                   null,
+   constraint PK_TIRAGE primary key (NUMIPRESSION)
+);
+
+alter table ADRESSECLIENT
+   add constraint FK_ADRESSEC_ADRESSECL_ADRESSE foreign key (ID_ADRESSE)
+      references ADRESSE (ID_ADRESSE)
+      on update restrict
+      on delete restrict;
+
+alter table ADRESSECLIENT
+   add constraint FK_ADRESSEC_ADRESSECL_CLIENT foreign key (MAILCLIENT)
+      references CLIENT (MAILCLIENT)
+      on update restrict
+      on delete restrict;
+
+alter table AGENDA
+   add constraint FK_AGENDA_INHERITAN_IMPRESSI foreign key (NUMIPRESSION)
+      references IMPRESSION (NUMIPRESSION)
+      on update restrict
+      on delete restrict;
+
+alter table ALBUMPHOTO
+   add constraint FK_ALBUMPHO_INHERITAN_IMPRESSI foreign key (NUMIPRESSION)
+      references IMPRESSION (NUMIPRESSION)
+      on update restrict
+      on delete restrict;
+
+alter table ALBUMPHOTO
+   add constraint FK_ALBUMPHO_POSSEDE_P_PHOTO foreign key (ID_PHOTO)
+      references PHOTO (ID_PHOTO)
+      on update restrict
+      on delete restrict;
+
+alter table ARTICLE
+   add constraint FK_ARTICLE_COMMANDEA_COMMANDE foreign key (NUMCOMMANDE)
+      references COMMANDE (NUMCOMMANDE)
+      on update restrict
+      on delete restrict;
+
+alter table ARTICLEIMPRESSION
+   add constraint FK_ARTICLEI_ARTICLEIM_IMPRESSI foreign key (NUMIPRESSION)
+      references IMPRESSION (NUMIPRESSION)
+      on update restrict
+      on delete restrict;
+
+alter table ARTICLEIMPRESSION
+   add constraint FK_ARTICLEI_ARTICLEIM_ARTICLE foreign key (ID_ARTICLE)
+      references ARTICLE (ID_ARTICLE)
+      on update restrict
+      on delete restrict;
+
+alter table ALBUMPHOTO
+   add constraint FK_ASSOCIAT_ASSOCIATI_ALBUMPHO foreign key (NUMIPRESSION)
+      references ALBUMPHOTO (NUMIPRESSION)
+      on update restrict
+      on delete restrict;
+
+alter table ALBUMPHOTO
+   add constraint FK_ASSOCIAT_ASSOCIATI_PHOTO foreign key (ID_PHOTO)
+      references PHOTO (ID_PHOTO)
+      on update restrict
+      on delete restrict;
+
+alter table PHOTOCALENDRIER
+   add constraint FK_ASSOCIAT_ASSOCIATI_CALENDRI foreign key (NUMIPRESSION)
+      references CALENDRIER (NUMIPRESSION)
+      on update restrict
+      on delete restrict;
+
+alter table PHOTOCALENDRIER
+   add constraint FK_ASSOCIAT_ASSOCIATI_PHOTO foreign key (ID_PHOTO)
+      references PHOTO (ID_PHOTO)
+      on update restrict
+      on delete restrict;
+
+alter table PHOTOAGENDA
+   add constraint FK_ASSOCIAT_ASSOCIATI_AGENDA foreign key (NUMIPRESSION)
+      references AGENDA (NUMIPRESSION)
+      on update restrict
+      on delete restrict;
+
+alter table PHOTOAGENDA
+   add constraint FK_ASSOCIAT_ASSOCIATI_PHOTO foreign key (ID_PHOTO)
+      references PHOTO (ID_PHOTO)
+      on update restrict
+      on delete restrict;
+
+alter table PHOTOTIRAGE
+   add constraint FK_ASSOCIAT_ASSOCIATI_TIRAGE foreign key (NUMIPRESSION)
+      references TIRAGE (NUMIPRESSION)
+      on update restrict
+      on delete restrict;
+
+alter table PHOTOTIRAGE
+   add constraint FK_ASSOCIAT_ASSOCIATI_PHOTO foreign key (ID_PHOTO)
+      references PHOTO (ID_PHOTO)
+      on update restrict
+      on delete restrict;
+
+alter table BUREAU
+   add constraint FK_BUREAU_INHERITAN_CALENDRI foreign key (NUMIPRESSION)
+      references CALENDRIER (NUMIPRESSION)
+      on update restrict
+      on delete restrict;
+
+alter table CADRE
+   add constraint FK_CADRE_INHERITAN_IMPRESSI foreign key (NUMIPRESSION)
+      references IMPRESSION (NUMIPRESSION)
+      on update restrict
+      on delete restrict;
+
+alter table CALENDRIER
+   add constraint FK_CALENDRI_INHERITAN_IMPRESSI foreign key (NUMIPRESSION)
+      references IMPRESSION (NUMIPRESSION)
+      on update restrict
+      on delete restrict;
+
+alter table CODEPROMOCLIENT
+   add constraint FK_CODEPROM_CODEPROMO_CLIENT foreign key (MAILCLIENT)
+      references CLIENT (MAILCLIENT)
+      on update restrict
+      on delete restrict;
+
+alter table CODEPROMOCLIENT
+   add constraint FK_CODEPROM_CODEPROMO_CODEPROM foreign key (ID_CODEPROMO)
+      references CODEPROMO (ID_CODEPROMO)
+      on update restrict
+      on delete restrict;
+
+alter table COMMANDE
+   add constraint FK_COMMANDE_COMMANDEA_ADRESSE foreign key (ID_ADRESSE)
+      references ADRESSE (ID_ADRESSE)
+      on update restrict
+      on delete restrict;
+
+alter table COMMANDE
+   add constraint FK_COMMANDE_EFFECTUE_CLIENT foreign key (MAILCLIENT)
+      references CLIENT (MAILCLIENT)
+      on update restrict
+      on delete restrict;
+
+alter table COMMANDE
+   add constraint FK_COMMANDE_PROMOCOMM_CODEPROM foreign key (ID_CODEPROMO)
+      references CODEPROMO (ID_CODEPROMO)
+      on update restrict
+      on delete restrict;
+
+alter table FICHIERIMAGE
+   add constraint FK_FICHIERI_IMAGECLIE_CLIENT foreign key (MAILCLIENT)
+      references CLIENT (MAILCLIENT)
+      on update restrict
+      on delete restrict;
+
+alter table JOURS
+   add constraint FK_JOURS_INHERITAN_AGENDA foreign key (NUMIPRESSION)
+      references AGENDA (NUMIPRESSION)
+      on update restrict
+      on delete restrict;
+
+alter table MURAL
+   add constraint FK_MURAL_INHERITAN_CALENDRI foreign key (NUMIPRESSION)
+      references CALENDRIER (NUMIPRESSION)
+      on update restrict
+      on delete restrict;
+
+alter table PHOTO
+   add constraint FK_PHOTO_CORRESPON_FICHIERI foreign key (PATH, PROPRIETAIRE)
+      references FICHIERIMAGE (PATH, PROPRIETAIRE)
+      on update restrict
+      on delete restrict;
+
+alter table SEMAINES
+   add constraint FK_SEMAINES_INHERITAN_AGENDA foreign key (NUMIPRESSION)
+      references AGENDA (NUMIPRESSION)
+      on update restrict
+      on delete restrict;
+
+alter table STOCKARTICLE
+   add constraint FK_STOCKART_STOCKARTI_ARTICLE foreign key (ID_ARTICLE)
+      references ARTICLE (ID_ARTICLE)
+      on update restrict
+      on delete restrict;
+
+alter table STOCKARTICLE
+   add constraint FK_STOCKART_STOCKARTI_STOCK foreign key (IDSTOCK)
+      references STOCK (IDSTOCK)
+      on update restrict
+      on delete restrict;
+
+alter table TIRAGE
+   add constraint FK_TIRAGE_INHERITAN_IMPRESSI foreign key (NUMIPRESSION)
+      references IMPRESSION (NUMIPRESSION)
+      on update restrict
+      on delete restrict;
+
+
