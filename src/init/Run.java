@@ -1,9 +1,10 @@
 package init;
-import connexion.*;
+import serviceBD.*;
 
 public class Run {
 	public static void main(String args[]) {
-		Connexion conn = new Connexion();
-		conn.connect();
+		System.out.println("heho");
+		BD bd = new BD();
+		bd.init();
 	}
 }
