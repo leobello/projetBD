@@ -4,7 +4,6 @@
 /*==============================================================*/
 
 DROP TABLE ADRESSECLIENT;
-DROP TABLE ARTICLEIMPRESSION;
 DROP TABLE PHOTOALBUMPHOTO;
 DROP TABLE CODEPROMOCLIENT;
 DROP TABLE STOCKARTICLE; 
@@ -16,6 +15,7 @@ DROP TABLE JOURS;
 DROP TABLE MURAL; 
 DROP TABLE SEMAINES; 
 DROP TABLE BUREAU; 
+drop table CADREPHOTO ;
 DROP TABLE CADRE;
 DROP TABLE CALENDRIER;
 DROP TABLE AGENDA;
@@ -24,14 +24,16 @@ DROP TABLE TIRAGE;
 
 DROP TABLE PHOTO; 
 DROP TABLE FICHIERIMAGE;
-DROP TABLE ADRESSE;
-DROP TABLE CLIENT;
 DROP TABLE ARTICLE;
-DROP TABLE CODEPROMO;
-DROP TABLE COMMANDE;
 DROP TABLE IMPRESSION;
-DROP TABLE STOCK; 
+DROP TABLE COMMANDE;
+DROP TABLE CLIENT;
+DROP TABLE ADRESSE;
+DROP TABLE CODEPROMO;
+DROP TABLE STOCK;
 
+
+CREATE SEQUENCE ADRESSE_seq START WITH 0 MINVALUE 0;
 /*==============================================================*/
 /* TABLE: ADRESSE                                               */
 /*==============================================================*/
@@ -47,19 +49,50 @@ CREATE TABLE ADRESSE
 );
 
 /*==============================================================*/
+/* TABLE: CODEPROMO                                             */
+/*==============================================================*/
+CREATE TABLE CODEPROMO 
+(
+   CODE                 VARCHAR(255)                   NOT NULL,
+   ID_CODEPROMO         NUMBER                         NOT NULL,
+   POURCENTAGE          DECIMAL                        NOT NULL,
+   CONSTRAINT PK_CODEPROMO PRIMARY KEY (ID_CODEPROMO)
+);
+
+/*==============================================================*/
+/* TABLE: CLIENT                                                */
+/*==============================================================*/
+CREATE TABLE CLIENT 
+(
+   MAILCLIENT           VARCHAR(255)                    NOT NULL,
+   NOM                  VARCHAR(255)                    NOT NULL,
+   PRENOM               VARCHAR(255)                    NOT NULL,
+   MOTDEPASSE           VARCHAR(255)                    NOT NULL,
+   CONSTRAINT PK_CLIENT PRIMARY KEY (MAILCLIENT)
+);
+
+/*==============================================================*/
 /* TABLE: COMMANDE                                              */
 /*==============================================================*/
 CREATE TABLE COMMANDE 
 (
-   "DATE"               DATE                           NULL,
-   MODELIVRAISON        VARCHAR(255)                    NULL,
-   STATUT_COMMANDE      SMALLINT                       NULL,
+   DATEC                VARCHAR(255)                   NULL,
+   MODELIVRAISON        VARCHAR(255)                   NULL,
+   STATUT_COMMANDE      VARCHAR(255)                   NULL,
    NUMCOMMANDE          NUMBER                         NOT NULL,
    ID_CODEPROMO         NUMBER                         NULL,
-   MAILCLIENT           VARCHAR(255)                    NOT NULL,
-   ID_ADRESSE           NUMBER                         NULL,
-   MONTANT              DECIMAL                        NOT NULL,
-   CONSTRAINT PK_COMMANDE PRIMARY KEY (NUMCOMMANDE)
+   MAILCLIENT           VARCHAR(255)                   NOT NULL,
+   CONSTRAINT PK_COMMANDE PRIMARY KEY (NUMCOMMANDE),
+   CONSTRAINT FK_COMMANDE_1 
+      FOREIGN KEY (ID_CODEPROMO) REFERENCES CODEPROMO(ID_CODEPROMO),
+   CONSTRAINT FK_COMMANDE_2 
+      FOREIGN KEY (MAILCLIENT) REFERENCES CLIENT(MAILCLIENT),
+   CONSTRAINT CK_COMMANDE_1 
+      CHECK (MODELIVRAISON='ADRESSE' OR MODELIVRAISON='POINT RELAIS' ),
+   CONSTRAINT CK_COMMANDE_2 
+      CHECK (STATUT_COMMANDE='EN COURS' OR 
+            STATUT_COMMANDE='PRET A L ENVOI' OR 
+            STATUT_COMMANDE='ENVOYEE')
 );
 
 
@@ -77,17 +110,6 @@ CREATE TABLE COMMANDEADRESSE
       FOREIGN KEY (NUMCOMMANDE) REFERENCES COMMANDE(NUMCOMMANDE)
 );
 
-/*==============================================================*/
-/* TABLE: CLIENT                                                */
-/*==============================================================*/
-CREATE TABLE CLIENT 
-(
-   MAILCLIENT           VARCHAR(255)                    NOT NULL,
-   NOM                  VARCHAR(255)                    NOT NULL,
-   PRENOM               VARCHAR(255)                    NOT NULL,
-   MOTDEPASSE           VARCHAR(255)                    NOT NULL,
-   CONSTRAINT PK_CLIENT PRIMARY KEY (MAILCLIENT)
-);
 
 /*==============================================================*/
 /* TABLE: FICHIERIMAGE                                          */
@@ -121,24 +143,15 @@ CREATE TABLE ADRESSECLIENT
 );
 
 /*==============================================================*/
-/* TABLE: CODEPROMO                                             */
-/*==============================================================*/
-CREATE TABLE CODEPROMO 
-(
-   CODE                 VARCHAR(255)                    NOT NULL,
-   ID_CODEPROMO         NUMBER                         NOT NULL,
-   CONSTRAINT PK_CODEPROMO PRIMARY KEY (ID_CODEPROMO)
-);
-
-/*==============================================================*/
 /* TABLE: CODEPROMOCLIENT                                       */
 /*==============================================================*/
 CREATE TABLE CODEPROMOCLIENT 
 (
    ID_CODEPROMO         NUMBER                         NOT NULL,
-   MAILCLIENT           VARCHAR(255)                    NOT NULL,
+   MAILCLIENT           VARCHAR(255)                   NOT NULL,
    DEJAUTILISE          SMALLINT                       NOT NULL,
    CONSTRAINT PK_CODEPROMOCLIENT PRIMARY KEY (ID_CODEPROMO, MAILCLIENT),
+   CONSTRAINT CK_CODEPROMOCLIENT CHECK (DEJAUTILISE<=1 OR DEJAUTILISE>=0),
    CONSTRAINT FK_CODEPROMOCLIENT_1
       FOREIGN KEY (ID_CODEPROMO) REFERENCES CODEPROMO(ID_CODEPROMO),
    CONSTRAINT FK_CODEPROMOCLIENT_2
@@ -161,6 +174,16 @@ CREATE TABLE PHOTO
 );
 
 /*==============================================================*/
+/* TABLE: IMPRESSION                                            */
+/*==============================================================*/
+CREATE TABLE IMPRESSION 
+(
+   NUMIPRESSION         NUMBER                         NOT NULL,
+   PATH_IMPRESSION      VARCHAR(255)                    NOT NULL,
+   CONSTRAINT PK_IMPRESSION PRIMARY KEY (NUMIPRESSION)
+);
+
+/*==============================================================*/
 /* TABLE: ARTICLE                                               */
 /*==============================================================*/
 CREATE TABLE ARTICLE 
@@ -169,9 +192,12 @@ CREATE TABLE ARTICLE
    NUMCOMMANDE          NUMBER                         NOT NULL,
    PRIX                 DECIMAL                        NOT NULL,
    QUANTITE             NUMBER                         NOT NULL,
+   NUMIPRESSION         NUMBER                         NOT NULL,
    CONSTRAINT PK_ARTICLE PRIMARY KEY (ID_ARTICLE),
-   CONSTRAINT FK_ARTICLE
-      FOREIGN KEY (NUMCOMMANDE) REFERENCES COMMANDE(NUMCOMMANDE)
+   CONSTRAINT FK_ARTICLE_1
+      FOREIGN KEY (NUMCOMMANDE) REFERENCES COMMANDE(NUMCOMMANDE),
+   CONSTRAINT FK_ARTICLE_2
+      FOREIGN KEY (NUMIPRESSION) REFERENCES IMPRESSION(NUMIPRESSION)
 );
 
 /*==============================================================*/
@@ -197,16 +223,6 @@ CREATE TABLE STOCKARTICLE
       FOREIGN KEY (IDSTOCK) REFERENCES STOCK(IDSTOCK),
    CONSTRAINT FK_STOCKARTICLE_2
       FOREIGN KEY (ID_ARTICLE) REFERENCES ARTICLE(ID_ARTICLE)
-);
-
-/*==============================================================*/
-/* TABLE: IMPRESSION                                            */
-/*==============================================================*/
-CREATE TABLE IMPRESSION 
-(
-   NUMIPRESSION         NUMBER                         NOT NULL,
-   PATH_IMPRESSION      VARCHAR(255)                    NOT NULL,
-   CONSTRAINT PK_IMPRESSION PRIMARY KEY (NUMIPRESSION)
 );
 
 /*==============================================================*/
@@ -239,20 +255,6 @@ CREATE TABLE ALBUMPHOTO
 );
 
 /*==============================================================*/
-/* TABLE: ARTICLEIMPRESSION                                     */
-/*==============================================================*/
-CREATE TABLE ARTICLEIMPRESSION 
-(
-   ID_ARTICLE           NUMBER                         NOT NULL,
-   NUMIPRESSION         NUMBER                         NOT NULL,
-   CONSTRAINT PK_ARTICLEIMPRESSION PRIMARY KEY (ID_ARTICLE, NUMIPRESSION),
-   CONSTRAINT FK_ARTICLEIMPRESSION_1
-      FOREIGN KEY (NUMIPRESSION) REFERENCES IMPRESSION(NUMIPRESSION),
-   CONSTRAINT FK_ARTICLEIMPRESSION
-      FOREIGN KEY (ID_ARTICLE) REFERENCES ARTICLE(ID_ARTICLE)
-);
-
-/*==============================================================*/
 /* TABLE: CALENDRIER                                            */
 /*==============================================================*/
 CREATE TABLE CALENDRIER 
@@ -282,10 +284,26 @@ CREATE TABLE BUREAU
 CREATE TABLE CADRE 
 (
    NUMIPRESSION         NUMBER                         NOT NULL,
-   PATH_IMPRESSION      VARCHAR(255)                    NOT NULL,
+   PATH_IMPRESSION      VARCHAR(255)                   NOT NULL,
+   MODELE               VARCHAR(255)                   NOT NULL,
+   TAILLE               NUMBER                         NOT NULL,
    CONSTRAINT PK_CADRE PRIMARY KEY (NUMIPRESSION),
    CONSTRAINT FK_CADRE
       FOREIGN KEY (NUMIPRESSION) REFERENCES IMPRESSION(NUMIPRESSION)
+);
+
+/*==============================================================*/
+/* TABLE: CADREPHOTO                                            */
+/*==============================================================*/
+CREATE TABLE CADREPHOTO 
+(
+   NUMIPRESSION         NUMBER                         NOT NULL,
+   ID_PHOTO             NUMBER                    NOT NULL,
+   CONSTRAINT PK_CADREPHOTO PRIMARY KEY (NUMIPRESSION, ID_PHOTO),
+   CONSTRAINT FK_CADREPHOTO_1
+      FOREIGN KEY (NUMIPRESSION) REFERENCES IMPRESSION(NUMIPRESSION),
+   CONSTRAINT FK_CADREPHOTO_2
+      FOREIGN KEY (ID_PHOTO) REFERENCES PHOTO(ID_PHOTO)
 );
 
 /*==============================================================*/
@@ -401,3 +419,31 @@ CREATE TABLE PHOTOCALENDRIER
       FOREIGN KEY (ID_PHOTO) REFERENCES PHOTO(ID_PHOTO)
 );
 
+INSERT INTO ADRESSE VALUES (1, 74200, 'VALENCE', 'RICHARD', 'JEAN', '255 RUE BOOLEAN');
+INSERT INTO ADRESSE VALUES (2, 74225, 'PARIS', 'MOTUN', 'LOUIS', '254 RUE BOLEAIN');
+INSERT INTO ADRESSE VALUES (3, 54200, 'THONON', 'RICH', 'ARTHUR', '255 AVENUE LEAN');
+INSERT INTO ADRESSE VALUES (4, 84200, 'GRENOBLE', 'WILLS', 'LOIC', '12 RUE BOOLETTE');
+
+INSERT INTO CODEPROMO VALUES ('AKJFKJDDFDFZ545D564S5Z64S64',1, 12.5);
+INSERT INTO CODEPROMO VALUES ('AKJFKJJDHFJHKJSF545666SDF',2, 5.3);
+INSERT INTO CODEPROMO VALUES ('AKJSDFSSD4F51Z545D564S5Z64S64',3, 10);
+INSERT INTO CODEPROMO VALUES ('SDFS51DFS1DF45D564S5Z64S64',4, 15.2);
+INSERT INTO CODEPROMO VALUES ('SQ5D4SD1FDFZ545D564S5Z64S64',5, 13.2);
+INSERT INTO CODEPROMO VALUES ('S5FSF6SDF545D564S5Z64S64',6, 25);
+
+INSERT INTO CLIENT VALUES ('LREOOF@ORANGE.FR', 'JEAN', 'PETIT', 'SDF545');
+INSERT INTO CLIENT VALUES ('LOUISR@ORANGE.FR', 'LOUIS', 'GRAND', 'DFGGD545');
+INSERT INTO CLIENT VALUES ('WILLY@ORANGE.FR', 'WILLIAMS', 'ARTO', 'SDFGDFG5');
+INSERT INTO CLIENT VALUES ('WILLSS@ORANGE.FR', 'JEAN', 'MECHANT', 'DFSDFF545');
+INSERT INTO CLIENT VALUES ('JEAP@ORANGE.FR', 'LOUIS', 'LAVOIT', 'SDFDF54SDFSDF');
+
+INSERT INTO COMMANDE VALUES ('2019-01-20', 'ADRESSE', 'EN COURS', 1,  NULL ,'LREOOF@ORANGE.FR' );
+INSERT INTO COMMANDE VALUES ('2019-01-15', 'ADRESSE', 'EN COURS', 2, 3,'WILLY@ORANGE.FR' );
+INSERT INTO COMMANDE VALUES ('2019-01-01', 'ADRESSE', 'EN COURS', 3, 6,'WILLY@ORANGE.FR');
+INSERT INTO COMMANDE VALUES ('2019-01-12', 'ADRESSE', 'EN COURS', 4, 5,'JEAP@ORANGE.FR');
+INSERT INTO COMMANDE VALUES ('2019-01-12', 'ADRESSE', 'EN COURS', 5, NULL,'JEAP@ORANGE.FR');
+
+INSERT INTO COMMANDEADRESSE VALUES (1, 1);
+INSERT INTO COMMANDEADRESSE VALUES (3, 5);
+INSERT INTO COMMANDEADRESSE VALUES (2, 4);
+INSERT INTO COMMANDEADRESSE VALUES (4, 3);
