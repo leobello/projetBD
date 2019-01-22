@@ -500,36 +500,37 @@ INSERT INTO ARTICLE VALUES (6, 3, 15.25, 5, 4);
 INSERT INTO ARTICLE VALUES (7, 4, 15.25, 5, 5);
 
 
+-- empêcher la création d’une commande avec un code promo si le code promo utilisé n’appartient pas à ce client.
+ 
+CREATE OR REPLACE TRIGGER CODEPROMO2
+AFTER INSERT OR UPDATE ON COMMANDE
+FOR EACH ROW
+DECLARE
+matchingCP integer;
+BEGIN
+   SELECT COUNT(*) INTO matchingCP 
+   FROM CODEPROMOCLIENT
+   WHERE MAILCLIENT = :new.MAILCLIENT
+   AND ID_CODEPROMO = :new.ID_CODEPROMO;
 
+   IF (matchingCP = 0) THEN 
+      raise_application_error(-20001, 'code Prommotionel invalide');
+   END IF;
+END;
+/
 
+-- Vérifier qu’il n’y a pas de commande en cours lors de la suppression d’un client
+CREATE OR REPLACE TRIGGER REMOVECLIENT
+AFTER DELETE ON CLIENT
+DECLARE 
+nbCommande integer;
+BEGIN
+   SELECT COUNT(*) INTO nbCommande
+   FROM COMMANDE
+   WHERE MAILCLIENT = :old.MAILCLIENT;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+   IF (nbCommande = 0) THEN
+      raise_application_error(-20001, 'Le client a une commande en cours!');
+   END IF;
+END;
+/      
