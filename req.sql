@@ -305,14 +305,14 @@ CREATE TABLE CADRE
 CREATE TABLE CADREPHOTO 
 (
    NUMIMPRESSION         NUMBER                         NOT NULL,
-   ID_PHOTO             NUMBER                    NOT NULL,
+   ID_PHOTO              NUMBER                         NOT NULL,
    CONSTRAINT PK_CADREPHOTO PRIMARY KEY (NUMIMPRESSION, ID_PHOTO),
    CONSTRAINT FK_CADREPHOTO_1
       FOREIGN KEY (NUMIMPRESSION) REFERENCES CADRE(NUMIMPRESSION),
    CONSTRAINT FK_CADREPHOTO_2
       FOREIGN KEY (ID_PHOTO) REFERENCES PHOTO(ID_PHOTO)
 );
-insert into cadrephoto values (
+
 /*==============================================================*/
 /* TABLE: JOURS                                                 */
 /*==============================================================*/
@@ -336,7 +336,6 @@ CREATE TABLE MURAL
       FOREIGN KEY (NUMIMPRESSION) REFERENCES CALENDRIER(NUMIMPRESSION)
 );
 
-
 /*==============================================================*/
 /* TABLE: SEMAINES                                              */
 /*==============================================================*/
@@ -355,12 +354,15 @@ CREATE TABLE SEMAINES
 CREATE TABLE TIRAGE 
 (
    NUMIMPRESSION         NUMBER                         NOT NULL,
-   PATH_IMPRESSION      VARCHAR(255)                    NOT NULL,
    QUALITEPAPIER        VARCHAR(255)                    NULL,
    FORMATTIRAGE         VARCHAR(255)                    NULL,
    CONSTRAINT PK_TIRAGE PRIMARY KEY (NUMIMPRESSION),
    CONSTRAINT FK_TIRAGE
-      FOREIGN KEY (NUMIMPRESSION) REFERENCES IMPRESSION(NUMIMPRESSION)
+      FOREIGN KEY (NUMIMPRESSION) REFERENCES IMPRESSION(NUMIMPRESSION),
+   CONSTRAINT CK_TIRAGE_1
+      check ( qualitepapier='bonne' or qualitepapier='moyenne' ), 
+   CONSTRAINT CK_TIRAGE_2
+      check ( formattirage='paysage' or formattirage='portrait' ) 
 );
 
 /*==============================================================*/
@@ -542,6 +544,42 @@ INSERT INTO BUREAU VALUES (6);
 INSERT INTO CADRE VALUES (9, 'PAYSAGE', 'M');
 INSERT INTO CADRE VALUES (10, 'PORTRAIT', 'M');
 
+insert into cadrephoto values (9, 1);
+insert into cadrephoto values (9, 2);
+
+insert into jours values (1,365);
+
+insert into mural values (5);
+insert into mural values (6);
+
+insert into semaines values (2,52);
+
+insert into tirage values ( 10, 'bonne', 'portrait' );
+insert into tirage values ( 11, 'moyenne', 'paysage' );
+
+insert into photoalbumphoto values (3, 3, 1);
+insert into photoalbumphoto values (3, 4, 1);
+insert into photoalbumphoto values (4, 3, 1);
+
+insert into photoagenda values (1, 1, 1 );
+insert into photoagenda values (1, 2, 1 );
+insert into photoagenda values (1, 3, 1 );
+insert into photoagenda values (2, 1, 1 );
+
+insert into phototirage values (10, 1, 2);
+insert into phototirage values (10, 2, 2);
+insert into phototirage values (10, 3, 2);
+insert into phototirage values (11, 1, 4);
+
+insert into photocalendrier values (5, 1, 1 );
+insert into photocalendrier values (5, 2, 1 );
+insert into photocalendrier values (5, 3, 2 );
+insert into photocalendrier values (6, 1, 1 );
+insert into photocalendrier values (6, 2, 2 );
+insert into photocalendrier values (6, 4, 1 );
+insert into photocalendrier values (6, 5, 2 );
+insert into photocalendrier values (7, 1, 1 );
+insert into photocalendrier values (8, 1, 1 );
 
 
 
@@ -550,19 +588,39 @@ INSERT INTO CADRE VALUES (10, 'PORTRAIT', 'M');
 
 
 
+-- empêcher la création d’une commande avec un code promo si le code promo utilisé n’appartient pas à ce client.
+ 
+CREATE OR REPLACE TRIGGER CODEPROMO2
+AFTER INSERT OR UPDATE ON COMMANDE
+FOR EACH ROW
+DECLARE
+matchingCP integer;
+BEGIN
+   SELECT COUNT(*) INTO matchingCP 
+   FROM CODEPROMOCLIENT
+   WHERE MAILCLIENT = :new.MAILCLIENT
+   AND ID_CODEPROMO = :new.ID_CODEPROMO;
 
+   IF (matchingCP = 0) THEN 
+      raise_application_error(-20001, 'code Prommotionel invalide');
+   END IF;
+END;
+/
 
+-- Vérifier qu’il n’y a pas de commande en cours lors de la suppression d’un client
+-- A revoir 
+/*
+CREATE OR REPLACE TRIGGER REMOVECLIENT
+AFTER DELETE ON CLIENT
+DECLARE 
+nbCommande integer;
+BEGIN
+   SELECT COUNT(*) INTO nbCommande
+   FROM COMMANDE
+   WHERE MAILCLIENT = :old.MAILCLIENT;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+   IF (nbCommande = 0) THEN
+      raise_application_error(-20001, 'Le client a une commande en cours!');
+   END IF;
+END;
+/      */
