@@ -1,21 +1,18 @@
 package serviceBD;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
 public class BD {
 	private Connection connexion = null;
 	
 	// initialisation de la BD
 	public void init() {
-		String id;
-		String password;;
-		Connexion connexion;
-		System.out.println("id oracle: ");
-		id = LectureClavier.lireChaine();
-		System.out.println("");
-		System.out.println("password oracle: ");
-		password = LectureClavier.lireChaine();
-		connexion = new Connexion(id, password);
+		Connexion connexion = new Connexion();
+		//System.out.print("id oracle: ");
+		//LectureClavier.lireChaine();
+		//System.out.print("password oracle: ");
+		//password = LectureClavier.lireChaine();
 		this.connexion = connexion.getConnection();
 		// script de création des tables à ajouter ici
 	}
@@ -28,7 +25,7 @@ public class BD {
 		
 	}
 	// recuper la bd
-	Connection getConnection() {
-		return this.connexion;
+	public Connection getConnection() throws SQLException {
+		return null;
 	}
 }

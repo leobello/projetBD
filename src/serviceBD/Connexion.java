@@ -3,19 +3,12 @@ import java.sql.*;
 public class Connexion {
 	
 	static final String CONN_URL = "jdbc:oracle:thin:@im2ag-oracle.e.ujf-grenoble.fr:1521:im2ag";
-	
-	private String user;
-	private String password;
-	private Connection connexion;
-	
-	Connexion(String user, String password){
-		this.user = user;
-		this.password = password;
-		this.connexion = null;
-	}
-	
-		
-	public void connect() {
+
+	private static Connection conn;
+	static final String USER = "bellole";
+	static final String PASSWD = "HNear1984";
+
+	Connexion() {
 		try {
 			        
 	  	    // Enregistrement du driver Oracle
@@ -24,8 +17,8 @@ public class Connexion {
 	  	    System.out.println("loaded");
 	  	    
 	  	    // Etablissement de la connection
-	  	    System.out.print("Connecting to the database... "); 
-	 	    this.connexion = DriverManager.getConnection(CONN_URL, user, password);
+	  	    System.out.print("Connecting to the database... ");
+			this.conn = DriverManager.getConnection(CONN_URL,USER,PASSWD);
 	   	    System.out.println("connected");
 	  	    
 	   	    /*
@@ -51,7 +44,7 @@ public class Connexion {
 	}
 	
 	public Connection getConnection() {
-		return this.connexion;
+		return this.conn;
 	}
 
 }
