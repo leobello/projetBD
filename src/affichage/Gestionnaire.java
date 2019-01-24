@@ -115,28 +115,92 @@ public class Gestionnaire extends TypeUtilisateur {
 	}
 
 	private void majCommande() {
-		System.out.println(	"/****************** Mise à jour d'une commande ******************/\n"
-						+ 	"Quelle commande souhaitez-vous mettre à jour?");
-		this.commande = choixCommandeAMaj();
+		int reponse = -1;
+		while(true) 
+		{
+			System.out.println(	"/****************** Mise à jour d'une commande ******************/\n"
+							+ 	"Quelle commande souhaitez-vous mettre à jour?\n");
+			this.commande = choixCommandeAMaj();
+			if(this.commande == null) 
+			{
+				return;
+			} 
+			else 
+			{
+				/*Vérification nécessaire de l'état de la commande, 
+				 * si elle est "Prête à l'envoi" ne proposer que "Mettre la commande en état 'Envoyé' et 'En Cours'"*/
+			}
+			String choix = choixEtatCommandeAMaj(this.commande);
+			switch(choix) 
+			{
+				case "PAE" : /*Requête de maj de la commande choisie à l'état Prête à l'envoi*/
+				case "EC" : /*Requête de maj de la commande choisie à l'état En cours*/
+				case "E" : /*Requête de maj de la commande choisie à l'état Envoyé*/
+				case "return" : break;
+				case "returnMenu" : return;
+			} 
+		}
+	}
+
+	private String choixEtatCommandeAMaj(Object commande) {
+		int reponse;
+		while(true) {
+			System.out.println("Dans quel état souhaitez-vous mettre à jour la commande?\n");
+			if(true/*A remplacer par la vérification de l'état de la commande*/) 
+			{
+					System.out.println(	"3 - Prête à l'envoi\n"
+									+ 	"2 - Envoyée\n\n"
+									+	"1 - Retour\n"
+									+ 	"0 - Retour au menu principal\n");
+					reponse = LectureClavier.lireEntier("\nChoix :");
+					switch(reponse) 
+					{
+						case 3 : return "PAE";
+						case 2 : return "E";
+						case 1 : return "return";
+						case 0 : return "returnMenu";
+						default : General.erreurDeChoix(); break;
+					}
+			}	
+			else 
+			{ //Cas "Prête à l'envoi"
+				System.out.println( "3 - En Cours\n"
+								+ 	"2 - Envoyée\n\n"
+								+	"1 - Retour\n"
+								+ 	"0 - Retour au menu principal\n");
+				reponse = LectureClavier.lireEntier("\nChoix :");
+				switch(reponse) 
+				{
+					case 3 : return "EC";
+					case 2 : return "E";
+					case 1 : return "return";
+					case 0 : return "returnMenu";
+					default : General.erreurDeChoix(); break;
+				}
+			}
+		}
 	}					   
 
 	private Object choixCommandeAMaj() {
 		int reponse = -1;
 		ArrayList<Object> commandes = new ArrayList<Object>();
-		/*requête des différentes commandes disponibles*/
+		/*requête des différentes commandes dans l'état "En cours" et "Prête à l'envoi"*/
 		commandesToString(commandes);
 		reponse = LectureClavier.lireEntier("\nChoix :");
 		for(int num = 0; num<commandes.size(); num++) {
-			if(reponse == num) {
+			/*if(reponse-1 == num) {
 				return commandes.get(num);
-			}
+			}*/
+			
 		}
 		return null;
 	}
 
 	private void commandesToString(ArrayList<Object> commandes) {
 		// TODO Auto-generated method stub
-		System.out.println("Voilà les commandes!");
+		System.out.println(	"2 - Commande n°25894 - Etat = En Cours\n"
+						+ 	"1 - Commande n°53886 - Etat = Prête à l'envoi\n\n"
+						+ 	"0 - Retour au menu principal");
 	}
 
 	private void majStock() {
