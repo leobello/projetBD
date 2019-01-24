@@ -5,6 +5,7 @@ import BDD.*;
 
 public class _GlobalControler {
 	//private static final Connection connexion = ;
+	//lkehlksdhflkdsf
 		
 	public static CRUDInterface<Adresse> getAdresseControler() {
 		return new AdresseControler(); 
