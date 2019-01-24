@@ -3,12 +3,9 @@ import java.sql.*;
 public class Connexion {
 	
 	static final String CONN_URL = "jdbc:oracle:thin:@im2ag-oracle.e.ujf-grenoble.fr:1521:im2ag";
-
 	private static Connection conn;
-	static final String USER = "bellole";
-	static final String PASSWD = "HNear1984";
 
-	Connexion() {
+	Connexion(String user, String password) {
 		try {
 			        
 	  	    // Enregistrement du driver Oracle
@@ -18,10 +15,10 @@ public class Connexion {
 	  	    
 	  	    // Etablissement de la connection
 	  	    System.out.print("Connecting to the database... ");
-			this.conn = DriverManager.getConnection(CONN_URL,USER,PASSWD);
+			this.conn = DriverManager.getConnection(CONN_URL, user, password);
 	   	    System.out.println("connected");
 	  	    
-	   	    /*
+			/*
 	  	    // Desactivation de l'autocommit
 		  	conn.setAutoCommit(true);
 	  	    System.out.println("Autocommit disabled");
@@ -29,7 +26,7 @@ public class Connexion {
 	  	    
 	  	    LectureClavier lectureClavier = new LectureClavier();
 	  	    Statement req = conn.createStatement();
-	  	    */
+			*/
 			
 		} catch (SQLException e) {
 	        System.err.println("failed");
