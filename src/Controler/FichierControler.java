@@ -8,28 +8,30 @@ public class FichierControler implements CRUDInterface<FichierImage> {
 	private FichierImage fichier;
 
 	@Override
-	public FichierImage create() {
+	public boolean create(FichierImage object) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public FichierImage read(int identifiant) {
 		// TODO Auto-generated method stub
 		return fichier;
 	}
 
 	@Override
-	public FichierImage read() {
+	public boolean update(FichierImage object) {
 		// TODO Auto-generated method stub
-		return fichier;
+		return false;
 	}
 
 	@Override
-	public FichierImage update() {
+	public boolean delete(int idenTtifiant) {
 		// TODO Auto-generated method stub
-		return fichier;
+		return false;
 	}
 
-	@Override
-	public FichierImage delete() {
-		// TODO Auto-generated method stub
-		return fichier;
-	}
+
 
 
 	

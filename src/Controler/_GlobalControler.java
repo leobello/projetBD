@@ -4,8 +4,7 @@ package Controler;
 import BDD.*;
 
 public class _GlobalControler {
-	//private static final Connection connexion = ;
-	//lkehlksdhflkdsfsqf
+
 		
 	public static CRUDInterface<Adresse> getAdresseControler() {
 		return new AdresseControler(); 

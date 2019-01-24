@@ -7,28 +7,30 @@ public class ImpressionControler implements CRUDInterface<Impression> {
 	private Impression impression;
 
 	@Override
-	public Impression create() {
+	public boolean create(Impression object) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Impression read(int identifiant) {
 		// TODO Auto-generated method stub
 		return impression;
 	}
 
 	@Override
-	public Impression read() {
+	public boolean update(Impression object) {
 		// TODO Auto-generated method stub
-		return impression;
+		return false;
 	}
 
 	@Override
-	public Impression update() {
+	public boolean delete(int idenTtifiant) {
 		// TODO Auto-generated method stub
-		return impression;
+		return false;
 	}
 
-	@Override
-	public Impression delete() {
-		// TODO Auto-generated method stub
-		return impression;
-	}
+
 	
 	
 

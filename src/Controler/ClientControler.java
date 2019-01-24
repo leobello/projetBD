@@ -7,28 +7,30 @@ public class ClientControler implements CRUDInterface<Client> {
 	private Client client;
 
 	@Override
-	public Client create() {
+	public boolean create(Client object) {
 		// TODO Auto-generated method stub
-		return null;
+		return false;
 	}
 
 	@Override
-	public Client read() {
+	public Client read(int identifiant) {
 		// TODO Auto-generated method stub
 		return client;
 	}
 
 	@Override
-	public Client update() {
+	public boolean update(Client object) {
 		// TODO Auto-generated method stub
-		return client;
+		return false;
 	}
 
 	@Override
-	public Client delete() {
+	public boolean delete(int idenTtifiant) {
 		// TODO Auto-generated method stub
-		return client;
+		return false;
 	}
+
+
 	
 	
 }

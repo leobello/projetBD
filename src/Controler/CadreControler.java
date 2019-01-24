@@ -7,28 +7,30 @@ public class CadreControler implements CRUDInterface<Cadre>{
 	private Cadre cadre;
 
 	@Override
-	public Cadre create() {
+	public boolean create(Cadre object) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Cadre read(int identifiant) {
 		// TODO Auto-generated method stub
 		return cadre;
 	}
 
 	@Override
-	public Cadre read() {
+	public boolean update(Cadre object) {
 		// TODO Auto-generated method stub
-		return cadre;
+		return false;
 	}
 
 	@Override
-	public Cadre update() {
+	public boolean delete(int idenTtifiant) {
 		// TODO Auto-generated method stub
-		return cadre;
+		return false;
 	}
 
-	@Override
-	public Cadre delete() {
-		// TODO Auto-generated method stub
-		return cadre;
-	}
+
 	
 
 }

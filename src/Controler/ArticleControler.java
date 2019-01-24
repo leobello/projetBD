@@ -7,28 +7,30 @@ public class ArticleControler implements CRUDInterface<Article>{
 	private Article article;
 
 	@Override
-	public Article create() {
+	public boolean create(Article object) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Article read(int identifiant) {
 		// TODO Auto-generated method stub
 		return article;
 	}
 
 	@Override
-	public Article read() {
+	public boolean update(Article object) {
 		// TODO Auto-generated method stub
-		return article;
+		return false;
 	}
 
 	@Override
-	public Article update() {
+	public boolean delete(int idenTtifiant) {
 		// TODO Auto-generated method stub
-		return article;
+		return false;
 	}
 
-	@Override
-	public Article delete() {
-		// TODO Auto-generated method stub
-		return article;
-	}
+
 	
 
 }

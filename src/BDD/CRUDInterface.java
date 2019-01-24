@@ -2,9 +2,9 @@ package BDD;
 
 public interface CRUDInterface <T> {
 
-	public T create ();
-	public T read ();
-	public T update();
-	public T delete();
+	public boolean create (T object);
+	public T read (int identifiant);
+	public boolean update(T object);
+	public boolean delete(int idenTtifiant);
 	
 }

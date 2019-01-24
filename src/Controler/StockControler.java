@@ -7,28 +7,30 @@ public class StockControler implements CRUDInterface<Stock>{
 	private Stock stock;
 
 	@Override
-	public Stock create() {
+	public boolean create(Stock object) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Stock read(int identifiant) {
 		// TODO Auto-generated method stub
 		return stock;
 	}
 
 	@Override
-	public Stock read() {
+	public boolean update(Stock object) {
 		// TODO Auto-generated method stub
-		return stock;
+		return false;
 	}
 
 	@Override
-	public Stock update() {
+	public boolean delete(int idenTtifiant) {
 		// TODO Auto-generated method stub
-		return stock;
+		return false;
 	}
 
-	@Override
-	public Stock delete() {
-		// TODO Auto-generated method stub
-		return stock;
-	}
+
 	
 
 }

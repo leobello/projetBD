@@ -7,28 +7,30 @@ public class JoursControler implements CRUDInterface<Jours>{
 	private Jours jour;
 
 	@Override
-	public Jours create() {
+	public boolean create(Jours object) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Jours read(int identifiant) {
 		// TODO Auto-generated method stub
 		return jour;
 	}
 
 	@Override
-	public Jours read() {
+	public boolean update(Jours object) {
 		// TODO Auto-generated method stub
-		return jour;
+		return false;
 	}
 
 	@Override
-	public Jours update() {
+	public boolean delete(int idenTtifiant) {
 		// TODO Auto-generated method stub
-		return jour;
+		return false;
 	}
 
-	@Override
-	public Jours delete() {
-		// TODO Auto-generated method stub
-		return jour;
-	}
+
 	
 	
 

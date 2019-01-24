@@ -5,28 +5,31 @@ import BDD.CRUDInterface;
 
 public class AgendaControler implements CRUDInterface <Agenda> {
 	private Agenda agenda;
+
 	@Override
-	public Agenda create() {
+	public boolean create(Agenda object) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Agenda read(int identifiant) {
 		// TODO Auto-generated method stub
 		return agenda;
 	}
 
 	@Override
-	public Agenda read() {
+	public boolean update(Agenda object) {
 		// TODO Auto-generated method stub
-		return agenda;
+		return false;
 	}
 
 	@Override
-	public Agenda update() {
+	public boolean delete(int idenTtifiant) {
 		// TODO Auto-generated method stub
-		return agenda;
+		return false;
 	}
+	
 
-	@Override
-	public Agenda delete() {
-		// TODO Auto-generated method stub
-		return agenda;
-	}
 
 }

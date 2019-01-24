@@ -7,27 +7,29 @@ public class MuralControler implements CRUDInterface<Mural>{
 	private Mural mural;
 
 	@Override
-	public Mural create() {
+	public boolean create(Mural object) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Mural read(int identifiant) {
 		// TODO Auto-generated method stub
 		return mural;
 	}
 
 	@Override
-	public Mural read() {
+	public boolean update(Mural object) {
 		// TODO Auto-generated method stub
-		return mural;
+		return false;
 	}
 
 	@Override
-	public Mural update() {
+	public boolean delete(int idenTtifiant) {
 		// TODO Auto-generated method stub
-		return mural;
+		return false;
 	}
 
-	@Override
-	public Mural delete() {
-		// TODO Auto-generated method stub
-		return mural;
-	}
+
 
 }

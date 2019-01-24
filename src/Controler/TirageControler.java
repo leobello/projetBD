@@ -7,27 +7,29 @@ public class TirageControler implements CRUDInterface<Tirage> {
 	private Tirage tirage;
 
 	@Override
-	public Tirage create() {
+	public boolean create(Tirage object) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Tirage read(int identifiant) {
 		// TODO Auto-generated method stub
 		return tirage;
 	}
 
 	@Override
-	public Tirage read() {
+	public boolean update(Tirage object) {
 		// TODO Auto-generated method stub
-		return tirage;
+		return false;
 	}
 
 	@Override
-	public Tirage update() {
+	public boolean delete(int idenTtifiant) {
 		// TODO Auto-generated method stub
-		return tirage;
+		return false;
 	}
 
-	@Override
-	public Tirage delete() {
-		// TODO Auto-generated method stub
-		return tirage;
-	}
+
 
 }
