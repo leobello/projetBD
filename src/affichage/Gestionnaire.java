@@ -147,7 +147,7 @@ public class Gestionnaire extends TypeUtilisateur {
 
 	private void commandesToString(ArrayList<Object> commandes) {
 		// TODO Auto-generated method stub
-		
+		System.out.println("Voilà les commandes!");
 	}
 
 	private void majStock() {
