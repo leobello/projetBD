@@ -19,9 +19,9 @@ public class InteractionSystem {
 			reponse = -1;
 			System.out.println(	"/**********************************************************************************************/\n"
 							+	"\nBonjour, à quel service souhaitez-vous accéder?\n"
-							+	"Application Client = 2\n"
-							+	"Application Gestionnaire de Stock = 1\n"
-							+	"Quitter l'application = 0");
+							+	"2 - Application Client\n"
+							+	"1 - Application Gestionnaire de Stock\n"
+							+	"0 - Quitter l'application");
 			reponse = LectureClavier.lireEntier("\nChoix :");
 			switch(reponse) {
 					//Client
