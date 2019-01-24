@@ -7,7 +7,7 @@ public class Run {
 		InteractionSystem.run();
 		System.out.println("heho");
 		BD bd = new BD();
-		bd.init();
+		//bd.init();
 		
 	}
 }

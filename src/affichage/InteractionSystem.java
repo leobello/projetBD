@@ -17,9 +17,9 @@ public class InteractionSystem {
 		while(true) 
 		{
 			reponse = -1;
-			System.out.println("/**********************************************************************************************/");
-			System.out.println("\nBonjour, à quel service souhaitez-vous accéder?\n");
-			System.out.println(	"Application Client = 2\n"
+			System.out.println(	"/**********************************************************************************************/\n"
+							+	"\nBonjour, à quel service souhaitez-vous accéder?\n"
+							+	"Application Client = 2\n"
 							+	"Application Gestionnaire de Stock = 1\n"
 							+	"Quitter l'application = 0");
 			reponse = LectureClavier.lireEntier("\nChoix :");
