@@ -9,7 +9,10 @@ public class Impression {
 	private String pathImpression;
 	private Set<Article> articles = new HashSet<Article>();
 	
-	
+	public Impression(int numImpression, String pathImpression) {
+		this.numImpression = numImpression;
+		this.pathImpression = pathImpression;
+	}
 	public int getNumImpression() {
 		return numImpression;
 	}
@@ -27,5 +30,11 @@ public class Impression {
 	}
 	public void setArticles(Set<Article> articles) {
 		this.articles = articles;
+	}
+	public void ajouterDansArticles(Article article){
+		this.articles.add(article);
+	}
+	public void supprimerDansArticles(Article article){
+		this.articles.remove(article);
 	}
 }
