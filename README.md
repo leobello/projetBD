@@ -1,8 +1,8 @@
-# projetBD
+# projet BD
 
 ## Connexion à la BD
-- [installer le vpn cisco](http://nomadisme.grenet.fr/)
-- connectez vous vpn.grenet.fr
-- lancer la classe run en tant que "main"
+- [Installer le vpn cisco.](http://nomadisme.grenet.fr/)
+- Connectez vous à 'vpn.grenet.fr'.
+- Lancer la classe run en tant que "main".
 
-vos identifiants oracle vous seront alors demandés.
+Vos identifiants oracle vous seront alors demandés.
