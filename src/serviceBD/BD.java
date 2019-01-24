@@ -8,11 +8,13 @@ public class BD {
 	
 	// initialisation de la BD
 	public void init() {
-		Connexion connexion = new Connexion();
-		//System.out.print("id oracle: ");
-		//LectureClavier.lireChaine();
-		//System.out.print("password oracle: ");
-		//password = LectureClavier.lireChaine();
+		String id;
+		String password;
+		System.out.print("id oracle: ");
+		id = LectureClavier.lireChaine();
+		System.out.print("password oracle: ");
+		password = LectureClavier.lireChaine();
+		Connexion connexion = new Connexion(id, password);
 		this.connexion = connexion.getConnection();
 		// script de création des tables à ajouter ici
 	}
