@@ -11,7 +11,7 @@ public class _GlobalControler {
 	}
 	
 	public static CRUDInterface<Agenda> getAgendaControler() {
-		return new AgendaControler(); 
+		return new AgendaControler();  
 	}
 	
 	
