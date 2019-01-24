@@ -1,12 +1,12 @@
 package affichage;
 
 import java.util.ArrayList;
-
+import BDD.*;
 import serviceBD.LectureClavier;
 
 public class Gestionnaire extends TypeUtilisateur {
 
-	private Object commande;
+	private Commande commande;
 
 	public void run() {
 		int reponse;
@@ -133,29 +133,27 @@ public class Gestionnaire extends TypeUtilisateur {
 			String choix = choixEtatCommandeAMaj(this.commande);
 			switch(choix) 
 			{
-				case "PAE" : /*Requête de maj de la commande choisie à l'état Prête à l'envoi*/
-				case "EC" : /*Requête de maj de la commande choisie à l'état En cours*/
 				case "E" : /*Requête de maj de la commande choisie à l'état Envoyé*/
+						System.out.println("La commande n°"+commande.getNumCommande()+" à été envoyée\n");
+						break;
 				case "return" : break;
 				case "returnMenu" : return;
 			} 
 		}
 	}
 
-	private String choixEtatCommandeAMaj(Object commande) {
+	private String choixEtatCommandeAMaj(Commande commande) {
 		int reponse;
 		while(true) {
-			System.out.println("Dans quel état souhaitez-vous mettre à jour la commande?\n");
+			System.out.println("Voulez-vous vraiment envoyer la commande n°"+commande.getNumCommande()+"\n");
 			if(true/*A remplacer par la vérification de l'état de la commande*/) 
 			{
-					System.out.println(	"3 - Prête à l'envoi\n"
-									+ 	"2 - Envoyée\n\n"
+					System.out.println(	"2 - Envoyer\n\n"
 									+	"1 - Retour\n"
 									+ 	"0 - Retour au menu principal\n");
 					reponse = LectureClavier.lireEntier("\nChoix :");
 					switch(reponse) 
 					{
-						case 3 : return "PAE";
 						case 2 : return "E";
 						case 1 : return "return";
 						case 0 : return "returnMenu";
@@ -181,9 +179,9 @@ public class Gestionnaire extends TypeUtilisateur {
 		}
 	}					   
 
-	private Object choixCommandeAMaj() {
+	private Commande choixCommandeAMaj() {
 		int reponse = -1;
-		ArrayList<Object> commandes = new ArrayList<Object>();
+		ArrayList<Commande> commandes = new ArrayList<Commande>();
 		/*requête des différentes commandes dans l'état "En cours" et "Prête à l'envoi"*/
 		commandesToString(commandes);
 		reponse = LectureClavier.lireEntier("\nChoix :");
@@ -191,12 +189,14 @@ public class Gestionnaire extends TypeUtilisateur {
 			/*if(reponse-1 == num) {
 				return commandes.get(num);
 			}*/
-			
+			Commande commande = new Commande();
+			commande.setNumCommande(25894);
+			return commande;
 		}
 		return null;
 	}
 
-	private void commandesToString(ArrayList<Object> commandes) {
+	private void commandesToString(ArrayList<Commande> commandes) {
 		// TODO Auto-generated method stub
 		System.out.println(	"2 - Commande n°25894 - Etat = En Cours\n"
 						+ 	"1 - Commande n°53886 - Etat = Prête à l'envoi\n\n"
@@ -477,12 +477,30 @@ public class Gestionnaire extends TypeUtilisateur {
 	}
 
 	private void realiserImpression() {
-		System.out.println(	"/***************** Réalisation d'une impression *****************/\n"
-						+ 	"Voici les impressions en attente...\n");
-		ArrayList<Object> impressions = new ArrayList<Object>();
-		/*Requête des impressions en attente de réalisation*/
-		Object impression = impressions.get(LectureClavier.lireEntier("\nChoix :"));
-		
+		int reponse = -1;
+		while(true)
+		{
+			System.out.println(	"/***************** Réalisation d'une impression *****************/\n"
+							+ 	"Voici les impressions en attente...\n");
+			ArrayList<Impression> impressions = new ArrayList<Impression>();
+			/*Requête des impressions en attente de réalisation*/
+			
+			reponse = LectureClavier.lireEntier("\nChoix :");
+			for(int num = 0; num<impressions.size(); num++) {
+				if(reponse-1 == num) {
+					Impression impression = impressions.get(reponse);
+				}else if(reponse == -1) {
+					return;
+				}
+			}
+		}
+	}
+	
+	private void ImpressionsToString(ArrayList<Commande> commandes) {
+		// TODO Auto-generated method stub
+		System.out.println(	"2 - Impression n°25894 - Commande n°25874\n"
+						+ 	"1 - Impression n°53886 - Commande n°98536\n\n"
+						+ 	"0 - Retour au menu principal");
 	}
 
 	private void supprimerFichierImage() {
