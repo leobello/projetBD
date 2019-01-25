@@ -7,10 +7,18 @@ public class Client {
 	private String mailClient; 
 	private String nom;
 	private String prenom; 
-	private String motDePasse; 
+	private String motDePasse;
+	private boolean compteActive;
 	private Set<FichierImage> proprietes = new HashSet<FichierImage>();
 	private Set<Adresse> adresses = new HashSet<Adresse>();
 	private Set<CodePromo> codePromos = new HashSet<CodePromo>();
+	
+	public boolean isCompteActive() {
+		return compteActive;
+	}
+	public void setCompteActive(boolean compteActive) {
+		this.compteActive = compteActive;
+	}
 	
 	public String getMailClient() {
 		return mailClient;
