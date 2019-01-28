@@ -1,14 +1,13 @@
 package init;
 import serviceBD.*;
-import affichage.*;
 
 import java.sql.SQLException;
 
 public class Run {
 	public static void main(String args[]) {
-		BD bd = new BD();
+
 		try {
-			bd.init();
+		    BD.getSTMT();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
