@@ -2,12 +2,16 @@ package init;
 import serviceBD.*;
 import affichage.*;
 
+import java.sql.SQLException;
+
 public class Run {
 	public static void main(String args[]) {
-		InteractionSystem.run();
-		System.out.println("heho");
 		BD bd = new BD();
-		//bd.init();
-		
+		try {
+			bd.init();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 	}
 }

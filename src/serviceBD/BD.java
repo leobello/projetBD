@@ -1,13 +1,33 @@
 package serviceBD;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class BD {
-	private Connection connexion = null;
-	
-	// initialisation de la BD
-	public void init() {
+	private static Connection connexion;
+	private final String id = "bellole";
+	private final String password = "HNear1984";
+
+	public BD () {
+		Connexion connexion = new Connexion(this.id, this.password);
+		this.connexion = connexion.getConnection();
+	}
+	// récuperer le statement de la connexion
+	public Statement getSTMT() throws SQLException {
+		return this.connexion.createStatement();
+	}
+
+	// recuper la bd
+	public Connection getConnection() throws SQLException {
+		return this.connexion;
+	}
+
+
+
+	// changer d'utilisateur
+	public void changeUSer() throws SQLException {
 		String id;
 		String password;
 		System.out.print("id oracle: ");
@@ -16,18 +36,17 @@ public class BD {
 		password = LectureClavier.lireChaine();
 		Connexion connexion = new Connexion(id, password);
 		this.connexion = connexion.getConnection();
-		// script de création des tables à ajouter ici
+		/*
+		// création des tables à ajouter ici
+		Statement stmt = this.connexion.createStatement();
+		System.out.println("Creation des tables... ");
+		System.out.println("Working Directory = " + System.getProperty("user.dir"));
+		String query = "start /Users/leobello/eclipse-workspace/projetBD/src/sql/creation.sql";
+		String query2 = "start ./projetBD/src/sql/creation.sql";
+		String query3 = "start projetBD/src/sql/creation.sql";
+		stmt.execute(query2);
+		System.out.println("tables crées");
+		*/
 	}
-	// insertion des tuples dans la BD
-	void insert() {
-		
-	}
-	// drop de toutes les tables
-	void erase() {
-		
-	}
-	// recuper la bd
-	public Connection getConnection() throws SQLException {
-		return null;
-	}
+
 }
