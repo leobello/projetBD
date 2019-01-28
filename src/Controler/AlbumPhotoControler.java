@@ -1,11 +1,18 @@
 package Controler;
 
+import java.sql.Statement;
+
 import BDD.AlbumPhoto;
 import BDD.CRUDInterface;
 
 public class AlbumPhotoControler implements CRUDInterface<AlbumPhoto> {
 
 	private AlbumPhoto albumPhoto;
+	private static Statement stmt;
+
+	public AlbumPhotoControler(Statement stmt) {
+		this.stmt = stmt;
+	}
 
 	@Override
 	public boolean create(AlbumPhoto object) {

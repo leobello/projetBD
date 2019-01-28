@@ -1,10 +1,17 @@
 package Controler;
 
+import java.sql.Statement;
+
 import BDD.CRUDInterface;
 import BDD.Commande;
 
 public class CommandeControler implements CRUDInterface<Commande>{
 	private Commande commande;
+	private static Statement stmt;
+
+	public CommandeControler(Statement stmt) {
+		this.stmt = stmt;
+	}
 
 	@Override
 	public boolean create(Commande object) {

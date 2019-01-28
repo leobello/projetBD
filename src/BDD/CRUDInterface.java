@@ -1,5 +1,7 @@
 package BDD;
 
+import java.sql.Statement;
+
 public interface CRUDInterface <T> {
 
 	public boolean create (T object);

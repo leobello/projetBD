@@ -1,10 +1,17 @@
 package Controler;
 
+import java.sql.Statement;
+
 import BDD.CRUDInterface;
 import BDD.Stock;
 
 public class StockControler implements CRUDInterface<Stock>{
 	private Stock stock;
+	private static Statement stmt;
+
+	public StockControler(Statement stmt) {
+		this.stmt = stmt;
+	}
 
 	@Override
 	public boolean create(Stock object) {

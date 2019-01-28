@@ -1,10 +1,17 @@
 package Controler;
 
+import java.sql.Statement;
+
 import BDD.CRUDInterface;
 import BDD.Impression;
 
 public class ImpressionControler implements CRUDInterface<Impression> {
 	private Impression impression;
+	private static Statement stmt;
+
+	public ImpressionControler(Statement stmt) {
+		this.stmt = stmt;
+	}
 
 	@Override
 	public boolean create(Impression object) {

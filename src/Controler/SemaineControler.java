@@ -1,11 +1,18 @@
 package Controler;
 
+import java.sql.Statement;
+
 import BDD.CRUDInterface;
 import BDD.Semaines;
 
 public class SemaineControler implements CRUDInterface<Semaines>{
 	
 	private Semaines semaine;
+	private static Statement stmt;
+
+	public SemaineControler(Statement stmt) {
+		this.stmt = stmt;
+	}
 
 	@Override
 	public boolean create(Semaines object) {
