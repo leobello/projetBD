@@ -1,10 +1,17 @@
 package Controler;
 
+import java.sql.Statement;
+
 import BDD.CRUDInterface;
 import BDD.Jours;
 
 public class JoursControler implements CRUDInterface<Jours>{
 	private Jours jour;
+	private static Statement stmt;
+
+	public JoursControler(Statement stmt) {
+		this.stmt = stmt;
+	}
 
 	@Override
 	public boolean create(Jours object) {

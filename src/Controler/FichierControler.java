@@ -1,11 +1,18 @@
 package Controler;
 
+import java.sql.Statement;
+
 import BDD.CRUDInterface;
 import BDD.FichierImage;
 
 
 public class FichierControler implements CRUDInterface<FichierImage> {
 	private FichierImage fichier;
+	private static Statement stmt;
+
+	public FichierControler(Statement stmt) {
+		this.stmt = stmt;
+	}
 
 	@Override
 	public boolean create(FichierImage object) {

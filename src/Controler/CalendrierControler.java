@@ -1,10 +1,16 @@
 package Controler;
 
+import java.sql.Statement;
+
 import BDD.CRUDInterface;
 import BDD.Calendrier;
 
 public class CalendrierControler implements CRUDInterface<Calendrier>{
 	private Calendrier calendrier;
+
+	public CalendrierControler(Statement stmt) {
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public boolean create(Calendrier object) {

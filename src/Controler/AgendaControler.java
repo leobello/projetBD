@@ -1,10 +1,17 @@
 package Controler;
 
+import java.sql.Statement;
+
 import BDD.Agenda;
 import BDD.CRUDInterface;
 
 public class AgendaControler implements CRUDInterface <Agenda> {
 	private Agenda agenda;
+	private static Statement stmt;
+
+	public AgendaControler(Statement stmt) {
+		this.stmt = stmt;
+	}
 
 	@Override
 	public boolean create(Agenda object) {

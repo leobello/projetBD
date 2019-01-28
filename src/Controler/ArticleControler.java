@@ -1,10 +1,17 @@
 package Controler;
 
+import java.sql.Statement;
+
 import BDD.Article;
 import BDD.CRUDInterface;
 
 public class ArticleControler implements CRUDInterface<Article>{
 	private Article article;
+	private static Statement stmt;
+
+	public ArticleControler(Statement stmt) {
+		this.stmt = stmt;
+	}
 
 	@Override
 	public boolean create(Article object) {
