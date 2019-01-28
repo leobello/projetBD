@@ -17,16 +17,7 @@ public class Connexion {
 	  	    System.out.print("Connecting to the database... ");
 			this.conn = DriverManager.getConnection(CONN_URL, user, password);
 	   	    System.out.println("connected");
-	  	    
-			/*
-	  	    // Desactivation de l'autocommit
-		  	conn.setAutoCommit(true);
-	  	    System.out.println("Autocommit disabled");
-	  	    
-	  	    
-	  	    LectureClavier lectureClavier = new LectureClavier();
-	  	    Statement req = conn.createStatement();
-			*/
+
 			
 		} catch (SQLException e) {
 	        System.err.println("failed");

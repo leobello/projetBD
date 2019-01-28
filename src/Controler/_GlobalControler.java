@@ -8,16 +8,16 @@ import BDD.*;
 import serviceBD.*;
 
 public class _GlobalControler {
-
+	/*
 	private static Statement stmt;
 	
-	// Constructeur qui crée une connexion à la base et qui permet à tous les autres"controler" 
-	//d'utiliser la même connexion
+	// Constructeur qui crï¿½e une connexion ï¿½ la base et qui permet ï¿½ tous les autres"controler" 
+	//d'utiliser la mï¿½me connexion
 	public _GlobalControler () 
 	{
 		
-		
-		BD bd = new BD();
+
+		BD bd = BD.getInstance();
 		try {
 			bd.init();
 		} catch (SQLException e1) {
@@ -25,10 +25,11 @@ public class _GlobalControler {
 		}
 		try {
 			System.out.println(bd);
-			this.stmt = bd.getConnection().createStatement();
+			this.stmt = bd.getReadCommittedSTMT();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+
 	}
 	
 	//public Statement getStatment() {
@@ -84,7 +85,7 @@ public class _GlobalControler {
 	public static CRUDInterface<Impression> getImpressioncontroler() {
 		return new ImpressionControler(stmt);
 	}
-	
+
 	public static CRUDInterface<Jours> getJourControler() {
 		return new JoursControler(stmt);
 	}
@@ -108,4 +109,5 @@ public class _GlobalControler {
 	public static CRUDInterface<Tirage> getTirageControler() {
 		return new TirageControler(stmt);
 	}
+	*/
 }
