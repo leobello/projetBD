@@ -1,4 +1,4 @@
-package connexion;
+package serviceBD;
 /*package tplogo;*/
 import java.io.*;
 
