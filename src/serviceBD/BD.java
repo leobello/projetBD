@@ -6,21 +6,35 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class BD {
-	private Connection connexion = null;
+	private static Connection connexion;
 	private final String id = "bellole";
 	private final String password = "HNear1984";
-	
-	// initialisation de la BD
-	public void init() throws SQLException {
-		ResultSet resultat = null;
-		// connexion
-		/*
+
+	public BD () {
+		Connexion connexion = new Connexion(this.id, this.password);
+		this.connexion = connexion.getConnection();
+	}
+	// récuperer le statement de la connexion
+	public Statement getSTMT() throws SQLException {
+		return this.connexion.createStatement();
+	}
+
+	// recuper la bd
+	public Connection getConnection() throws SQLException {
+		return this.connexion;
+	}
+
+
+
+	// changer d'utilisateur
+	public void changeUSer() throws SQLException {
+		String id;
+		String password;
 		System.out.print("id oracle: ");
 		id = LectureClavier.lireChaine();
 		System.out.print("password oracle: ");
 		password = LectureClavier.lireChaine();
-		*/
-		Connexion connexion = new Connexion(this.id, this.password);
+		Connexion connexion = new Connexion(id, password);
 		this.connexion = connexion.getConnection();
 		/*
 		// création des tables à ajouter ici
@@ -33,10 +47,6 @@ public class BD {
 		stmt.execute(query2);
 		System.out.println("tables crées");
 		*/
+	}
 
-	}
-	// recuper la bd
-	public Connection getConnection() throws SQLException {
-		return this.connexion;
-	}
 }
