@@ -12,6 +12,11 @@ public class Article {
 	private Set<Stock> stocks = new HashSet<Stock>();
 	private Impression impression;
 	
+	public Article(int idArticle, float prix, int quantite) {
+		this.idArticle = idArticle;
+		this.prix = prix;
+		this.quantite = quantite;
+	}
 	public int getIdArticle() {
 		return idArticle;
 	}
@@ -47,5 +52,11 @@ public class Article {
 	}
 	public void setImpression(Impression impression) {
 		this.impression = impression;
+	}
+	public void ajouterDansStocks(Stock stock){
+		this.stocks.add(stock);
+	}
+	public void supprimerDansStocks(Stock stock){
+		this.stocks.remove(stock);
 	}
 }
