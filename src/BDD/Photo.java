@@ -1,18 +1,18 @@
 package BDD;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Photo {
 	private int idPhoto;
 	private FichierImage fichierImage;
 	private String retouche; 
 	private String description;
-	private Set<Couple<Agenda>> agendas = new HashSet<Couple<Agenda>>();
-	private Set<Couple<AlbumPhoto>> albumPhotos = new HashSet<Couple<AlbumPhoto>>();
-	private Set<Couple<Cadre>> cadres = new HashSet<Couple<Cadre>>();
-	private Set<Couple<Calendrier>> calendriers = new HashSet<Couple<Calendrier>>();
-	private Set<Couple<Tirage>> tirages = new HashSet<Couple<Tirage>>();
+	private List<Couple<Agenda>> agendas = new ArrayList<Couple<Agenda>>();
+	private List<Couple<AlbumPhoto>> albumPhotos = new ArrayList<Couple<AlbumPhoto>>();
+	private List<Couple<Cadre>> cadres = new ArrayList<Couple<Cadre>>();
+	private List<Couple<Calendrier>> calendriers = new ArrayList<Couple<Calendrier>>();
+	private List<Couple<Tirage>> tirages = new ArrayList<Couple<Tirage>>();
 	
 	public Photo(int idPhoto, String retouche, String description) {
 		this.idPhoto = idPhoto;
@@ -43,34 +43,34 @@ public class Photo {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Set<Couple<Agenda>> getAgendas() {
+	public List<Couple<Agenda>> getAgendas() {
 		return agendas;
 	}
-	public void setAgendas(Set<Couple<Agenda>> agendas) {
+	public void setAgendas(List<Couple<Agenda>> agendas) {
 		this.agendas = agendas;
 	}
-	public Set<Couple<AlbumPhoto>> getAlbumPhotos() {
+	public List<Couple<AlbumPhoto>> getAlbumPhotos() {
 		return albumPhotos;
 	}
-	public void setAlbumPhotos(Set<Couple<AlbumPhoto>> albumPhotos) {
+	public void setAlbumPhotos(List<Couple<AlbumPhoto>> albumPhotos) {
 		this.albumPhotos = albumPhotos;
 	}
-	public Set<Couple<Cadre>> getCadres() {
+	public List<Couple<Cadre>> getCadres() {
 		return cadres;
 	}
-	public void setCadres(Set<Couple<Cadre>> cadres) {
+	public void setCadres(List<Couple<Cadre>> cadres) {
 		this.cadres = cadres;
 	}
-	public Set<Couple<Calendrier>> getCalendriers() {
+	public List<Couple<Calendrier>> getCalendriers() {
 		return calendriers;
 	}
-	public void setCalendriers(Set<Couple<Calendrier>> calendriers) {
+	public void setCalendriers(List<Couple<Calendrier>> calendriers) {
 		this.calendriers = calendriers;
 	}
-	public Set<Couple<Tirage>> getTirages() {
+	public List<Couple<Tirage>> getTirages() {
 		return tirages;
 	}
-	public void setTirages(Set<Couple<Tirage>> tirages) {
+	public void setTirages(List<Couple<Tirage>> tirages) {
 		this.tirages = tirages;
 	}
 	public void ajouterDansAgendas(Couple<Agenda> agenda){

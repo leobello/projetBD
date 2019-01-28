@@ -1,16 +1,16 @@
 package BDD;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Client {
 	private String mailClient; 
 	private String nom;
 	private String prenom; 
 	private String motDePasse; 
-	private Set<FichierImage> fichierImages = new HashSet<FichierImage>();
-	private Set<Adresse> adresses = new HashSet<Adresse>();
-	private Set<CodePromo> codePromos = new HashSet<CodePromo>();
+	private List<FichierImage> fichierImages = new ArrayList<FichierImage>();
+	private List<Adresse> adresses = new ArrayList<Adresse>();
+	private List<CodePromo> codePromos = new ArrayList<CodePromo>();
 	
 	public Client(String mailClient, String nom, String prenom, String motDePasse) {
 		this.mailClient = mailClient;
@@ -42,22 +42,22 @@ public class Client {
 	public void setMotDePasse(String motDePasse) {
 		this.motDePasse = motDePasse;
 	}
-	public Set<FichierImage> getFichierImage() {
+	public List<FichierImage> getFichierImage() {
 		return fichierImages;
 	}
-	public void setFichierImage(Set<FichierImage> fichierImage) {
+	public void setFichierImage(List<FichierImage> fichierImage) {
 		this.fichierImages = fichierImage;
 	}
-	public Set<Adresse> getAdresses() {
+	public List<Adresse> getAdresses() {
 		return adresses;
 	}
-	public void setAdresses(Set<Adresse> adresses) {
+	public void setAdresses(List<Adresse> adresses) {
 		this.adresses = adresses;
 	}
-	public Set<CodePromo> getCodePromos() {
+	public List<CodePromo> getCodePromos() {
 		return codePromos;
 	}
-	public void setCodePromos(Set<CodePromo> codePromos) {
+	public void setCodePromos(List<CodePromo> codePromos) {
 		this.codePromos = codePromos;
 	}
 	public void ajouterDansFichierImage(FichierImage fichierImage){

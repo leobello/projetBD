@@ -1,15 +1,15 @@
 package BDD;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+import java.util.List;
 
 public class Article {
 	private int idArticle;
 	private float prix;
 	private int quantite;
 	private Commande commande;
-	private Set<Stock> stocks = new HashSet<Stock>();
+	private List<Stock> stocks = new ArrayList<Stock>();
 	private Impression impression;
 	
 	public Article(int idArticle, float prix, int quantite) {
@@ -41,10 +41,10 @@ public class Article {
 	public void setCommande(Commande commande) {
 		this.commande = commande;
 	}
-	public Set<Stock> getStocks() {
+	public List<Stock> getStocks() {
 		return stocks;
 	}
-	public void setStocks(Set<Stock> stocks) {
+	public void setStocks(List<Stock> stocks) {
 		this.stocks = stocks;
 	}
 	public Impression getImpression() {

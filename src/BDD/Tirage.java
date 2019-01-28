@@ -1,12 +1,12 @@
 package BDD;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Tirage extends Impression{
 	private String qualitePapier;
 	private String formatTirage;
-	private Set<Couple<Photo>> photos = new HashSet<Couple<Photo>>();
+	private List<Couple<Photo>> photos = new ArrayList<Couple<Photo>>();
 	
 	public Tirage(int numImpression, String pathImpression, String qualitePapier, String formatTirage) {
 		super(numImpression, pathImpression);
@@ -25,10 +25,10 @@ public class Tirage extends Impression{
 	public void setFormatTirage(String formatTirage) {
 		this.formatTirage = formatTirage;
 	}
-	public Set<Couple<Photo>> getPhotos() {
+	public List<Couple<Photo>> getPhotos() {
 		return photos;
 	}
-	public void setPhotos(Set<Couple<Photo>> photos) {
+	public void setPhotos(List<Couple<Photo>> photos) {
 		this.photos = photos;
 	}
 	public void ajouterDansPhotos(Couple<Photo> photo){

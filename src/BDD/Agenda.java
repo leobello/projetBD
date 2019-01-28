@@ -1,12 +1,12 @@
 package BDD;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Agenda extends Impression{
 
 	private int noPageAgenda;
-	private Set<Couple<Photo>> photos = new HashSet<Couple<Photo>>();
+	private List<Couple<Photo>> photos = new ArrayList<Couple<Photo>>();
 	
 	public Agenda(int numImpression, String pathImpression, int noPageAgenda) {
 		super(numImpression, pathImpression);
@@ -18,10 +18,10 @@ public class Agenda extends Impression{
 	public void setNoPageAgenda(int noPageAgenda) {
 		this.noPageAgenda = noPageAgenda;
 	}
-	public Set<Couple<Photo>> getPhotos() {
+	public List<Couple<Photo>> getPhotos() {
 		return photos;
 	}
-	public void setPhotos(Set<Couple<Photo>> photos) {
+	public void setPhotos(List<Couple<Photo>> photos) {
 		this.photos = photos;
 	}
 	public void ajouterDansPhotos(Couple<Photo> photo){

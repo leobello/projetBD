@@ -1,8 +1,8 @@
 package BDD;
 
 import java.sql.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Commande {
 	private Date date;
@@ -12,8 +12,8 @@ public class Commande {
 	private float montant;
 	private CodePromo codePromo;
 	private Client client;
-	private Set<Adresse> adresses = new HashSet<Adresse>();
-	private Set<Article> articles = new HashSet<Article>();
+	private List<Adresse> adresses = new ArrayList<Adresse>();
+	private List<Article> articles = new ArrayList<Article>();
 	
 	public Commande(Date date, String modeLivraison, int statutCommande, int numCommande, float montant) {
 		this.date = date;
@@ -49,16 +49,16 @@ public class Commande {
 	public void setMontant(float montant) {
 		this.montant = montant;
 	}
-	public Set<Adresse> getCommandeAdresse() {
+	public List<Adresse> getCommandeAdresse() {
 		return adresses;
 	}
-	public void setCommandeAdresse(Set<Adresse> commandeAdresse) {
+	public void setCommandeAdresse(List<Adresse> commandeAdresse) {
 		this.adresses = commandeAdresse;
 	}
-	public Set<Article> getArticles() {
+	public List<Article> getArticles() {
 		return articles;
 	}
-	public void setArticles(Set<Article> articles) {
+	public void setArticles(List<Article> articles) {
 		this.articles = articles;
 	}
 	public CodePromo getCodePromo() {
@@ -73,10 +73,10 @@ public class Commande {
 	public void setClient(Client client) {
 		this.client = client;
 	}
-	public Set<Adresse> getAdresses() {
+	public List<Adresse> getAdresses() {
 		return adresses;
 	}
-	public void setAdresses(Set<Adresse> adresses) {
+	public void setAdresses(List<Adresse> adresses) {
 		this.adresses = adresses;
 	}
 	public float getMontant() {

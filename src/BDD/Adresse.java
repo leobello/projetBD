@@ -1,8 +1,7 @@
 package BDD;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class Adresse {
 	private int idAdresse;
@@ -11,8 +10,8 @@ public class Adresse {
 	private String nomAdresse;
 	private String prenomAdresse;
 	private String rue;
-	private Set<Commande> commandes = new HashSet<Commande>();
-	private Set<Client> clients = new HashSet<Client>();
+	private List<Commande> commandes = new ArrayList<Commande>();
+	private List<Client> clients = new ArrayList<Client>();
 
 	public Adresse(int idAdresse, int codePostal, String ville, String nomAdresse, String prenomAdresse, String rue) {
 		this.idAdresse = idAdresse;
@@ -71,19 +70,19 @@ public class Adresse {
 		this.rue = rue;
 	}
 
-	public Set<Commande> getcommandes() {
+	public List<Commande> getcommandes() {
 		return commandes;
 	}
 
-	public void setcommandes(Set<Commande> commande) {
+	public void setcommandes(List<Commande> commande) {
 		this.commandes = commande;
 	}
 
-	public Set<Client> getClients() {
+	public List<Client> getClients() {
 		return clients;
 	}
 
-	public void setClients(Set<Client> clients) {
+	public void setClients(List<Client> clients) {
 		this.clients = clients;
 	}
 

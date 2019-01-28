@@ -1,8 +1,8 @@
 package BDD;
 
 import java.sql.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FichierImage {
 	private String path; 
@@ -11,7 +11,7 @@ public class FichierImage {
 	private int partage;
 	private Date dateAcces;
 	private Client proprietaire; 
-	private Set<Photo> photos = new HashSet<Photo>();
+	private List<Photo> photos = new ArrayList<Photo>();
 	
 	public FichierImage(String path, String infoPriseDeVue, String resoluton, int partage, Date dateAcces) {
 		super();
@@ -57,10 +57,10 @@ public class FichierImage {
 	public void setProprietaire(Client proprietaire) {
 		this.proprietaire = proprietaire;
 	}
-	public Set<Photo> getPhotos() {
+	public List<Photo> getPhotos() {
 		return photos;
 	}
-	public void setPhotos(Set<Photo> photos) {
+	public void setPhotos(List<Photo> photos) {
 		this.photos = photos;
 	}
 }
