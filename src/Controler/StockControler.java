@@ -36,7 +36,9 @@ public class StockControler implements CRUDInterface<Stock>{
 			ResultSet result = this.bd.getReadCommittedSTMT().executeQuery(requete);
 			while (result.next()) {
 				stock = new Stock (result.getString("TYPE_IMPRESSION"),
-						result.getInt("QUANTITESTOCK"));
+						result.getInt("QUANTITESTOCK"), 
+						result.getString("QUALITE"), 
+						result.getString("FORMAT"));
 			}
 			
 		} catch (Exception e) {
