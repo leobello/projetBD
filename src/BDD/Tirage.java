@@ -4,30 +4,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Tirage extends Impression {
-	private String qualitePapier;
-	private String formatTirage;
+	private String qualite;
+	private String format;
 	private List<Couple<Photo>> photos = new ArrayList<Couple<Photo>>();
 
-	public Tirage(int numImpression, String pathImpression, String qualitePapier, String formatTirage) {
-		super(numImpression, pathImpression);
-		this.qualitePapier = qualitePapier;
-		this.formatTirage = formatTirage;
+	public Tirage(int numImpression, String pathImpression, Client client, boolean Impression_ok, String qualite, String format) {
+		super(numImpression, pathImpression, client, Impression_ok);
+		this.qualite = qualite;
+		this.format = format;
 	}
 
-	public String getQualitePapier() {
-		return qualitePapier;
+	public String getQualite() {
+		return qualite;
 	}
 
-	public void setQualitePapier(String qualitePapier) {
-		this.qualitePapier = qualitePapier;
+	public void setQualite(String qualite) {
+		this.qualite = qualite;
 	}
 
-	public String getFormatTirage() {
-		return formatTirage;
+	public String getFormat() {
+		return format;
 	}
 
-	public void setFormatTirage(String formatTirage) {
-		this.formatTirage = formatTirage;
+	public void setFormat(String format) {
+		this.format = format;
 	}
 
 	public List<Couple<Photo>> getPhotos() {
