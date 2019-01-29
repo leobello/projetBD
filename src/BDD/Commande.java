@@ -119,4 +119,11 @@ public class Commande {
 		this.articles.remove(article);
 	}
 
+	public Adresse getAdresse(int i) {
+		return adresses.get(i);
+	}
+
+	public Article getArticle(int i) {
+		return articles.get(i);
+	}
 }

@@ -99,4 +99,16 @@ public class Client {
 		this.adresses.remove(adresse);
 	}
 
+	public FichierImage getFichierImage(int i) {
+		return fichierImages.get(i);
+	}
+
+	public Adresse getAdresse(int i) {
+		return adresses.get(i);
+	}
+
+	public CodePromo getCodePromo(int i) {
+		return codePromos.get(i);
+	}
+
 }

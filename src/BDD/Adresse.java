@@ -102,4 +102,12 @@ public class Adresse {
 		this.commandes.remove(commande);
 	}
 
+	public Commande getComande(int i) {
+		return commandes.get(i);
+	}
+
+	public Client getClient(int i) {
+		return clients.get(i);
+	}
+
 }

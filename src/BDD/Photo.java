@@ -131,4 +131,24 @@ public class Photo {
 	public void supprimerDansTirages(Couple<Tirage> tirage) {
 		this.tirages.remove(tirage);
 	}
+
+	public Couple<Agenda> getCoupleAgenda(int i) {
+		return agendas.get(i);
+	}
+
+	public Couple<AlbumPhoto> getCoupleAlbumPhoto(int i) {
+		return albumPhotos.get(i);
+	}
+
+	public Couple<Cadre> getCoupleCadre(int i) {
+		return cadres.get(i);
+	}
+
+	public Couple<Calendrier> getCoupleCalendrier(int i) {
+		return calendriers.get(i);
+	}
+
+	public Couple<Tirage> getCoupleTirage(int i) {
+		return tirages.get(i);
+	}
 }

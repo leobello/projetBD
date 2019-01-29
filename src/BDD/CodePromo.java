@@ -54,4 +54,8 @@ public class CodePromo {
 	public void supprimerDansClients(Client client) {
 		this.clients.remove(client);
 	}
+	
+	public Client getClient(int i) {
+		return clients.get(i);
+	}
 }

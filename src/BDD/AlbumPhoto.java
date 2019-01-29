@@ -66,4 +66,8 @@ public class AlbumPhoto extends Impression {
 	public void supprimerDansPhotos(Couple<Photo> photo) {
 		this.photos.remove(photo);
 	}
+
+	public Couple<Photo> getPhoto(int i) {
+		return photos.get(i);
+	}
 }

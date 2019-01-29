@@ -77,4 +77,8 @@ public class FichierImage {
 	public void setPhotos(List<Photo> photos) {
 		this.photos = photos;
 	}
+
+	public Photo getPhoto(int i) {
+		return photos.get(i);
+	}
 }

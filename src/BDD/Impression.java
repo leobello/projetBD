@@ -45,4 +45,8 @@ public class Impression {
 	public void supprimerDansArticles(Article article) {
 		this.articles.remove(article);
 	}
+
+	public Article getArticle(int i) {
+		return articles.get(i);
+	}
 }

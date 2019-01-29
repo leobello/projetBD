@@ -46,4 +46,8 @@ public class Stock {
 		this.articles.remove(article);
 	}
 
+	public Article getArticle(int i) {
+		return articles.get(i);
+	}
+
 }

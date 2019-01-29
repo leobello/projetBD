@@ -1,20 +1,20 @@
 package BDD;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Calendrier extends Impression {
-	private Set<Couple<Photo>> photos = new HashSet<Couple<Photo>>();
+	private List<Couple<Photo>> photos = new ArrayList<Couple<Photo>>();
 
 	public Calendrier(int numImpression, String pathImpression) {
 		super(numImpression, pathImpression);
 	}
 
-	public Set<Couple<Photo>> getPhotos() {
+	public List<Couple<Photo>> getPhotos() {
 		return photos;
 	}
 
-	public void setPhotos(Set<Couple<Photo>> photos) {
+	public void setPhotos(List<Couple<Photo>> photos) {
 		this.photos = photos;
 	}
 
@@ -24,5 +24,9 @@ public class Calendrier extends Impression {
 
 	public void supprimerDansPhotos(Couple<Photo> photo) {
 		this.photos.remove(photo);
+	}
+
+	public Couple<Photo> getPhoto(int i) {
+		return photos.get(i);
 	}
 }

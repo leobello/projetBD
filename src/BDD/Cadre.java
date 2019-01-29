@@ -28,4 +28,8 @@ public class Cadre extends Impression {
 		this.photos.remove(photo);
 	}
 
+	public Couple<Photo> getPhoto(int i) {
+		return photos.get(i);
+	}
+
 }

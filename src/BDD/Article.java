@@ -73,4 +73,8 @@ public class Article {
 	public void supprimerDansStocks(Stock stock) {
 		this.stocks.remove(stock);
 	}
+
+	public Stock getPhoto(int i) {
+		return stocks.get(i);
+	}
 }
