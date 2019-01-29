@@ -3,6 +3,9 @@
 	<exclude-output/>
 	<contentEntry url="file://$MODULE_DIR$"/>
 	<lib name="ojdbc8.jar" scope="COMPILE">
-		<relative-module-cls project-related="jar://$PROJECT_DIR$/projetBD/lib/ojdbc8.jar!/"/>
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/ojdbc8.jar!/"/>
+	</lib>
+	<lib name="lib/ojdbc8.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/ojdbc8.jar!/"/>
 	</lib>
 </component>
