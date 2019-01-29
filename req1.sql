@@ -1,3 +1,21 @@
+-- EMPÊCHER LA CRÉATION D’UNE COMMANDE AVEC UN CODE PROMO SI LE CODE PROMO UTILISÉ N’APPARTIENT PAS À CE CLIENT.
+ 
+CREATE OR REPLACE TRIGGER CODEPROMO2
+AFTER INSERT OR UPDATE ON COMMANDE
+FOR EACH ROW
+DECLARE
+MATCHINGCP INTEGER;
+BEGIN
+   SELECT COUNT(*) INTO MATCHINGCP 
+   FROM CODEPROMOCLIENT
+   WHERE MAILCLIENT = :NEW.MAILCLIENT
+   AND CODE = :NEW.CODE;
+
+   IF (MATCHINGCP = 0) THEN 
+      RAISE_APPLICATION_ERROR(-20001, 'CODE PROMMOTIONEL INVALIDE');
+   END IF;
+END;
+/
 /*
 VÉRIFIER QUE QUAND LA COMMANDE CRÉÉE PEUT L'ÊTRE
 SURVEILLER LA TABLE COMMANDE
@@ -25,7 +43,7 @@ UNE COMMANDE QUI PASSE A OK DOIT AVOIR TOUTES SES IMPRESSIONS OK
 */
 
 /*
-QUAND ON AJOUTE UN ARTICLE, VÉRIFIER QUE LE NOMBRE D'IMPRESSION DEMANDÉE EST RÉALISABLE*/
+QUAND ON AJOUTE UN ARTICLE, VÉRIFIER QUE LE NOMBRE D'IMPRESSION DEMANDÉE EST RÉALISABLE
 
 CREATE OR REPLACE TRIGGER ARTICLE_CALENDRIER
 BEFORE INSERT OR UPDATE ON ARTICLE
@@ -54,6 +72,61 @@ BEGIN
    END IF;
 END;
 /
-SHOW ERRORS;
-
+*/
 -- INSERT INTO ARTICLE VALUES (8, 4, 15.25, 2, 5);
+select qualite, count(*)
+from commande natural join
+(
+   select numimpression, qualite, format
+   from impression natural join calendrier
+   union
+   select numimpression, qualite, format
+   from impression natural join album
+   union
+   select numimpression, qualite, format
+   from impression natural join cadre
+   union
+   select numimpression, qualite, format
+   from impression natural join agenda
+   union
+   select numimpression, qualite, format
+   from impression natural join tirage
+)
+where statut
+group by qualite
+;
+select format, count(*)
+from (
+   select numimpression, qualite, format
+   from impression natural join calendrier
+   union
+   select numimpression, qualite, format
+   from impression natural join album
+   union
+   select numimpression, qualite, format
+   from impression natural join cadre
+   union
+   select numimpression, qualite, format
+   from impression natural join agenda
+   union
+   select numimpression, qualite, format
+   from impression natural join tirage)
+group by format
+;
+select count(*)
+from (
+   select numimpression, qualite, format
+   from impression natural join calendrier
+   union
+   select numimpression, qualite, format
+   from impression natural join album
+   union
+   select numimpression, qualite, format
+   from impression natural join cadre
+   union
+   select numimpression, qualite, format
+   from impression natural join agenda
+   union
+   select numimpression, qualite, format
+   from impression natural join tirage)
+;
