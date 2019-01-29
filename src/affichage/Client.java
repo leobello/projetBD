@@ -213,12 +213,15 @@ public class Client extends TypeUtilisateur {
 			}
 			Impression imp = impressions.get(i);
 			if(imp instanceof Tirage) {
+				nbPages=0;
 				List<Couple<Photo>> photos = ((Tirage) imp).getPhotos();
-				photos
+				for(int nb=0; nb<photos.size(); nb++) {
+					nbPages+=photos.get(nb).getNumero();
+				}
 			}
-			montant+= nbTaken.get(i)*prixU;
+			montant+= nbTaken.get(i)*prixU*nbPages;
 			CRUDInterface<Article> articleControler = _GlobalControler.getArticleControler();
-			Article article = new Article(articleControler.getMaxId(), nbTaken.get(i)*prixU, nbTaken.get(i));
+			Article article = new Article(articleControler.getMaxId(), nbTaken.get(i)*prixU*nbPages, nbTaken.get(i));
 			article.setImpression(impressions.get(i));
 			articles.add(article);
 		}
