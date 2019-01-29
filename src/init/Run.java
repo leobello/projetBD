@@ -8,11 +8,11 @@ public class Run {
 	public static void main(String args[]) {
 		InteractionSystem.run();
 		BD bd = new BD();
-		try {
+		/*try {
 			bd.init();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		}*/
 		
 	}
 }
