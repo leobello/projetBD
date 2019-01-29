@@ -14,7 +14,7 @@ public class Commande {
 	private Client client;
 	private Set<Adresse> adresses = new HashSet<Adresse>();
 	private Set<Article> articles = new HashSet<Article>();
-	
+
 	public Commande(Date date, String modeLivraison, String statutCommande, int numCommande, float montant) {
 		this.date = date;
 		this.modeLivraison = modeLivraison;
@@ -84,7 +84,7 @@ public class Commande {
 	}
 	public void ajouterDansAdresses(Adresse adresse){
 		this.adresses.add(adresse);
-	}	
+	}
 	public void supprimerDansAdresses(Adresse adresse){
 		this.adresses.remove(adresse);
 	}

@@ -8,8 +8,8 @@ public class CodePromo {
 	private int idCodePromo;
 	private boolean dejaUtiliser;
 	private Set<Client> clients = new HashSet<Client>();
-	
-	
+
+
 	public CodePromo(String code, int idCodePromo, boolean dejaUtiliser) {
 		this.code = code;
 		this.idCodePromo = idCodePromo;
