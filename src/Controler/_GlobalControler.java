@@ -8,8 +8,8 @@ import BDD.*;
 import serviceBD.*;
 
 public class _GlobalControler {
-
 	private static Statement stmt;
+
 	private static BD bd = BD.getInstance();
 
 	
@@ -58,7 +58,7 @@ public class _GlobalControler {
 	//public static CRUDInterface<FichierImage> getFichierControler() {
 	//	return new FichierControler(bd);
 	//}
-	
+
 	//public static CRUDInterface<Impression> getImpressioncontroler() {
 	//	return new ImpressionControler(bd);
 	//}
@@ -83,7 +83,9 @@ public class _GlobalControler {
 		return new StockControler(bd);
 	}
 	
+	/*
 	public static CRUDInterface<Tirage> getTirageControler() {
 		return new TirageControler(stmt);
 	}
+	*/
 }

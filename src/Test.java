@@ -10,7 +10,6 @@ public class Test {
 	
 	public static void main(String[] args) throws SQLException {
 		
-				
 		//Adresse test = new Adresse() ;
 		/*Adresse test = myGlobalControler.getAdresseControler().read(11);
 		System.out.println("la ville est : "+ test.getVille());
