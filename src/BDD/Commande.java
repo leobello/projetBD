@@ -7,7 +7,7 @@ import java.util.Set;
 public class Commande {
 	private Date date;
 	private String modeLivraison;
-	private int statutCommande;
+	private String statutCommande;
 	private int numCommande;
 	private float montant;
 	private CodePromo codePromo;
@@ -15,7 +15,7 @@ public class Commande {
 	private Set<Adresse> adresses = new HashSet<Adresse>();
 	private Set<Article> articles = new HashSet<Article>();
 	
-	public Commande(Date date, String modeLivraison, int statutCommande, int numCommande, float montant) {
+	public Commande(Date date, String modeLivraison, String statutCommande, int numCommande, float montant) {
 		this.date = date;
 		this.modeLivraison = modeLivraison;
 		this.statutCommande = statutCommande;
@@ -34,10 +34,10 @@ public class Commande {
 	public void setModeLivraison(String modeLivraison) {
 		this.modeLivraison = modeLivraison;
 	}
-	public int getStatutCommande() {
+	public String  getStatutCommande() {
 		return statutCommande;
 	}
-	public void setStatutCommande(int statutCommande) {
+	public void setStatutCommande(String statutCommande) {
 		this.statutCommande = statutCommande;
 	}
 	public int getNumCommande() {

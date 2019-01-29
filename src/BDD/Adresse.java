@@ -85,7 +85,7 @@ public class Adresse {
 
 	public void setClients(Set<Client> clients) {
 		this.clients = clients;
-	}
+  }
 
 	public void ajouterDansClients(Client client) {
 		this.clients.add(client);
