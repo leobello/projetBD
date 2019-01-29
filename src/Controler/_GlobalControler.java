@@ -10,99 +10,77 @@ import serviceBD.*;
 public class _GlobalControler {
 
 	private static Statement stmt;
-	
-	// Constructeur qui crée une connexion à la base et qui permet à tous les autres"controler" 
-	//d'utiliser la même connexion
-	public _GlobalControler () 
-	{
-		
-		
-		BD bd = new BD();
-		try {
-			bd.init();
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
-		try {
-			System.out.println(bd);
-			this.stmt = bd.getConnection().createStatement();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	//public Statement getStatment() {
-		//return this.stmt;
-	//}
+	private static BD bd = BD.getInstance();
+
 	
 	// Initialisation de tous les controler
 		
 	public static CRUDInterface<Adresse> getAdresseControler() {
-		return new AdresseControler(stmt); 
+		return new AdresseControler(bd); 
 	}
 	
-	public static CRUDInterface<Agenda> getAgendaControler() {
-		return new AgendaControler(stmt);  
-	}
+	/*public static CRUDInterface<Agenda> getAgendaControler() {
+		return new AgendaControler(bd);  
+	}*/
 	
-	public static CRUDInterface<AlbumPhoto> getAlbumPhotoControler() {
-		return new AlbumPhotoControler(stmt);
-	}
+	/*public static CRUDInterface<AlbumPhoto> getAlbumPhotoControler() {
+		return new AlbumPhotoControler(bd);
+	}*/
 	
-	public static CRUDInterface<Article> getArticleControler() {
-		return new ArticleControler(stmt);
-	}
+	/*public static CRUDInterface<Article> getArticleControler() {
+		return new ArticleControler(bd);
+	}*/
 	
-	public static CRUDInterface<Bureau> getBureauControler(){
-		return new BureauControler(stmt);
-	}
+	//public static CRUDInterface<Bureau> getBureauControler(){
+		//return new BureauControler(bd);
+	//}
 	
-	public static CRUDInterface<Cadre> getCadreControler() {
-		return new CadreControler(stmt);
-	}
+	//public static CRUDInterface<Cadre> getCadreControler() {
+		//return new CadreControler(bd);
+	//}
 	
-	public static CRUDInterface<Calendrier> getCalendrierControler() {
-		return new CalendrierControler(stmt);
-	}
+	//public static CRUDInterface<Calendrier> getCalendrierControler() {
+		//return new CalendrierControler(bd);
+	//}
 	
-	public static CRUDInterface<Client> getClientControler() {
-		return new ClientControler(stmt);
-	}
+	//public static CRUDInterface<Client> getClientControler() {
+		//return new ClientControler(bd);
+	//}
 	
-	public static CRUDInterface<CodePromo> getCodePromoControler(){
-		return new CodePromoControler(stmt);
-	}
+	//public static CRUDInterface<CodePromo> getCodePromoControler(){
+	//	return new CodePromoControler(bd);
+	//}
 	
-	public static CRUDInterface<Commande> getCommandeControler(){
-		return new CommandeControler(stmt);
-	}
+	//public static CRUDInterface<Commande> getCommandeControler(){
+	//	return new CommandeControler(bd);
+	//}
 	
-	public static CRUDInterface<FichierImage> getFichierControler() {
-		return new FichierControler(stmt);
-	}
+	//public static CRUDInterface<FichierImage> getFichierControler() {
+	//	return new FichierControler(bd);
+	//}
 	
-	public static CRUDInterface<Impression> getImpressioncontroler() {
-		return new ImpressionControler(stmt);
-	}
+	//public static CRUDInterface<Impression> getImpressioncontroler() {
+	//	return new ImpressionControler(bd);
+	//}
 	
-	public static CRUDInterface<Jours> getJourControler() {
-		return new JoursControler(stmt);
-	}
+	//public static CRUDInterface<Jour> getJourControler() {
+	//	return new JoursControler(bd);
+	//}
 	
-	public static CRUDInterface<Mural> getMuralControler() {
-		return new MuralControler(stmt);
-	}
+	//public static CRUDInterface<Mural> getMuralControler() {
+	//	return new MuralControler(bd);
+	//}
 	
-	public static CRUDInterface<Photo> getPhotoControler () {
-		return new PhotoControler(stmt);
-	}
+	//public static CRUDInterface<Photo> getPhotoControler () {
+	//	return new PhotoControler(bd);
+	//}
 	
-	public static CRUDInterface<Semaines> getSemaineControler() {
-		return new SemaineControler(stmt);
-	}
+	//public static CRUDInterface<Semaine> getSemaineControler() {
+	//	return new SemaineControler(stmt);
+	//}
 	
-	public static CRUDInterface<Stock> getStockControler() {
-		return new StockControler(stmt);
+	public static StockControler getStockControler() {
+		return new StockControler(bd);
 	}
 	
 	public static CRUDInterface<Tirage> getTirageControler() {

@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+
 public class Adresse {
 	private int idAdresse;
 	private int codePostal;
@@ -22,6 +23,9 @@ public class Adresse {
 		this.prenomAdresse = prenomAdresse;
 		this.rue = rue;
 	}
+	
+
+
 
 	public int getIdAdresse() {
 		return idAdresse;

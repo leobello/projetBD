@@ -1,14 +1,17 @@
 package serviceBD;
 
+import java.sql.*;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 import static java.sql.Connection.*;
 
 public class BD {
-    private static BD bd;
-    private static Connexion connexion = new Connexion("bellole", "HNear1984");
+
+    private static BD bd;    
+    private static Connexion connexion = new Connexion("saadiw", "Williams13");
 
     private BD() { }
 
