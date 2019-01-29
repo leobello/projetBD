@@ -4,16 +4,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Stock {
+
+
 	private String typeImression;
+	private String qualite;
+	private String format;
 	private int quantiteStock;
 	private List<Article> articles = new ArrayList<Article>();
 
-	public Stock(String typeImression, int quantiteStock) {
+	public Stock(String typeImression, int quantiteStock, String qualite, String format) {
 		super();
 		this.typeImression = typeImression;
 		this.quantiteStock = quantiteStock;
+		this.format = format;
+		this.qualite = qualite;
+	}
+	public String getQualite() {
+		return qualite;
 	}
 
+	public void setQualite(String qualite) {
+		this.qualite = qualite;
+	}
+
+	public String getFormat() {
+		return format;
+	}
+
+	public void setFormat(String format) {
+		this.format = format;
+	}
 	public String getTypeImression() {
 		return typeImression;
 	}
