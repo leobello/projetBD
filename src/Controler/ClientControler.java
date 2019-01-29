@@ -1,10 +1,17 @@
 package Controler;
 
+import java.sql.Statement;
+
 import BDD.CRUDInterface;
 import BDD.Client;
 
 public class ClientControler implements CRUDInterface<Client> {
 	private Client client;
+	private static Statement stmt;
+
+	public ClientControler(Statement stmt) {
+		this.stmt = stmt;
+	}
 
 	@Override
 	public boolean create(Client object) {

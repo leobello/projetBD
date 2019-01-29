@@ -318,6 +318,7 @@ public class Client extends TypeUtilisateur {
 			/*Requête de création de l'album avec pour chemin path, pour photos l'array photos, 
 			 * avec comme photo de couv idCouv et titre de couv titreCouv, 
 			 * pour le format et la qualité donnée, et liée au client connecté*/
+			
 			System.out.println("calendrier mural enregistré. \n");
 			return true;
 		}else

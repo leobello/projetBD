@@ -1,10 +1,17 @@
 package Controler;
 
+import java.sql.Statement;
+
 import BDD.CRUDInterface;
 import BDD.Photo;
 
 public class PhotoControler implements CRUDInterface<Photo> {
 	private Photo photo ;
+	private static Statement stmt;
+
+	public PhotoControler(Statement stmt) {
+		this.stmt = stmt;
+	}
 
 	@Override
 	public boolean create(Photo object) {

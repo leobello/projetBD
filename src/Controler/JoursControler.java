@@ -1,25 +1,32 @@
 package Controler;
 
-import BDD.CRUDInterface;
-import BDD.Jours;
+import java.sql.Statement;
 
-public class JoursControler implements CRUDInterface<Jours>{
-	private Jours jour;
+import BDD.CRUDInterface;
+import BDD.Jour;
+
+public class JoursControler implements CRUDInterface<Jour>{
+	private Jour jour;
+	private static Statement stmt;
+
+	public JoursControler(Statement stmt) {
+		this.stmt = stmt;
+	}
 
 	@Override
-	public boolean create(Jours object) {
+	public boolean create(Jour object) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public Jours read(int identifiant) {
+	public Jour read(int identifiant) {
 		// TODO Auto-generated method stub
 		return jour;
 	}
 
 	@Override
-	public boolean update(Jours object) {
+	public boolean update(Jour object) {
 		// TODO Auto-generated method stub
 		return false;
 	}
