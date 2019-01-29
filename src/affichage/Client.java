@@ -187,6 +187,11 @@ public class Client extends TypeUtilisateur {
 		}while(!stockSuffisant());
 		commandeControler.create(cmd);
 	}
+	private boolean stockSuffisant() {
+		
+		return false;
+	}
+
 	/**
 	 * Par manque de temps, nous ne prenons pas en compte 
 	 * le nombre de page d'une impression mais appliquons un prix différent selon la qualité
@@ -207,7 +212,7 @@ public class Client extends TypeUtilisateur {
 			}
 			montant+= nbTaken.get(i)*prixU;
 			CRUDInterface<Article> articleControler = _GlobalControler.getArticleControler();
-			Article article = new Article(articleControler.getMaxId(), nbTaken.get(i)*prix, nbTaken.get(i));
+			Article article = new Article(articleControler.getMaxId(), nbTaken.get(i)*prixU, nbTaken.get(i));
 			article.setImpression(impressions.get(i));
 			articles.add(article);
 		}
