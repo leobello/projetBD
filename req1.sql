@@ -73,7 +73,7 @@ BEGIN
 END;
 /
 */
--- INSERT INTO ARTICLE VALUES (8, 4, 15.25, 2, 5);
+-- Requetes statistiques
 select qualite, count(*)
 from commande natural join
 (
@@ -92,7 +92,7 @@ from commande natural join
    select numimpression, qualite, format
    from impression natural join tirage
 )
-where statut
+natural join article natural join commande
 group by qualite
 ;
 select format, count(*)
@@ -111,6 +111,7 @@ from (
    union
    select numimpression, qualite, format
    from impression natural join tirage)
+natural join article natural join commande
 group by format
 ;
 select count(*)
@@ -129,4 +130,10 @@ from (
    union
    select numimpression, qualite, format
    from impression natural join tirage)
+natural join article natural join commande
 ;
+-- Récupérer toutes les commandes en cours ou pret a l'envoi
+
+-- mise a jour du stock, j'ai un format, une qualite, quantite
+
+
