@@ -9,13 +9,19 @@ public class Commande {
 	private String modeLivraison;
 	private int statutCommande;
 	private int numCommande;
-	private int idCodePromo;
-	private String mailClient;
-	private int idAdresse;
 	private float montant;
-	private Set<Adresse> commandeAdresse = new HashSet<Adresse>();
+	private CodePromo codePromo;
+	private Client client;
+	private Set<Adresse> adresses = new HashSet<Adresse>();
 	private Set<Article> articles = new HashSet<Article>();
 	
+	public Commande(Date date, String modeLivraison, int statutCommande, int numCommande, float montant) {
+		this.date = date;
+		this.modeLivraison = modeLivraison;
+		this.statutCommande = statutCommande;
+		this.numCommande = numCommande;
+		this.montant = montant;
+	}
 	public Date getDate() {
 		return date;
 	}
@@ -40,35 +46,14 @@ public class Commande {
 	public void setNumCommande(int numCommande) {
 		this.numCommande = numCommande;
 	}
-	public int getIdCodePromo() {
-		return idCodePromo;
-	}
-	public void setIdCodePromo(int idCodePromo) {
-		this.idCodePromo = idCodePromo;
-	}
-	public String getMailClient() {
-		return mailClient;
-	}
-	public void setMailClient(String mailClient) {
-		this.mailClient = mailClient;
-	}
-	public int getIdAdresse() {
-		return idAdresse;
-	}
-	public void setIdAdresse(int idAdresse) {
-		this.idAdresse = idAdresse;
-	}
-	public float getMontant() {
-		return montant;
-	}
 	public void setMontant(float montant) {
 		this.montant = montant;
 	}
 	public Set<Adresse> getCommandeAdresse() {
-		return commandeAdresse;
+		return adresses;
 	}
 	public void setCommandeAdresse(Set<Adresse> commandeAdresse) {
-		this.commandeAdresse = commandeAdresse;
+		this.adresses = commandeAdresse;
 	}
 	public Set<Article> getArticles() {
 		return articles;
@@ -76,4 +61,38 @@ public class Commande {
 	public void setArticles(Set<Article> articles) {
 		this.articles = articles;
 	}
+	public CodePromo getCodePromo() {
+		return codePromo;
+	}
+	public void setCodePromo(CodePromo codePromo) {
+		this.codePromo = codePromo;
+	}
+	public Client getClient() {
+		return client;
+	}
+	public void setClient(Client client) {
+		this.client = client;
+	}
+	public Set<Adresse> getAdresses() {
+		return adresses;
+	}
+	public void setAdresses(Set<Adresse> adresses) {
+		this.adresses = adresses;
+	}
+	public float getMontant() {
+		return montant;
+	}
+	public void ajouterDansAdresses(Adresse adresse){
+		this.adresses.add(adresse);
+	}	
+	public void supprimerDansAdresses(Adresse adresse){
+		this.adresses.remove(adresse);
+	}
+	public void ajouterDansArticles(Article article){
+		this.articles.add(article);
+	}
+	public void supprimerDansArticles(Article article){
+		this.articles.remove(article);
+	}
+
 }

@@ -1,10 +1,17 @@
 package Controler;
 
+import java.sql.Statement;
+
 import BDD.CRUDInterface;
 import BDD.Cadre;
 
 public class CadreControler implements CRUDInterface<Cadre>{
 	private Cadre cadre;
+	private static Statement stmt;
+
+	public CadreControler(Statement stmt) {
+		this.stmt = stmt;
+	}
 
 	@Override
 	public boolean create(Cadre object) {

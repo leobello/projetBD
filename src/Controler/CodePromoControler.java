@@ -1,10 +1,17 @@
 package Controler;
 
+import java.sql.Statement;
+
 import BDD.CRUDInterface;
 import BDD.CodePromo;
 
 public class CodePromoControler implements CRUDInterface<CodePromo>{
 	private CodePromo codePromo;
+	private static Statement stmt;
+
+	public CodePromoControler(Statement stmt) {
+		this.stmt = stmt;
+	}
 
 	@Override
 	public boolean create(CodePromo object) {

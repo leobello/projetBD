@@ -8,10 +8,16 @@ public class Client {
 	private String nom;
 	private String prenom; 
 	private String motDePasse; 
-	private Set<FichierImage> proprietes = new HashSet<FichierImage>();
+	private Set<FichierImage> fichierImages = new HashSet<FichierImage>();
 	private Set<Adresse> adresses = new HashSet<Adresse>();
 	private Set<CodePromo> codePromos = new HashSet<CodePromo>();
 	
+	public Client(String mailClient, String nom, String prenom, String motDePasse) {
+		this.mailClient = mailClient;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.motDePasse = motDePasse;
+	}
 	public String getMailClient() {
 		return mailClient;
 	}
@@ -36,11 +42,11 @@ public class Client {
 	public void setMotDePasse(String motDePasse) {
 		this.motDePasse = motDePasse;
 	}
-	public Set<FichierImage> getProprietes() {
-		return proprietes;
+	public Set<FichierImage> getFichierImage() {
+		return fichierImages;
 	}
-	public void setProprietes(Set<FichierImage> proprietes) {
-		this.proprietes = proprietes;
+	public void setFichierImage(Set<FichierImage> fichierImage) {
+		this.fichierImages = fichierImage;
 	}
 	public Set<Adresse> getAdresses() {
 		return adresses;
@@ -54,4 +60,23 @@ public class Client {
 	public void setCodePromos(Set<CodePromo> codePromos) {
 		this.codePromos = codePromos;
 	}
+	public void ajouterDansFichierImage(FichierImage fichierImage){
+		this.fichierImages.add(fichierImage);
+	}
+	public void supprimerDansFichierImage(FichierImage fichierImage){
+		this.fichierImages.remove(fichierImage);
+	}
+	public void ajouterDansCodePromos(CodePromo codePromo){
+		this.codePromos.add(codePromo);
+	}
+	public void supprimerDansCodePromos(CodePromo codePromo){
+		this.codePromos.remove(codePromo);
+	}
+	public void ajouterDansAdresses(Adresse adresse){
+		this.adresses.add(adresse);
+	}	
+	public void supprimerDansAdresses(Adresse adresse){
+		this.adresses.remove(adresse);
+	}
+	
 }

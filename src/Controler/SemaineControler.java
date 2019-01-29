@@ -1,26 +1,33 @@
 package Controler;
 
-import BDD.CRUDInterface;
-import BDD.Semaines;
+import java.sql.Statement;
 
-public class SemaineControler implements CRUDInterface<Semaines>{
+import BDD.CRUDInterface;
+import BDD.Semaine;
+
+public class SemaineControler implements CRUDInterface<Semaine>{
 	
-	private Semaines semaine;
+	private Semaine semaine;
+	private static Statement stmt;
+
+	public SemaineControler(Statement stmt) {
+		this.stmt = stmt;
+	}
 
 	@Override
-	public boolean create(Semaines object) {
+	public boolean create(Semaine object) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public Semaines read(int identifiant) {
+	public Semaine read(int identifiant) {
 		// TODO Auto-generated method stub
 		return semaine;
 	}
 
 	@Override
-	public boolean update(Semaines object) {
+	public boolean update(Semaine object) {
 		// TODO Auto-generated method stub
 		return false;
 	}

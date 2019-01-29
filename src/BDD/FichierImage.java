@@ -12,6 +12,15 @@ public class FichierImage {
 	private Date dateAcces;
 	private Client proprietaire; 
 	private Set<Photo> photos = new HashSet<Photo>();
+	
+	public FichierImage(String path, String infoPriseDeVue, String resoluton, int partage, Date dateAcces) {
+		super();
+		this.path = path;
+		this.infoPriseDeVue = infoPriseDeVue;
+		this.resoluton = resoluton;
+		this.partage = partage;
+		this.dateAcces = dateAcces;
+	}
 	public String getPath() {
 		return path;
 	}

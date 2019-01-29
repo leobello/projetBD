@@ -1,12 +1,20 @@
 package BDD;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class CodePromo {
 	private String code;
 	private int idCodePromo;
 	private boolean dejaUtiliser;
-	private List<Client> clients;
+	private Set<Client> clients = new HashSet<Client>();
+	
+	
+	public CodePromo(String code, int idCodePromo, boolean dejaUtiliser) {
+		this.code = code;
+		this.idCodePromo = idCodePromo;
+		this.dejaUtiliser = dejaUtiliser;
+	}
 	public String getCode() {
 		return code;
 	}
@@ -25,10 +33,16 @@ public class CodePromo {
 	public void setDejaUtiliser(boolean dejaUtiliser) {
 		this.dejaUtiliser = dejaUtiliser;
 	}
-	public List<Client> getClients() {
+	public Set<Client> getClients() {
 		return clients;
 	}
-	public void setClients(List<Client> clients) {
+	public void setClients(Set<Client> clients) {
 		this.clients = clients;
+	}
+	public void ajouterDansClients(Client client){
+		this.clients.add(client);
+	}
+	public void supprimerDansClients(Client client){
+		this.clients.remove(client);
 	}
 }
