@@ -202,7 +202,7 @@ public class Gestionnaire extends TypeUtilisateur {
 				case 0 : return false;
 				default : General.erreurDeChoix(); break;
 			}
-			/*Requ�te de maj du stock de format 'format' et de qualite 'qualite' en quantit� 'nombreMaj'
+			/*Requ�te de maj du stock de  format 'format' et de qualite 'qualite' en quantit� 'nombreMaj'
 			 * "UPDATE STOCK 
 					SET QUANTITESTOCK = QUANTITESTOCK + "+nombreMaj+"
 					WHERE QUALITE = '"+qualite+"' AND format = '"+format+"' and type_impression = '"+type_impression+"';  */
