@@ -14,13 +14,13 @@ public class Gestionnaire extends TypeUtilisateur {
 		{
 			reponse = -1;
 			System.out.println(	"/**********************************************************************************************/\n"
-							+ 	"Bienvenue dans l'application dédiée au gestionnaire. \n\n"
+							+ 	"Bienvenue dans l'application dï¿½diï¿½e au gestionnaire. \n\n"
 							+	"Que souhaitez vous faire?\n\n"
 							+	"6 - Supprimer un client\n"
 							+	"5 - Supprimer un fichier image\n"
-							+	"4 - Réaliser une impression\n"
-							+	"3 - Mettre à jour le stock\n"
-							+	"2 - Mettre à jour une commande\n"
+							+	"4 - Rï¿½aliser une impression\n"
+							+	"3 - Mettre ï¿½ jour le stock\n"
+							+	"2 - Mettre ï¿½ jour une commande\n"
 							+	"1 - Visualiser les statistiques des produits\n\n"
 							+ 	"0 - Quitter l'application Gestionnaire");
 			reponse = LectureClavier.lireEntier("\nChoix :");
@@ -43,10 +43,10 @@ public class Gestionnaire extends TypeUtilisateur {
 		while(true) {
 			int reponse = -1;
 			System.out.println(	"/******* Visualisation des statistiques de vente des produits *******\n"
-						+ 	"Selon quels critères souhaitez-vous ces statistiques?\n"
-						+ 	"3 - Par catégorie\n"
+						+ 	"Selon quels critï¿½res souhaitez-vous ces statistiques?\n"
+						+ 	"3 - Par catï¿½gorie\n"
 						+ 	"2 - Par format\n"
-						+ 	"1 - Par qualité\n\n"
+						+ 	"1 - Par qualitï¿½\n\n"
 						+ 	"0 - Retour au menu principal\n");
 			reponse = LectureClavier.lireEntier("\nChoix :");
 			switch(reponse) 
@@ -62,7 +62,7 @@ public class Gestionnaire extends TypeUtilisateur {
 
 	private boolean getStatByQualite() {
 		int reponse = -1;
-		/*requête de statistiques sur les ventes des produits ordonnés par qualitées*/
+		/*requï¿½te de statistiques sur les ventes des produits ordonnï¿½s par qualitï¿½es*/
 		System.out.println(	"/******* Statistiques de vente des produits par Qualite *******\n"
 						+ 	"Les bonnes stats!\n");
 		while(true) {
@@ -80,7 +80,7 @@ public class Gestionnaire extends TypeUtilisateur {
 
 	private boolean getStatByFormat() {
 		int reponse = -1;
-		/*requête de statistiques sur les ventes des produits ordonnés par Format*/
+		/*requï¿½te de statistiques sur les ventes des produits ordonnï¿½s par Format*/
 		System.out.println(	"/******* Statistiques de vente des produits par Format *******\n"
 						+ 	"Les bonnes stats!\n");
 		while(true) {
@@ -98,8 +98,8 @@ public class Gestionnaire extends TypeUtilisateur {
 
 	private boolean getStatByCategorie() {
 		int reponse = -1;
-		/*requête de statistiques sur les ventes des produits ordonnés par Catégories*/
-		System.out.println(	"/******* Statistiques de vente des produits par Catégories *******\n"
+		/*requï¿½te de statistiques sur les ventes des produits ordonnï¿½s par Catï¿½gories*/
+		System.out.println(	"/******* Statistiques de vente des produits par Catï¿½gories *******\n"
 						+ 	"Les bonnes stats!\n");
 		while(true) {
 			System.out.println(	"1 - retour\n"
@@ -115,15 +115,15 @@ public class Gestionnaire extends TypeUtilisateur {
 	}
 
 	private void majCommande() {
-		System.out.println(	"/****************** Mise à jour d'une commande ******************/\n"
-						+ 	"Quelle commande souhaitez-vous mettre à jour?");
+		System.out.println(	"/****************** Mise ï¿½ jour d'une commande ******************/\n"
+						+ 	"Quelle commande souhaitez-vous mettre ï¿½ jour?");
 		this.commande = choixCommandeAMaj();
 	}					   
 
 	private Object choixCommandeAMaj() {
 		int reponse = -1;
 		ArrayList<Object> commandes = new ArrayList<Object>();
-		/*requête des différentes commandes disponibles*/
+		/*requï¿½te des diffï¿½rentes commandes pret Ã  l'envoi disponibles*/
 		commandesToString(commandes);
 		reponse = LectureClavier.lireEntier("\nChoix :");
 		for(int num = 0; num<commandes.size(); num++) {
@@ -136,14 +136,14 @@ public class Gestionnaire extends TypeUtilisateur {
 
 	private void commandesToString(ArrayList<Object> commandes) {
 		// TODO Auto-generated method stub
-		System.out.println("Voilà les commandes!");
+		System.out.println("Voilï¿½ les commandes!");
 	}
 
 	private void majStock() {
 		int reponse = -1;
 		while(true) {
-			System.out.println(	"/********************* Mise à jour du stock *********************/\n"
-							+ 	"Quel élément du stock voulez-vous mettre à jour?\n"
+			System.out.println(	"/********************* Mise ï¿½ jour du stock *********************/\n"
+							+ 	"Quel ï¿½lï¿½ment du stock voulez-vous mettre ï¿½ jour?\n"
 							+ 	"6 - Tirage\n"
 							+ 	"5 - Album\n"
 							+ 	"4 - Calendrier Muraux\n"
@@ -154,26 +154,26 @@ public class Gestionnaire extends TypeUtilisateur {
 			reponse = LectureClavier.lireEntier("\nChoix :");
 			switch(reponse) 
 			{
-				case 6 : if(majStockTirage()) break; else return;
-				case 5 : if(majStockAlbum()) break; else return;
-				case 4 : if(majStockCalendrierMural()) break; else return;
-				case 3 : if(majStockCalendrierBureau()) break; else return;
-				case 2 : if(majStockAgenda365J()) break; else return;
-				case 1 : if(majStockAgenda52S()) break; else return;
+				case 6 : if(majStock("TIRAGE")) break; else return;
+				case 5 : if(majStock("ALBUM")) break; else return;
+				case 4 : if(majStock("MURAL")) break; else return;
+				case 3 : if(majStock("BUREAU")) break; else return;
+				case 2 : if(majStock("JOURS")) break; else return;
+				case 1 : if(majStock("SEMAINES")) break; else return;
 				case 0 : quitter(); return;
 				default : General.erreurDeChoix(); break;
 			}
 		}
 	}
-
-	private boolean majStockTirage() {
+	
+	private boolean majStock(String type_impression) {
 		int reponse = -1;
 		while(true) {
 			System.out.println(	"/**************************** Tirage ****************************/\n"
-							+ 	"5 - Recevoir une livraison de feuilles format A4 Qualité Supérieure\n"
-							+ 	"4 - Recevoir une livraison de feuilles format A4 Qualité Moyenne\n"
-							+ 	"3 - Recevoir une livraison de feuilles format A5 Qualité Supérieure\n"
-							+ 	"2 - Recevoir une livraison de feuilles format A5 Qualité Moyenne\n\n"
+							+ 	"5 - Recevoir une livraison de "+ type_impression +" format A4 Qualitï¿½ Supï¿½rieure\n"
+							+ 	"4 - Recevoir une livraison de "+ type_impression +" format A4 Qualitï¿½ Moyenne\n"
+							+ 	"3 - Recevoir une livraison de "+ type_impression +" format A5 Qualitï¿½ Supï¿½rieure\n"
+							+ 	"2 - Recevoir une livraison de "+ type_impression +" format A5 Qualitï¿½ Moyenne\n\n"
 							+ 	"1 - Retour\n"
 							+ 	"0 - Retour au menu principal\n");
 			reponse = LectureClavier.lireEntier("\nChoix :");
@@ -182,60 +182,19 @@ public class Gestionnaire extends TypeUtilisateur {
 			String qualite = "";
 			switch(reponse) 
 			{
-				case 5 : 	nombreMaj=LectureClavier.lireEntier("Quelle quantité recevez-vous?\n\nChoix :"); 
+				case 5 : 	nombreMaj=LectureClavier.lireEntier("Quelle quantitï¿½ recevez-vous?\n\nChoix :"); 
 							format="A4"; 
-							qualite="Supérieure"; 
+							qualite="Supï¿½rieure"; 
 							break; 
-				case 4 : 	nombreMaj=LectureClavier.lireEntier("Quelle quantité recevez-vous?\n\nChoix :"); 
-							format="A4"; 
-							qualite="Moyenne"; 
-							break; 
-				case 3 : 	nombreMaj=LectureClavier.lireEntier("Quelle quantité recevez-vous?\n\nChoix :"); 
-							format="A5"; 
-							qualite="Supérieure"; 
-							break;
-				case 2 : 	nombreMaj=LectureClavier.lireEntier("Quelle quantité recevez-vous?\n\nChoix :"); 
-							format="A5"; 
-							qualite="Moyenne"; 
-							break;
-				case 1 : return true;
-				case 0 : return false;
-				default : General.erreurDeChoix(); break;
-			}
-			/*Requête de maj du stock de format 'format' et de qualite 'qualite' en quantité 'nombreMaj'*/
-			System.out.println( nombreMaj+" exemplaires ont étés ajoutés au stock de tirage format "+format+" en qualité "+qualite+".\n");
-		}
-	}
-
-	private boolean majStockAlbum() {
-		int reponse = -1;
-		while(true) {
-			System.out.println(	"/**************************** Albums ****************************/\n"
-							+ 	"5 - Recevoir une livraison d'albums format A4 Qualité Supérieure\n"
-							+ 	"4 - Recevoir une livraison d'albums format A4 Qualité Moyenne\n"
-							+ 	"3 - Recevoir une livraison d'albums format A5 Qualité Supérieure\n"
-							+ 	"2 - Recevoir une livraison d'albums format A5 Qualité Moyenne\n\n"
-							+ 	"1 - Retour\n"
-							+ 	"0 - Retour au menu principal\n");
-			reponse = LectureClavier.lireEntier("\nChoix :");
-			int nombreMaj = 0;
-			String format = "";
-			String qualite = "";
-			switch(reponse) 
-			{
-				case 5 : 	nombreMaj=LectureClavier.lireEntier("Quelle quantité recevez-vous?\n\nChoix :"); 
-							format="A4"; 
-							qualite="Supérieure"; 
-							break; 
-				case 4 : 	nombreMaj=LectureClavier.lireEntier("Quelle quantité recevez-vous?\n\nChoix :"); 
+				case 4 : 	nombreMaj=LectureClavier.lireEntier("Quelle quantitï¿½ recevez-vous?\n\nChoix :"); 
 							format="A4"; 
 							qualite="Moyenne"; 
 							break; 
-				case 3 : 	nombreMaj=LectureClavier.lireEntier("Quelle quantité recevez-vous?\n\nChoix :"); 
+				case 3 : 	nombreMaj=LectureClavier.lireEntier("Quelle quantitï¿½ recevez-vous?\n\nChoix :"); 
 							format="A5"; 
-							qualite="Supérieure"; 
+							qualite="Supï¿½rieure"; 
 							break;
-				case 2 : 	nombreMaj=LectureClavier.lireEntier("Quelle quantité recevez-vous?\n\nChoix :"); 
+				case 2 : 	nombreMaj=LectureClavier.lireEntier("Quelle quantitï¿½ recevez-vous?\n\nChoix :"); 
 							format="A5"; 
 							qualite="Moyenne"; 
 							break;
@@ -243,180 +202,19 @@ public class Gestionnaire extends TypeUtilisateur {
 				case 0 : return false;
 				default : General.erreurDeChoix(); break;
 			}
-			/*Requête de maj du stock de format 'format' et de qualite 'qualite' en quantité 'nombreMaj'*/
-			System.out.println( nombreMaj+" exemplaires ont étés ajoutés au stock d'albums format "+format+" en qualité "+qualite+".\n");
-		}
-	}
-
-	private boolean majStockCalendrierMural() {
-		int reponse = -1;
-		while(true) {
-			System.out.println(	"/********************** Calendriers Muraux **********************/\n"
-							+ 	"5 - Recevoir une livraison de calendriers muraux format A4 Qualité Supérieure\n"
-							+ 	"4 - Recevoir une livraison de calendriers muraux format A4 Qualité Moyenne\n"
-							+ 	"3 - Recevoir une livraison de calendriers muraux format A5 Qualité Supérieure\n"
-							+ 	"2 - Recevoir une livraison de calendriers muraux format A5 Qualité Moyenne\n\n"
-							+ 	"1 - Retour\n"
-							+ 	"0 - Retour au menu principal\n");
-			reponse = LectureClavier.lireEntier("\nChoix :");
-			int nombreMaj = 0;
-			String format = "";
-			String qualite = "";
-			switch(reponse) 
-			{
-				case 5 : 	nombreMaj=LectureClavier.lireEntier("Quelle quantité recevez-vous?\n\nChoix :"); 
-							format="A4"; 
-							qualite="Supérieure"; 
-							break; 
-				case 4 : 	nombreMaj=LectureClavier.lireEntier("Quelle quantité recevez-vous?\n\nChoix :"); 
-							format="A4"; 
-							qualite="Moyenne"; 
-							break; 
-				case 3 : 	nombreMaj=LectureClavier.lireEntier("Quelle quantité recevez-vous?\n\nChoix :"); 
-							format="A5"; 
-							qualite="Supérieure"; 
-							break;
-				case 2 : 	nombreMaj=LectureClavier.lireEntier("Quelle quantité recevez-vous?\n\nChoix :"); 
-							format="A5"; 
-							qualite="Moyenne"; 
-							break;
-				case 1 : return true;
-				case 0 : return false;
-				default : General.erreurDeChoix(); break;
-			}
-			/*Requête de maj du stock de format 'format' et de qualite 'qualite' en quantité 'nombreMaj'*/
-			System.out.println( nombreMaj+" exemplaires ont étés ajoutés au stock de calendriers muraux format "+format+" en qualité "+qualite+".\n");
-		}
-	}
-
-	private boolean majStockCalendrierBureau() {
-		int reponse = -1;
-		while(true) {
-			System.out.println(	"/********************** Calendriers Bureau **********************/\n"
-							+ 	"5 - Recevoir une livraison de calendriers bureau format A4 Qualité Supérieure\n"
-							+ 	"4 - Recevoir une livraison de calendriers bureau format A4 Qualité Moyenne\n"
-							+ 	"3 - Recevoir une livraison de calendriers bureau format A5 Qualité Supérieure\n"
-							+ 	"2 - Recevoir une livraison de calendriers bureau format A5 Qualité Moyenne\n\n"
-							+ 	"1 - Retour\n"
-							+ 	"0 - Retour au menu principal\n");
-			reponse = LectureClavier.lireEntier("\nChoix :");
-			int nombreMaj = 0;
-			String format = "";
-			String qualite = "";
-			switch(reponse) 
-			{
-				case 5 : 	nombreMaj=LectureClavier.lireEntier("Quelle quantité recevez-vous?\n\nChoix :"); 
-							format="A4"; 
-							qualite="Supérieure"; 
-							break; 
-				case 4 : 	nombreMaj=LectureClavier.lireEntier("Quelle quantité recevez-vous?\n\nChoix :"); 
-							format="A4"; 
-							qualite="Moyenne"; 
-							break; 
-				case 3 : 	nombreMaj=LectureClavier.lireEntier("Quelle quantité recevez-vous?\n\nChoix :"); 
-							format="A5"; 
-							qualite="Supérieure"; 
-							break;
-				case 2 : 	nombreMaj=LectureClavier.lireEntier("Quelle quantité recevez-vous?\n\nChoix :"); 
-							format="A5"; 
-							qualite="Moyenne"; 
-							break;
-				case 1 : return true;
-				case 0 : return false;
-				default : General.erreurDeChoix(); break;
-			}
-			/*Requête de maj du stock de format 'format' et de qualite 'qualite' en quantité 'nombreMaj'*/
-			System.out.println( nombreMaj+" exemplaires ont étés ajoutés au stock de calendriers bureau format "+format+" en qualité "+qualite+".\n");
-		}
-	}
-
-	private boolean majStockAgenda365J() {
-		int reponse = -1;
-		while(true) {
-			System.out.println(	"/*********************** Agenda 365 Jours ***********************/\n"
-							+ 	"5 - Recevoir une livraison d'agendas 365 Jours format A4 Qualité Supérieure\n"
-							+ 	"4 - Recevoir une livraison d'agendas 365 Jours format A4 Qualité Moyenne\n"
-							+ 	"3 - Recevoir une livraison d'agendas 365 Jours format A5 Qualité Supérieure\n"
-							+ 	"2 - Recevoir une livraison d'agendas 365 Jours format A5 Qualité Moyenne\n\n"
-							+ 	"1 - Retour\n"
-							+ 	"0 - Retour au menu principal\n");
-			reponse = LectureClavier.lireEntier("\nChoix :");
-			int nombreMaj = 0;
-			String format = "";
-			String qualite = "";
-			switch(reponse) 
-			{
-				case 5 : 	nombreMaj=LectureClavier.lireEntier("Quelle quantité recevez-vous?\n\nChoix :"); 
-							format="A4"; 
-							qualite="Supérieure"; 
-							break; 
-				case 4 : 	nombreMaj=LectureClavier.lireEntier("Quelle quantité recevez-vous?\n\nChoix :"); 
-							format="A4"; 
-							qualite="Moyenne"; 
-							break; 
-				case 3 : 	nombreMaj=LectureClavier.lireEntier("Quelle quantité recevez-vous?\n\nChoix :"); 
-							format="A5"; 
-							qualite="Supérieure"; 
-							break;
-				case 2 : 	nombreMaj=LectureClavier.lireEntier("Quelle quantité recevez-vous?\n\nChoix :"); 
-							format="A5"; 
-							qualite="Moyenne"; 
-							break;
-				case 1 : return true;
-				case 0 : return false;
-				default : General.erreurDeChoix(); break;
-			}
-			/*Requête de maj du stock de format 'format' et de qualite 'qualite' en quantité 'nombreMaj'*/
-			System.out.println( nombreMaj+" exemplaires ont étés ajoutés au stock d'agendas 365 Jours format "+format+" en qualité "+qualite+".\n");
-		}
-	}
-
-	private boolean majStockAgenda52S() {
-		int reponse = -1;
-		while(true) {
-			System.out.println(	"/********************** Agenda 52 Semaines **********************/\n"
-							+ 	"5 - Recevoir une livraison d'agendas 52 Semaines format A4 Qualité Supérieure\n"
-							+ 	"4 - Recevoir une livraison d'agendas 52 Semaines format A4 Qualité Moyenne\n"
-							+ 	"3 - Recevoir une livraison d'agendas 52 Semaines format A5 Qualité Supérieure\n"
-							+ 	"2 - Recevoir une livraison d'agendas 52 Semaines format A5 Qualité Moyenne\n\n"
-							+ 	"1 - Retour\n"
-							+ 	"0 - Retour au menu principal\n");
-			reponse = LectureClavier.lireEntier("\nChoix :");
-			int nombreMaj = 0;
-			String format = "";
-			String qualite = "";
-			switch(reponse) 
-			{
-				case 5 : 	nombreMaj=LectureClavier.lireEntier("Quelle quantité recevez-vous?\n\nChoix :"); 
-							format="A4"; 
-							qualite="Supérieure"; 
-							break; 
-				case 4 : 	nombreMaj=LectureClavier.lireEntier("Quelle quantité recevez-vous?\n\nChoix :"); 
-							format="A4"; 
-							qualite="Moyenne"; 
-							break; 
-				case 3 : 	nombreMaj=LectureClavier.lireEntier("Quelle quantité recevez-vous?\n\nChoix :"); 
-							format="A5"; 
-							qualite="Supérieure"; 
-							break;
-				case 2 : 	nombreMaj=LectureClavier.lireEntier("Quelle quantité recevez-vous?\n\nChoix :"); 
-							format="A5"; 
-							qualite="Moyenne"; 
-							break;
-				case 1 : return true;
-				case 0 : return false;
-				default : General.erreurDeChoix(); break;
-			}
-			/*Requête de maj du stock de format 'format' et de qualite 'qualite' en quantité 'nombreMaj'*/
-			System.out.println( nombreMaj+" exemplaires ont étés ajoutés au stock d'agendas 52 Semaines format "+format+" en qualité "+qualite+".\n");
+			/*Requï¿½te de maj du stock de format 'format' et de qualite 'qualite' en quantitï¿½ 'nombreMaj'
+			 * "UPDATE STOCK 
+					SET QUANTITESTOCK = QUANTITESTOCK + "+nombreMaj+"
+					WHERE QUALITE = '"+qualite+"' AND format = '"+format+"' and type_impression = '"+type_impression+"';  */
+			System.out.println( nombreMaj+" exemplaires ont ï¿½tï¿½s ajoutï¿½s au stock "+type_impression+" format "+format+" en qualitï¿½ "+qualite+".\n");
 		}
 	}
 
 	private void realiserImpression() {
-		System.out.println(	"/***************** Réalisation d'une impression *****************/\n"
+		System.out.println(	"/***************** Rï¿½alisation d'une impression *****************/\n"
 						+ 	"Voici les impressions en attente...\n");
 		ArrayList<Object> impressions = new ArrayList<Object>();
-		/*Requête des impressions en attente de réalisation*/
+		/*Requï¿½te des impressions en attente de rï¿½alisation*/
 		Object impression = impressions.get(LectureClavier.lireEntier("\nChoix :"));
 		
 	}
@@ -430,6 +228,6 @@ public class Gestionnaire extends TypeUtilisateur {
 	}
 
 	private void quitter() {
-		System.out.println("A bientôt");
+		System.out.println("A bientï¿½t");
 	}
 }

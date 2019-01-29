@@ -73,67 +73,75 @@ BEGIN
 END;
 /
 */
--- Requetes statistiques
-select qualite, count(*)
-from commande natural join
+-- REQUETES STATISTIQUES
+SELECT QUALITE, COUNT(*)
+FROM COMMANDE NATURAL JOIN
 (
-   select numimpression, qualite, format
-   from impression natural join calendrier
-   union
-   select numimpression, qualite, format
-   from impression natural join album
-   union
-   select numimpression, qualite, format
-   from impression natural join cadre
-   union
-   select numimpression, qualite, format
-   from impression natural join agenda
-   union
-   select numimpression, qualite, format
-   from impression natural join tirage
+   SELECT NUMIMPRESSION, QUALITE, FORMAT
+   FROM IMPRESSION NATURAL JOIN CALENDRIER
+   UNION
+   SELECT NUMIMPRESSION, QUALITE, FORMAT
+   FROM IMPRESSION NATURAL JOIN ALBUM
+   UNION
+   SELECT NUMIMPRESSION, QUALITE, FORMAT
+   FROM IMPRESSION NATURAL JOIN CADRE
+   UNION
+   SELECT NUMIMPRESSION, QUALITE, FORMAT
+   FROM IMPRESSION NATURAL JOIN AGENDA
+   UNION
+   SELECT NUMIMPRESSION, QUALITE, FORMAT
+   FROM IMPRESSION NATURAL JOIN TIRAGE
 )
-natural join article natural join commande
-group by qualite
+NATURAL JOIN ARTICLE NATURAL JOIN COMMANDE
+GROUP BY QUALITE
 ;
-select format, count(*)
-from (
-   select numimpression, qualite, format
-   from impression natural join calendrier
-   union
-   select numimpression, qualite, format
-   from impression natural join album
-   union
-   select numimpression, qualite, format
-   from impression natural join cadre
-   union
-   select numimpression, qualite, format
-   from impression natural join agenda
-   union
-   select numimpression, qualite, format
-   from impression natural join tirage)
-natural join article natural join commande
-group by format
+SELECT FORMAT, COUNT(*)
+FROM (
+   SELECT NUMIMPRESSION, QUALITE, FORMAT
+   FROM IMPRESSION NATURAL JOIN CALENDRIER
+   UNION
+   SELECT NUMIMPRESSION, QUALITE, FORMAT
+   FROM IMPRESSION NATURAL JOIN ALBUM
+   UNION
+   SELECT NUMIMPRESSION, QUALITE, FORMAT
+   FROM IMPRESSION NATURAL JOIN CADRE
+   UNION
+   SELECT NUMIMPRESSION, QUALITE, FORMAT
+   FROM IMPRESSION NATURAL JOIN AGENDA
+   UNION
+   SELECT NUMIMPRESSION, QUALITE, FORMAT
+   FROM IMPRESSION NATURAL JOIN TIRAGE)
+NATURAL JOIN ARTICLE NATURAL JOIN COMMANDE
+GROUP BY FORMAT
 ;
-select count(*)
-from (
-   select numimpression, qualite, format
-   from impression natural join calendrier
-   union
-   select numimpression, qualite, format
-   from impression natural join album
-   union
-   select numimpression, qualite, format
-   from impression natural join cadre
-   union
-   select numimpression, qualite, format
-   from impression natural join agenda
-   union
-   select numimpression, qualite, format
-   from impression natural join tirage)
-natural join article natural join commande
+SELECT COUNT(*)
+FROM (
+   SELECT NUMIMPRESSION, QUALITE, FORMAT
+   FROM IMPRESSION NATURAL JOIN CALENDRIER
+   UNION
+   SELECT NUMIMPRESSION, QUALITE, FORMAT
+   FROM IMPRESSION NATURAL JOIN ALBUM
+   UNION
+   SELECT NUMIMPRESSION, QUALITE, FORMAT
+   FROM IMPRESSION NATURAL JOIN CADRE
+   UNION
+   SELECT NUMIMPRESSION, QUALITE, FORMAT
+   FROM IMPRESSION NATURAL JOIN AGENDA
+   UNION
+   SELECT NUMIMPRESSION, QUALITE, FORMAT
+   FROM IMPRESSION NATURAL JOIN TIRAGE)
+NATURAL JOIN ARTICLE NATURAL JOIN COMMANDE
 ;
--- Récupérer toutes les commandes en cours ou pret a l'envoi
 
--- mise a jour du stock, j'ai un format, une qualite, quantite
+SELECT NUMIMPRESSION
+FROM IMPRESSION
+WHERE IMPRESSION_OK = 0;
+
+UPDATE STOCK 
+SET QUANTITESTOCK = QUANTITESTOCK + 20
+WHERE QUALITE = 'SUPERIEURE' AND format = 'A4' and type_impression = 'TIRAGE';
+-- RÉCUPÉRER TOUTES LES COMMANDES EN COURS OU PRET A L'ENVOI
+
+-- MISE A JOUR DU STOCK, J'AI UN FORMAT, UNE QUALITE, QUANTITE
 
 
