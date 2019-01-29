@@ -128,9 +128,9 @@ public class Client extends TypeUtilisateur {
 		/*Requête des impressions appartenant aux clients.*/
 			//EN ATTENDANT
 			ArrayList<Impression> impressions = new ArrayList<Impression>();
-			Impression imp1 = new Impression(0, "imp1");
-			Impression imp2 = new Impression(1, "imp2");
-			Impression imp3 = new Impression(2, "imp3");
+			Impression imp1 = new Tirage(0, "imp1", "SUPERIEUR", "A4");
+			Impression imp2 = new Tirage(1, "imp2", "MOYENNE", "A4");
+			Impression imp3 = new Tirage(2, "imp3", "SUPERIEUR", "A5");
 			impressions.add(imp1);impressions.add(imp2);impressions.add(imp3);
 		ArrayList<Integer> nbTaken = new ArrayList<Integer>();
 		for(int i =0; i<impressions.size(); i++) {
@@ -204,11 +204,17 @@ public class Client extends TypeUtilisateur {
 		ArrayList<Article> articles = new ArrayList<Article>();
 		for(int i =0; i<impressions.size(); i++) {
 			int prixU = 0;
+			int nbPages = 1;
 			if(nbTaken.get(i)!=0) {
 				if(impressions.get(i).getQualite().matches("MOYENNE"))
 					prixU = 1;
 				else
 					prixU = 2;
+			}
+			Impression imp = impressions.get(i);
+			if(imp instanceof Tirage) {
+				List<Couple<Photo>> photos = ((Tirage) imp).getPhotos();
+				photos
 			}
 			montant+= nbTaken.get(i)*prixU;
 			CRUDInterface<Article> articleControler = _GlobalControler.getArticleControler();
