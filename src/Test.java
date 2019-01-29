@@ -10,10 +10,10 @@ public class Test {
 	public static void main(String[] args) throws SQLException {
 		
 				
-		
+		/*
 		boolean test = myGlobalControler.getAdresseControler().delete(0);
 		System.out.println(test);
-		
+		*/
 		
 	}
 
