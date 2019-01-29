@@ -10,6 +10,8 @@ public class Impression {
 	private int numImpression;
 	private String pathImpression;
 	private Client client;
+	private String qualite;
+	private String format;
 	private boolean impression_ok;
 	private List<Article> articles = new ArrayList<Article>();
 	
@@ -21,11 +23,13 @@ public class Impression {
 		this.client = client;
 	}
 	
-	public Impression(int numImpression, String pathImpression, Client client, boolean Impression_ok) {
+	public Impression(int numImpression, String pathImpression, Client client, boolean Impression_ok, String qualite, String format) {
 		this.numImpression = numImpression;
 		this.pathImpression = pathImpression;
 		this.client = client;
 		this.impression_ok = impression_ok;
+		this.qualite = qualite;
+		this.format = format;
 	}
 
 	public int getNumImpression() {

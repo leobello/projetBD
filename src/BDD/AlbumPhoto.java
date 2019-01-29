@@ -6,17 +6,13 @@ import java.util.List;
 public class AlbumPhoto extends Impression {
 	private int idPhoto;
 	private String titre;
-	private String qualite;
-	private String format;
 	private List<Couple<Photo>> photos = new ArrayList<Couple<Photo>>();
 
 	public AlbumPhoto(int numImpression, String pathImpression,Client client, boolean Impression_ok, int idPhoto, String titre, String qualite,
-			String formatAlbum) {
-		super(numImpression, pathImpression, client, Impression_ok);
+			String format) {
+		super(numImpression, pathImpression, client, Impression_ok, qualite, format);
 		this.idPhoto = idPhoto;
 		this.titre = titre;
-		this.qualite = qualite;
-		this.format = formatAlbum;
 	}
 
 	public int getIdPhoto() {
@@ -33,22 +29,6 @@ public class AlbumPhoto extends Impression {
 
 	public void setTitre(String titre) {
 		this.titre = titre;
-	}
-
-	public String getQualite() {
-		return qualite;
-	}
-
-	public void setQualite(String qualite) {
-		this.qualite = qualite;
-	}
-
-	public String getFormat() {
-		return format;
-	}
-
-	public void setFormat(String formatAlbum) {
-		this.format = formatAlbum;
 	}
 
 	public List<Couple<Photo>> getPhotos() {
