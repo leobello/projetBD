@@ -42,9 +42,9 @@ public class _GlobalControler {
 		//return new CalendrierControler(bd);
 	//}
 	
-	//public static CRUDInterface<Client> getClientControler() {
-		//return new ClientControler(bd);
-	//}
+	public static ClientControler getClientControler() {
+		return new ClientControler(bd);
+	}
 	
 	//public static CRUDInterface<CodePromo> getCodePromoControler(){
 	//	return new CodePromoControler(bd);

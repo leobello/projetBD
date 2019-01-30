@@ -4,18 +4,17 @@ import java.sql.Statement;
 
 import BDD.Article;
 import BDD.CRUDInterface;
+import serviceBD.BD;
 
 public class ArticleControler implements CRUDInterface<Article>{
 	private Article article;
-	private static Statement stmt;
+	private static BD bd;
 
-	public ArticleControler(Statement stmt) {
-		this.stmt = stmt;
+	public ArticleControler(BD bd) {
+		this.bd = bd;
 	}
 
 	@Override
-<<<<<<< HEAD
-<<<<<<< HEAD
 	public boolean create(Article article) {
 		boolean checkCreate = false;
 		int insertOk = 0;
@@ -35,16 +34,6 @@ public class ArticleControler implements CRUDInterface<Article>{
 			e.printStackTrace();
 		}
 		return checkCreate;
-=======
-	public boolean create(Article object) {
-		// TODO Auto-generated method stub
-		return false;
->>>>>>> parent of 0f5b4bb... changes
-=======
-	public boolean create(Article object) {
-		// TODO Auto-generated method stub
-		return false;
->>>>>>> parent of 0f5b4bb... changes
 	}
 
 	@Override

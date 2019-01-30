@@ -5,13 +5,14 @@ import java.sql.Statement;
 
 import BDD.CRUDInterface;
 import BDD.Tirage;
+import serviceBD.BD;
 
 public class TirageControler implements CRUDInterface<Tirage> {
 	private Tirage tirage;
-	private Statement stmt;
+	private BD bd;
 	
-	public  TirageControler(Statement stmt) {
-		this.stmt = stmt;
+	public  TirageControler(BD bd) {
+		this.bd = bd;
 	}
 
 	@Override
