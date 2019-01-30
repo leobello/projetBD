@@ -297,7 +297,7 @@ public class Gestionnaire extends TypeUtilisateur {
 			System.out.println(	"/**************** Suppression d'un fichier image ****************/\n"
 							+ 	"Voici les fichiers images effacables...\n");
 			ArrayList<FichierImage> fichiersImage = new ArrayList<FichierImage>();
-			/*Requête des impressions en attente de réalisation*/FichierImage fi = new FichierImage(); fi.setPath("512587/photo/vacance.png"); fichiersImage.add(fi); fichiersImage.add(fi);
+			/*Requête des impressions en attente de réalisation*/FichierImage fi = new FichierImage("512587/photo/vacance.png", "", "", 0, ""); fi.setPath(); fichiersImage.add(fi); fichiersImage.add(fi);
 			fichiersImageToString(fichiersImage);
 			reponse = LectureClavier.lireEntier("\nChoix :");
 			for(int num = 0; num<=fichiersImage.size(); num++) {
@@ -349,7 +349,7 @@ public class Gestionnaire extends TypeUtilisateur {
 			System.out.println(	"/********************* Suppression d'un client ******************/\n"
 							+ 	"Voici les clients supprimables...\n");
 			ArrayList<BDD.Client> clients = new ArrayList<BDD.Client>();
-			/*Requête des impressions en attente de réalisation*/BDD.Client fi = new BDD.Client(); fi.setMailClient("louisreynaud@gmail.com"); clients.add(fi); clients.add(fi);
+			/*Requête des impressions en attente de réalisation*/BDD.Client fi = new BDD.Client("louisreynaud@gmail.com", "Louis", "Reynaud", "motdepasse"); clients.add(fi); clients.add(fi);
 			clientsToString(clients);
 			reponse = LectureClavier.lireEntier("\nChoix :");
 			for(int num = 0; num<=clients.size(); num++) {
@@ -388,7 +388,7 @@ public class Gestionnaire extends TypeUtilisateur {
 	}
 
 	private void clientsToString(ArrayList<Client> clients) {
-		System.out.println(	"2 - fichier Image : "+clients.get(1).getMailClient()+" - Client Louis REYNAUD\n"
+		System.out.println(	"2 - Client : "+clients.get(1).getMailClient()+" - Client Louis REYNAUD\n"
 				+ 	"1 - Client : "+clients.get(0).getMailClient()+"- Client Louis REYNAUD\n\n"
 				+ 	"0 - Retour au menu principal");
 		
