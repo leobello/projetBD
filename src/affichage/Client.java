@@ -121,9 +121,55 @@ public class Client extends TypeUtilisateur {
 	private void supprimerFichierImage() {
 		int reponse = -1;
 		boolean flagUp = false;
-		System.out.println("/***************** Suppression d'une commande *****************/\n\n");
+		System.out.println("/*************** Suppression d'un fichier Image **************/\n\n");
+		ArrayList<FichierImage> fichierImages = new ArrayList<FichierImage>();
 		/*Requête des fichiers images appartenant au client*/
-		fiToString();
+			//EN ATTENDANT
+			FichierImage fi = new FichierImage("path/1", "", "", 0, General.getDateNow()); fichierImages.add(fi);fichierImages.add(fi);fichierImages.add(fi);
+		while(!flagUp) {
+			fiToString(fichierImages);
+			reponse = LectureClavier.lireEntier("Choisissez le fichier à supprimer\n");
+			if(reponse>1 && reponse<fichierImages.size()) {
+				FichierImage fiToDelete = fichierImages.get(reponse-1);
+				String choix = validerSuppression(fiToDelete);
+				if(choix.equals("V")) {
+					//_GlobalControler<FichierImage> FichierImageControler = _GlobalControler.getFichierControler();
+					// FichierImageControler.delete(fiToDelete);
+					System.out.println("Le fichier Image : "+fiToDelete.getPath()+" à été supprimé.");
+				}else if(choix.equals("returnMenu")) {
+					return;
+				}
+			}if(reponse == 0) {
+				return;
+			}if(reponse == 1) {
+				flagUp = true;
+			}
+		}
+	}
+
+	private String validerSuppression(FichierImage fiToDelete) {
+		int reponse = -1;
+		while(true) {
+			System.out.println("Voulez-vous vraiment supprimer le fichier image :"+fiToDelete.getPath()+" ?\n\n"
+							+	"2 - Envoyer\n\n"
+							+	"1 - Retour\n"
+							+ 	"0 - Retour au menu principal\n");
+			reponse = LectureClavier.lireEntier("\nChoix :");
+			switch(reponse) 
+			{
+				case 2 : return "E";
+				case 1 : return "return";
+				case 0 : return "returnMenu";
+				default : General.erreurDeChoix(); break;
+			}	
+		}
+	}
+
+	private void fiToString(ArrayList<FichierImage> fi) {
+		for(int i=0; i<fi.size(); i++) {
+			System.out.println(fi.size()-i+" - Fichier Image : "+fi.get(fi.size()-1-i).getPath()+"\n");
+		}
+		System.out.println( 	"\n0 - Retour au menu principal\n");
 	}
 
 	private void creerCommande() {
@@ -142,64 +188,74 @@ public class Client extends TypeUtilisateur {
 			nbTaken.add(0);
 		}
 		while(!flagUp) {
+			int nbExemplaireTotal = 0;
+			for(int i=0; i<nbTaken.size();i++)
+				nbExemplaireTotal +=nbTaken.get(i);
 			System.out.println("Commande : \n"
 							+ "Choisissez vos impressions : \n");
-			impressionsToString(impressions, nbTaken);
-			System.out.println("0 - Retour au menu Principal");
-			reponse = LectureClavier.lireEntier("\nChoix :");
-			if(reponse>1 && reponse<impressions.size()) {
-				do {
-					nbTaken.set(reponse-1, LectureClavier.lireEntier("En combien d'exemplaire souhaitez-vous ce produit?\n"));
-				}while(nbTaken.get(reponse-1)<=0);
-			}if(reponse == 0) {
-				return;
-			}if(reponse == 1) {
-				flagUp = true;
+			if(nbExemplaireTotal!=0) {
+				impressionsToString(impressions, nbTaken, true);
+				reponse = LectureClavier.lireEntier("\nChoix :");
+				if(reponse>1 && reponse<impressions.size()+2) {
+					do {
+						nbTaken.set(reponse-2, LectureClavier.lireEntier("En combien d'exemplaire souhaitez-vous ce produit?\n"));
+					}while(nbTaken.get(reponse-2)<0);
+				}if(reponse == 0) {
+					return;
+				}if(reponse == 1) {
+					flagUp = true;
+				}
+			}else {
+				impressionsToString(impressions, nbTaken, false);
+				reponse = LectureClavier.lireEntier("\nChoix :");
+				if(reponse>0 && reponse<impressions.size()+1) {
+					do {
+						nbTaken.set(reponse-1, LectureClavier.lireEntier("En combien d'exemplaire souhaitez-vous ce produit?\n"));
+					}while(nbTaken.get(reponse-1)<0);
+				}if(reponse == 0) {
+					return;
+				}
 			}
 		}
 		flagUp=false;
-		String modelivraison;
-		while(flagUp) {
-			System.out.println(	"/**************** Création d'une impression ***************/\n\n"
-					+ 	"Quel type d'impression voulez-vous créer?\n"
-					+ 	"2 - En relais Poste\n"
+		String modelivraison = "";
+		while(!flagUp) {
+			System.out.println("Comment souhaitez-vous être livré?\n"
+					+ 	"2 - En dépot relais\n"
 					+ 	"1 - A domicile\n\n"
 					+ 	"0 - Retour au menu principal\n");
 			reponse = LectureClavier.lireEntier("\nChoix :");
 			switch(reponse) 
 			{
-				case 2 : modelivraison = "Relais Poste"; flagUp = true; break;
+				case 2 : modelivraison = "Dépot Relais"; flagUp = true; break;
 				case 1 : modelivraison = "A domicile"; flagUp = true; break;
 				case 0 : return;
 				default : General.erreurDeChoix(); break;
 			}
 		}
 		Couple<ArrayList<Article>> articlesMontant = getMontantArticles(impressions,nbTaken);
-		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		Date now = new Date(timestamp.getTime());
-		Commande cmd = new Commande(now, modelivraison, "En Cours", 0,articlesMontant.getNumero());
+		Commande cmd = new Commande(General.getDateNow(), modelivraison, "En Cours", 0,articlesMontant.getNumero());
 		cmd.setArticles(articlesMontant.getGenerique());
 		do{
-			System.out.println("Veuillez régler votre commande : "
-					+ "1 - Valider"
-					+ "0 - Annuler et retour au menu Principal");
+			System.out.println("Veuillez régler votre commande :\n"
+					+ "1 - Valider\n"
+					+ "0 - Annuler et retour au menu Principal\n");
 			reponse = LectureClavier.lireEntier("Choix : \n");
 			switch(reponse) {
 				case 1 : break;
 				case 0 : return;
 			}
 		}while(!stockSuffisant());
-		CRUDInterface<Commande> commandeControler = _GlobalControler.getCommandeControler();
-		commandeControler.create(cmd);
+		//CRUDInterface<Commande> commandeControler = _GlobalControler.getCommandeControler();
+		//commandeControler.create(cmd);
 	}
+	
 	private boolean stockSuffisant() {
 		
 		return false;
 	}
 
 	/**
-	 * Par manque de temps, nous ne prenons pas en compte 
-	 * le nombre de page d'une impression mais appliquons un prix différent selon la qualité
 	 * @param impressions
 	 * @param nbTaken
 	 * @return
@@ -225,19 +281,25 @@ public class Client extends TypeUtilisateur {
 				}
 			}
 			montant+= nbTaken.get(i)*prixU*nbPages;
-			CRUDInterface<Article> articleControler = _GlobalControler.getArticleControler();
 			Article article = new Article(0, nbTaken.get(i)*prixU*nbPages, nbTaken.get(i));
 			article.setImpression(impressions.get(i));
-			articles.add(article);
+			//CRUDInterface<Article> articleControler = _GlobalControler.getArticleControler();
+			//articles.add(article);
 		}
 		return new Couple<ArrayList<Article>>(articles, montant);
 	}
 
-	private void impressionsToString(ArrayList<Impression> impressions, ArrayList<Integer> nbTaken) {
+	private void impressionsToString(ArrayList<Impression> impressions, ArrayList<Integer> nbTaken, boolean asExemplaires) {
+		if(asExemplaires) {
 			for(int i=0; i<impressions.size();i++) {
-					System.out.println(impressions.size()-i+" - "+impressions.get(impressions.size()-i).getNumImpression()+" - "+impressions.get(impressions.size()-i).getPathImpression()+"("+nbTaken.get(impressions.size()-i)+")");
-			}
-			return;
+					System.out.println(impressions.size()+1-i+" - Impression n°"+impressions.get(impressions.size()-1-i).getNumImpression()+" - "+impressions.get(impressions.size()-1-i).getPathImpression()+"("+nbTaken.get(impressions.size()-1-i)+")");
+			}System.out.println("1 - Valider la commande\n"
+							+ 	"0 - Retour au menu principal\n");
+		} else {
+			for(int i=0; i<impressions.size();i++) {
+				System.out.println(impressions.size()-i+" - Impression n°"+impressions.get(impressions.size()-1-i).getNumImpression()+" - "+impressions.get(impressions.size()-1-i).getPathImpression()+"("+nbTaken.get(impressions.size()-1-i)+")");
+			}System.out.println("0 - Retour au menu principal\n");
+		}
 	}
 
 	private void visualiserDetailsCommande() {
@@ -359,8 +421,8 @@ public class Client extends TypeUtilisateur {
 							}else {
 								jourToMod.setPathImpression(path);
 								jourToMod.setPhotos(photos);
-								CRUDInterface<Jour> jourInterface = _GlobalControler.getJourControler();
-								jourInterface.update(jourToMod);
+								//CRUDInterface<Jour> jourInterface = _GlobalControler.getJourControler();
+								//jourInterface.update(jourToMod);
 							}
 					case 4 : path = LectureClavier.lireChaine("Veuillez renseigner le chemin de l'agenda Jours :\n"); break;
 					case 3 : photos = RetirerPhoto(photos, false, true, true); break;
@@ -381,14 +443,14 @@ public class Client extends TypeUtilisateur {
 		if(prefix)
 		{
 			for(int i=0; i<clientJours.size();i++) {
-				System.out.println(clientJours.size()-i+" - "+clientJours.get(clientJours.size()-i).getNumImpression()+" - "+clientJours.get(clientJours.size()-i).getPathImpression());
+				System.out.println(clientJours.size()-i+" - "+clientJours.get(clientJours.size()-1-i).getNumImpression()+" - "+clientJours.get(clientJours.size()-1-i).getPathImpression());
 			}
 			return;
 		}
 		else 
 		{
 			for(int i=0; i<clientJours.size();i++) {
-				System.out.println(clientJours.get(clientJours.size()-i).getNumImpression()+" - "+clientJours.get(clientJours.size()-i).getPathImpression());
+				System.out.println(clientJours.get(clientJours.size()-1-i).getNumImpression()+" - "+clientJours.get(clientJours.size()-1-i).getPathImpression());
 			}
 			return;
 		}
@@ -433,9 +495,9 @@ public class Client extends TypeUtilisateur {
 					default : General.erreurDeChoix(); break;
 				}
 			}
-			CRUDInterface<Jour> joursControler = _GlobalControler.getJoursControler();
-			Jour toCreate = new Jour(0, path, 365);
-			joursControler.create(toCreate);
+			Jour toCreate = new Jour(0, path, this.clientActuel, false, 365, qualite, format);
+			//CRUDInterface<Jour> joursControler = _GlobalControler.getJoursControler();
+			//joursControler.create(toCreate);
 			System.out.println("Agenda Jour enregistré. \n");
 			return true;
 		}else
@@ -518,8 +580,8 @@ public class Client extends TypeUtilisateur {
 							}else {
 								muralToMod.setPathImpression(path);
 								muralToMod.setPhotos(photos);
-								CRUDInterface<Mural> jourInterface = _GlobalControler.getMuralControler();
-								jourInterface.update(muralToMod);
+								//CRUDInterface<Mural> jourInterface = _GlobalControler.getMuralControler();
+								//jourInterface.update(muralToMod);
 							}
 					case 4 : path = LectureClavier.lireChaine("Veuillez renseigner le chemin du calendrier mural :\n"); break;
 					case 3 : photos = RetirerPhoto(photos, false, true, true); break;
@@ -579,9 +641,9 @@ public class Client extends TypeUtilisateur {
 					default : General.erreurDeChoix(); break;
 				}
 			}
-			Mural toCreate = new Mural(0, path);
-			CRUDInterface<Mural> muralControler = _GlobalControler.getMuralControler();
-			muralControler.create(toCreate);
+			Mural toCreate = new Mural(0, path, clientActuel, false, qualite, format);
+			//CRUDInterface<Mural> muralControler = _GlobalControler.getMuralControler();
+			//muralControler.create(toCreate);
 			System.out.println("calendrier mural enregistré. \n");
 			return true;
 		}else
@@ -792,9 +854,9 @@ public class Client extends TypeUtilisateur {
 					default : General.erreurDeChoix(); break;
 				}
 			}
-			Tirage toCreate = new Tirage(0, path, qualite, format);
-			CRUDInterface<Tirage> tirageControler = _GlobalControler.getTirageControler();
-			tirageControler.create(toCreate);
+			Tirage toCreate = new Tirage(0, path, clientActuel, false, qualite, format);
+			//CRUDInterface<Tirage> tirageControler = _GlobalControler.getTirageControler();
+			//tirageControler.create(toCreate);
 			System.out.println("tirage enregistré. \n");
 			return true;
 		}else
@@ -930,42 +992,42 @@ public class Client extends TypeUtilisateur {
 		if(prefix&&toConcat)
 		{
 			for(int i=0; i<photos.size();i++) {
-				System.out.println(photos.size()-i+" - "+photos.get(photos.size()-i).getGenerique().getIdPhoto()+" - nombre d'exemplaires : "+photos.get(photos.size()-i).getNumero());
+				System.out.println(photos.size()-i+" - "+photos.get(photos.size()-1-i).getGenerique().getIdPhoto()+" - nombre d'exemplaires : "+photos.get(photos.size()-1-i).getNumero());
 			}
 			return;
 		}
 		if(prefix)
 		{
 			for(int i=0; i<photos.size();i++) {
-				System.out.println(photos.size()-i+" - "+photos.get(photos.size()-i).getGenerique().getIdPhoto());
+				System.out.println(photos.size()-i+" - "+photos.get(photos.size()-1-i).getGenerique().getIdPhoto());
 			}
 			return;
 		}
 		if(prefix&&asPages)
 		{
 			for(int i=0; i<photos.size();i++) {
-				System.out.println(photos.size()-i+" - Page "+photos.get(photos.size()-i).getNumero()+" - "+photos.get(photos.size()-i).getGenerique().getIdPhoto());
+				System.out.println(photos.size()-i+" - Page "+photos.get(photos.size()-1-i).getNumero()+" - "+photos.get(photos.size()-1-i).getGenerique().getIdPhoto());
 				}
 			return;
 		}
 		if(toConcat)
 		{
 			for(int i=0; i<photos.size();i++) {
-				System.out.println(photos.get(photos.size()-i).getGenerique().getIdPhoto()+" - nombre d'exemplaires : "+photos.get(photos.size()-i).getNumero());
+				System.out.println(photos.get(photos.size()-1-i).getGenerique().getIdPhoto()+" - nombre d'exemplaires : "+photos.get(photos.size()-1-i).getNumero());
 			}
 			return;
 		}
 		if(asPages)
 		{
 			for(int i=0; i<photos.size();i++) {
-				System.out.println("Page "+photos.get(photos.size()-i).getNumero()+" - "+photos.get(photos.size()-i).getGenerique().getIdPhoto());
+				System.out.println("Page "+photos.get(photos.size()-1-i).getNumero()+" - "+photos.get(photos.size()-1-i).getGenerique().getIdPhoto());
 			}
 			return;
 		}
 		else 
 		{
 			for(int i=0; i<photos.size();i++) {
-				System.out.println(photos.get(photos.size()-i).getGenerique().getIdPhoto());
+				System.out.println(photos.get(photos.size()-1-i).getGenerique().getIdPhoto());
 			}
 			return;
 		}

@@ -1,34 +1,15 @@
-<<<<<<< HEAD
-package init;
-import serviceBD.*;
-import affichage.*;
-
-import java.sql.SQLException;
-
-public class Run {
-	public static void main(String args[]) {
-		InteractionSystem.run();
-		
-		BuildReq br = new BuildReq();
-		String req = br.insert("COMMANDE","2O19-01-28", "ADRESSE", "EN COURS", "10", "NULL", "LEOBELLO.WD@GMAIL.COM", "10.50");
-		System.out.println(req);
-		
-	}
-=======
 package init;
 import BDD.Client;
 import BDD.CodePromo;
 import BDD.Commande;
 import Controler.CommandeControler;
+import affichage.InteractionSystem;
 import serviceBD.*;
 
-<<<<<<< HEAD
 import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-=======
->>>>>>> aac3f56b8212432fa35085957d4fc716fda69a7c
 public class Run {
 	public static void main(String args[]) {
 		BD bd = BD.getInstance();
@@ -46,7 +27,7 @@ public class Run {
 			CommandeControler cc = new CommandeControler(st);
 			//cc.create(cmd);
 			cc.read(666);
-
+			InteractionSystem.run();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -56,5 +37,4 @@ public class Run {
 		System.out.println(req);
 		*/
 	}
->>>>>>> master
 }

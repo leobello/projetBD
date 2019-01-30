@@ -12,8 +12,6 @@ import serviceBD.LectureClavier;
 
 public class Gestionnaire extends TypeUtilisateur {
 
-	private Commande commande;
-
 	public void run() {
 		int reponse;
 		while(true) 
@@ -105,23 +103,21 @@ public class Gestionnaire extends TypeUtilisateur {
 	private void majCommande() {
 		while(true) 
 		{
-			System.out.println(	"/****************** Mise à jour d'une commande ******************/\n"
-							+ 	"Quelle commande souhaitez-vous mettre à jour?\n");
-			this.commande = choixCommandeAMaj();
-			if(this.commande == null) 
+			System.out.println(	"/****************** Envoi d'une commande ******************/\n"
+							+ 	"Quelle commande souhaitez-vous envoyer?\n");
+			Commande commande = choixCommandeAMaj();
+			if(commande == null) 
 			{
 				return;
 			} 
-			else 
-			{
-				/*Vérification nécessaire de l'état de la commande, 
-				 * si elle est "Prête à l'envoi" ne proposer que "Mettre la commande en état 'Envoyé' et 'En Cours'"*/
-			}
-			String choix = validationEtatCommandeAMaj(this.commande);
+			String choix = validationEtatCommandeAMaj(commande);
 			switch(choix) 
 			{
-				case "E" : /*Requête de maj de la commande choisie à l'état Envoyé*/
-						System.out.println("La commande n°"+this.commande.getNumCommande()+" à été envoyée\n");
+				case "E" :
+						commande.setStatutCommande("Envoyée");
+						//_GlobalControler<Commande> commandeControler = _GlobalControler.getCommandeControler();
+						//commandeControler.update(commande);
+						System.out.println("La commande n°"+commande.getNumCommande()+" à été envoyée\n");
 						break;
 				case "return" : break;
 				case "returnMenu" : return;
@@ -130,7 +126,7 @@ public class Gestionnaire extends TypeUtilisateur {
 	}
 
 	private String validationEtatCommandeAMaj(Commande commande) {
-		int reponse;
+		int reponse = -1;
 		while(true) {
 			System.out.println("Voulez-vous vraiment envoyer la commande n°"+commande.getNumCommande()+" ?\n\n"
 							+	"2 - Envoyer\n\n"
@@ -150,9 +146,9 @@ public class Gestionnaire extends TypeUtilisateur {
 	private Commande choixCommandeAMaj() {
 		int reponse = -1;
 		ArrayList<Commande> commandes = new ArrayList<Commande>();
-		commandes.add(new Commande(new Date(new Timestamp(System.currentTimeMillis()).getTime()), "Domicile", "Prête à l'envoi", 51478, 10));
-		commandes.add(new Commande(new Date(new Timestamp(System.currentTimeMillis()).getTime()), "En retrait", "Prête à l'envoi", 69854, 10));
-		/*requête des différentes commandes dans l'état "En cours" et "Prête à l'envoi"*/
+		commandes.add(new Commande(General.getDateNow(), "Domicile", "Prête à l'envoi", 51478, 10));
+		commandes.add(new Commande(General.getDateNow(), "En retrait", "Prête à l'envoi", 69854, 10));
+		/*requête des différentes commandes dans l'état "Prête à l'envoi"*/
 		commandesToString(commandes);
 		reponse = LectureClavier.lireEntier("\nChoix :");
 		for(int num = 0; num<commandes.size(); num++) {
@@ -166,7 +162,7 @@ public class Gestionnaire extends TypeUtilisateur {
 
 	private void commandesToString(ArrayList<Commande> commandes) {
 		for(int i=0; i<commandes.size(); i++) {
-			System.out.println(commandes.size()-i+" - Commande n°"+commandes.get(commandes.size()-i).getNumCommande()+" - Etat = "+commandes.get(commandes.size()-i).getStatutCommande()+"\n");
+			System.out.println(commandes.size()-i+" - Commande n°"+commandes.get(commandes.size()-1-i).getNumCommande()+" - Etat = "+commandes.get(commandes.size()-1-i).getStatutCommande()+"\n");
 		}
 		System.out.println( 	"\n0 - Retour au menu principal\n");
 	}
@@ -176,7 +172,7 @@ public class Gestionnaire extends TypeUtilisateur {
 		while(true) {
 			System.out.println(	"/********************* Mise à jour du stock *********************/\n"
 							+ 	"Quel élément du stock voulez-vous mettre à jour?\n"
-							+ 	"7 - Cadre"
+							+ 	"7 - Cadre\n"
 							+ 	"6 - Tirage\n"
 							+ 	"5 - Album\n"
 							+ 	"4 - Calendrier Muraux\n"
@@ -236,8 +232,8 @@ public class Gestionnaire extends TypeUtilisateur {
 				case 0 : return false;
 				default : General.erreurDeChoix(); break;
 			}
-			GestionStock stockControl = new GestionStock();
-			stockControl.incrStock(nombreMaj, element, qualite, format);
+			//GestionStock stockControl = new GestionStock();
+			//stockControl.incrStock(nombreMaj, element, qualite, format);
 			System.out.println( nombreMaj+" exemplaires ont étés ajoutés au stock de "+element+" format "+format+" en qualité "+qualite+".\n");
 		}
 	}
@@ -257,7 +253,9 @@ public class Gestionnaire extends TypeUtilisateur {
 					Impression impression = impressions.get(num);
 					String choix = faireImpression(impression);
 					if(choix.equals("V")) {
-						/*Requête de mise à jour d'une impression avec mise à jour de la commande si nécessaire.*/
+						impression.setImpression_ok(true);
+						//_GlobalControler<Impression> impressionControler = _GlobalControler.getImpressionControler();
+						// impressionControler.update(impression);
 						System.out.println("L'impression n° "+impression.getNumImpression()+" à été réalisée.");
 					}else if(choix.equals("returnMenu")) {
 						return;
@@ -289,7 +287,7 @@ public class Gestionnaire extends TypeUtilisateur {
 
 	private void impressionsToString(ArrayList<Impression> impressions) {
 		for(int i=0; i<impressions.size(); i++) {
-			System.out.println(impressions.size()-i+" - Impression n°"+impressions.get(impressions.size()-i).getNumImpression()+"\n");
+			System.out.println(impressions.size()-i+" - Impression n°"+impressions.get(impressions.size()-1-i).getNumImpression());
 		}
 		System.out.println( 	"\n0 - Retour au menu principal\n");
 	}
@@ -301,7 +299,7 @@ public class Gestionnaire extends TypeUtilisateur {
 			System.out.println(	"/**************** Suppression d'un fichier image ****************/\n"
 							+ 	"Voici les fichiers images effacables...\n");
 			ArrayList<FichierImage> fichiersImage = new ArrayList<FichierImage>();
-			/*Requête des impressions en attente de réalisation*/FichierImage fi = new FichierImage("512587/photo/vacance.png", "", "", 0, new Date(new Timestamp(System.currentTimeMillis()).getTime())); fi.setProprietaire(new Client("louisreynaud26@gmail.com", "Reynaud", "Louis", "MotDePasse"));fichiersImage.add(fi); fichiersImage.add(fi);
+			/*Requête des impressions en attente de réalisation*/FichierImage fi = new FichierImage("512587/photo/vacance.png", "", "", 0, General.getDateNow()); fi.setProprietaire(new Client("louisreynaud26@gmail.com", "Reynaud", "Louis", "MotDePasse"));fichiersImage.add(fi); fichiersImage.add(fi);
 			fichiersImageToString(fichiersImage);
 			reponse = LectureClavier.lireEntier("\nChoix :");
 			for(int num = 0; num<=fichiersImage.size(); num++) {
@@ -309,7 +307,8 @@ public class Gestionnaire extends TypeUtilisateur {
 					FichierImage fichierImage = fichiersImage.get(num);
 					String choix = validerEffacerFichierImage(fichierImage);
 					if(choix.equals("V")) {
-						/*Requête de suppression d'un fichier image avec retour différent si il est effacé ou mis en attente*/
+						//CRUDInterface<FichierImage> fiControler = _GlobalControler.getFichierControler();
+						//fiControler.delete(fichierImage.getPath(), fichierImage.getProprietaire().getMailClient());
 						System.out.println("Le fichier image n° "+fichierImage.getPath()+" à été effacé.");
 					}else if(choix.equals("returnMenu")) {
 						return;
@@ -340,11 +339,11 @@ public class Gestionnaire extends TypeUtilisateur {
 	}
 
 	private void fichiersImageToString(ArrayList<FichierImage> fichiersImage) {
-		System.out.println(	"2 - fichier Image : "+fichiersImage.get(1).getPath()+" - Client Louis REYNAUD\n"
+		/*System.out.println(	"2 - fichier Image : "+fichiersImage.get(1).getPath()+" - Client Louis REYNAUD\n"
 						+ 	"1 - fichier Image : "+fichiersImage.get(0).getPath()+"- Client Louis REYNAUD\n\n"
-						+ 	"0 - Retour au menu principal");
+						+ 	"0 - Retour au menu principal");*/
 		for(int i=0; i<fichiersImage.size(); i++) {
-			System.out.println(fichiersImage.size()-i+" - fichier Image : "+fichiersImage.get(fichiersImage.size()-i).getPath()+" - Propriétaire : "+fichiersImage.get(fichiersImage.size()-i).getProprietaire(). getMailClient()+"\n");
+			System.out.println(fichiersImage.size()-i+" - fichier Image : "+fichiersImage.get(fichiersImage.size()-1-i).getPath()+" - Propriétaire : "+fichiersImage.get(fichiersImage.size()-1-i).getProprietaire(). getMailClient());
 		}
 		System.out.println( 	"\n0 - Retour au menu principal\n");
 	}
@@ -365,7 +364,8 @@ public class Gestionnaire extends TypeUtilisateur {
 					BDD.Client client = clients.get(num);
 					String choix = validerEffacerClient(client);
 					if(choix.equals("V")) {
-						/*Requête de suppression d'un client et de ses fichiers image supprimables*/
+						//ClientInterface clientControler = _GlobalControler.getClientControler();
+						//fiControler.delete(.getPath(), fichierImage.getProprietaire().getMailClient());
 						System.out.println("Le client "+client.getMailClient()+" à été désactivé.");
 					}else if(choix.equals("returnMenu")) {
 						return;
@@ -396,11 +396,11 @@ public class Gestionnaire extends TypeUtilisateur {
 	}
 
 	private void clientsToString(ArrayList<Client> clients) {
-		System.out.println(	"2 - Client : "+clients.get(1).getMailClient()+" - Nom : Louis REYNAUD\n"
+		/*System.out.println(	"2 - Client : "+clients.get(1).getMailClient()+" - Nom : Louis REYNAUD\n"
 				+ 	"1 - Client : "+clients.get(0).getMailClient()+"- Nom : Louis REYNAUD\n\n"
-				+ 	"0 - Retour au menu principal");
+				+ 	"0 - Retour au menu principal");*/
 		for(int i=0; i<clients.size(); i++) {
-			System.out.println(clients.size()-i+" - Client : "+clients.get(clients.size()-i).getMailClient()+" - Nom : "+clients.get(clients.size()-i).getNom()+" "+clients.get(clients.size()-i).getPrenom()+"\n");
+			System.out.println(clients.size()-i+" - Client : "+clients.get(clients.size()-1-i).getMailClient()+" - Nom : "+clients.get(clients.size()-1-i).getNom()+" "+clients.get(clients.size()-1-i).getPrenom());
 		}
 		System.out.println( 	"\n0 - Retour au menu principal\n");
 		
