@@ -1,6 +1,5 @@
 import java.sql.SQLException;
 
-import BDD.Adresse;
 import BDD.Stock;
 import Controler._GlobalControler;
 
@@ -18,7 +17,7 @@ public class Test {
 		boolean testCreate = myGlobalControler.getAdresseControler().create(createTest);
 		System.out.println(testCreate);*/
 		
-		Stock stock = myGlobalControler.getStockControler().readStock("BUREAU", "SUPERIEURE", "A5");
+		Stock stock = _GlobalControler.getStockControler().readStock("BUREAU", "SUPERIEURE", "A5");
 		
 		System.out.println(stock.getQuantiteStock());
 

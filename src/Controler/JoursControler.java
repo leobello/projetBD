@@ -10,7 +10,7 @@ public class JoursControler implements CRUDInterface<Jour>{
 	private static Statement stmt;
 
 	public JoursControler(Statement stmt) {
-		this.stmt = stmt;
+		JoursControler.stmt = stmt;
 	}
 
 	@Override

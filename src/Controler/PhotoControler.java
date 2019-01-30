@@ -10,7 +10,7 @@ public class PhotoControler implements CRUDInterface<Photo> {
 	private static Statement stmt;
 
 	public PhotoControler(Statement stmt) {
-		this.stmt = stmt;
+		PhotoControler.stmt = stmt;
 	}
 
 	@Override

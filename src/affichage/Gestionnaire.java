@@ -8,6 +8,7 @@ public class Gestionnaire extends TypeUtilisateur {
 
 	private Object commande;
 
+	@Override
 	public void run() {
 		int reponse;
 		while(true) 

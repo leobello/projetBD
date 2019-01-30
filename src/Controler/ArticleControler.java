@@ -10,7 +10,7 @@ public class ArticleControler implements CRUDInterface<Article>{
 	private static Statement stmt;
 
 	public ArticleControler(Statement stmt) {
-		this.stmt = stmt;
+		ArticleControler.stmt = stmt;
 	}
 
 	@Override

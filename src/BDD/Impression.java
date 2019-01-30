@@ -2,7 +2,6 @@ package BDD;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.List;
 
 public class Impression {
 	
@@ -12,7 +11,7 @@ public class Impression {
 	private String pathImpression;
 	private Client client;
 	private String qualite;
-	private String format;
+	private String format;                                                                                                   
 	private boolean impression_ok;
 	private List<Article> articles = new ArrayList<Article>();
 

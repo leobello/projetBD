@@ -15,7 +15,7 @@ public class CommandeControler implements CRUDInterface<Commande>{
 	private static Statement stmt;
 
 	public CommandeControler(Statement stmt) {
-		this.stmt = stmt;
+		CommandeControler.stmt = stmt;
 	}
 
 	@Override

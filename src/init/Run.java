@@ -5,10 +5,13 @@ import BDD.Commande;
 import Controler.CommandeControler;
 import serviceBD.*;
 
+<<<<<<< HEAD
 import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+=======
+>>>>>>> aac3f56b8212432fa35085957d4fc716fda69a7c
 public class Run {
 	public static void main(String args[]) {
 		BD bd = BD.getInstance();

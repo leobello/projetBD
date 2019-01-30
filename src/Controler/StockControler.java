@@ -1,8 +1,6 @@
 package Controler;
 
 import java.sql.ResultSet;
-import java.sql.Statement;
-
 import BDD.CRUDInterface;
 import BDD.Stock;
 import serviceBD.BD;

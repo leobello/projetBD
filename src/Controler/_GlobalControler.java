@@ -1,6 +1,5 @@
 package Controler;
 
-import java.sql.SQLException;
 import java.sql.Statement;
 
 //import java.sql.Connection;
