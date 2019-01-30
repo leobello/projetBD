@@ -18,12 +18,7 @@ public class TirageControler implements CRUDInterface<Tirage> {
 	@Override
 	public boolean create(Tirage tirage) {
 		boolean checkCreate = false;
-		try {
-			//String requete = "INSERT INTO TIRAGE VALUES ("+                
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		//String requete = "INSERT INTO TIRAGE VALUES ("+
 		return false;
 	}
 
