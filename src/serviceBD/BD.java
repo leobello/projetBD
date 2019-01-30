@@ -2,30 +2,48 @@ package serviceBD;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Statement;
+
+import static java.sql.Connection.*;
 
 public class BD {
-	private Connection connexion = null;
-	
-	// initialisation de la BD
-	public void init() {
-		Connexion connexion = new Connexion();
-		//System.out.print("id oracle: ");
-		//LectureClavier.lireChaine();
-		//System.out.print("password oracle: ");
-		//password = LectureClavier.lireChaine();
-		this.connexion = connexion.getConnection();
-		// script de création des tables à ajouter ici
-	}
-	// insertion des tuples dans la BD
-	void insert() {
-		
-	}
-	// drop de toutes les tables
-	void erase() {
-		
-	}
-	// recuper la bd
-	public Connection getConnection() throws SQLException {
-		return null;
-	}
+
+    private static BD bd;    
+    private static Connexion connexion = new Connexion("bellole", "HNear1984");
+
+    private BD() { }
+
+
+    public static BD getInstance() {
+        if(bd == null) {
+            bd = new BD();
+        }
+        return bd;
+    }
+
+    /* niveau d'isolation par défaut d'oracle */
+    public Statement getReadCommittedSTMT () throws SQLException {
+        Connection tmpConnexion = connexion.getConnection();
+        tmpConnexion.setTransactionIsolation(TRANSACTION_READ_COMMITTED);
+        return tmpConnexion.createStatement();
+
+    }
+
+    public Statement getReadUncommittedSTMT () throws SQLException {
+        Connection tmpConnexion = connexion.getConnection();
+        tmpConnexion.setTransactionIsolation(TRANSACTION_READ_UNCOMMITTED);
+        return tmpConnexion.createStatement();
+    }
+
+    public Statement getRepeatableReadSTMT () throws SQLException {
+        Connection tmpConnexion = connexion.getConnection();
+        tmpConnexion.setTransactionIsolation(TRANSACTION_REPEATABLE_READ);
+        return tmpConnexion.createStatement();
+    }
+
+    public Statement getSerializableSTMT () throws SQLException {
+        Connection tmpConnexion = connexion.getConnection();
+        tmpConnexion.setTransactionIsolation(TRANSACTION_SERIALIZABLE);
+        return tmpConnexion.createStatement();
+    }
 }
