@@ -1,21 +1,20 @@
 package Controler;
 
-import java.sql.ResultSet;
 import java.sql.Statement;
 
 import BDD.Article;
 import BDD.CRUDInterface;
-import serviceBD.BD;
 
 public class ArticleControler implements CRUDInterface<Article>{
 	private Article article;
-	private BD bd;
+	private static Statement stmt;
 
-	public ArticleControler(BD bd) {
-		this.bd = bd;
+	public ArticleControler(Statement stmt) {
+		this.stmt = stmt;
 	}
 
 	@Override
+<<<<<<< HEAD
 	public boolean create(Article article) {
 		boolean checkCreate = false;
 		int insertOk = 0;
@@ -35,21 +34,16 @@ public class ArticleControler implements CRUDInterface<Article>{
 			e.printStackTrace();
 		}
 		return checkCreate;
+=======
+	public boolean create(Article object) {
+		// TODO Auto-generated method stub
+		return false;
+>>>>>>> parent of 0f5b4bb... changes
 	}
 
 	@Override
 	public Article read(int identifiant) {
-		try {
-			String requete = "SELECT * FROM ARTICLE WHERE ID_ARTICLE = "+ identifiant;
-			ResultSet rs = this.bd.getReadCommittedSTMT().executeQuery(requete);
-			while (rs.next()) {
-				article = new Article(identifiant, 
-						rs.getFloat("PRIX"), 
-						rs.getInt("QUANTITE"));
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+		// TODO Auto-generated method stub
 		return article;
 	}
 

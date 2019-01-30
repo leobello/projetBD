@@ -1,5 +1,10 @@
 package Controler;
 
+<<<<<<< HEAD
+=======
+import java.sql.Statement;
+
+>>>>>>> parent of 0f5b4bb... changes
 import BDD.CRUDInterface;
 import BDD.Client;
 import serviceBD.BD;

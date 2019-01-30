@@ -10,7 +10,11 @@ public class ImpressionControler implements CRUDInterface<Impression> {
 	private static Statement stmt;
 
 	public ImpressionControler(Statement stmt) {
+<<<<<<< HEAD
 		ImpressionControler.stmt = stmt;
+=======
+		this.stmt = stmt;
+>>>>>>> parent of 0f5b4bb... changes
 	}
 
 	@Override

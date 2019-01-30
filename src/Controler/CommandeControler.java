@@ -15,21 +15,32 @@ public class CommandeControler implements CRUDInterface<Commande>{
 	private static Statement stmt;
 
 	public CommandeControler(Statement stmt) {
+<<<<<<< HEAD
 		CommandeControler.stmt = stmt;
+=======
+		this.stmt = stmt;
+>>>>>>> parent of 0f5b4bb... changes
 	}
 
 	@Override
 	public boolean create(Commande object) {
 		BuildReq br = new BuildReq();
 		ResultSet rs;
+<<<<<<< HEAD
 		String cp = (object.getCodePromo() == null) ? "NULL" : object.getCodePromo().getCode();
+=======
+>>>>>>> parent of 0f5b4bb... changes
 		//String req = br.insert("COMMANDE","2O19-01-28", "ADRESSE", "EN COURS", "10", "NULL", "LEOBELLO.WD@GMAIL.COM", "10");
 		String req = br.insert("COMMANDE",
 				object.getDate().toString(),
 				object.getModeLivraison(),
 				object.getStatutCommande(),
 				String.valueOf(object.getNumCommande()),
+<<<<<<< HEAD
 				cp,
+=======
+				object.getCodePromo().getCode(),
+>>>>>>> parent of 0f5b4bb... changes
 				object.getClient().getMailClient(),
 				String.valueOf(object.getMontant()));
 		try {
