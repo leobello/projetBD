@@ -9,7 +9,7 @@ public class Commande {
 	private String modeLivraison;
 	private String statutCommande;
 	private int numCommande;
-	private float montant;
+	private float prixTotal;
 	private CodePromo codePromo;
 	private Client client;
 
@@ -21,7 +21,7 @@ public class Commande {
 		this.modeLivraison = modeLivraison;
 		this.statutCommande = statutCommande;
 		this.numCommande = numCommande;
-		this.montant = montant;
+		this.prixTotal = montant;
 	}
 
 	public Date getDate() {
@@ -57,7 +57,7 @@ public class Commande {
 	}
 
 	public void setMontant(float montant) {
-		this.montant = montant;
+		this.prixTotal = montant;
 	}
 
 	public List<Adresse> getCommandeAdresse() {
@@ -101,7 +101,7 @@ public class Commande {
 	}
 
 	public float getMontant() {
-		return montant;
+		return prixTotal;
 	}
 
 	public void ajouterDansAdresses(Adresse adresse) {
@@ -128,5 +128,13 @@ public class Commande {
 
 	public Article getArticle(int i) {
 		return articles.get(i);
+	}
+
+	public float getPrixTotal() {
+		return prixTotal;
+	}
+
+	public void setPrixTotal(float prixTotal) {
+		this.prixTotal = prixTotal;
 	}
 }

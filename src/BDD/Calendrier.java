@@ -5,9 +5,9 @@ import java.util.List;
 
 public class Calendrier extends Impression {
 	private List<Couple<Photo>> photos = new ArrayList<Couple<Photo>>();
-
-	public Calendrier(int numImpression, String pathImpression) {
-		super(numImpression, pathImpression);
+	
+	public Calendrier(int numImpression, String pathImpression, Client client, boolean Impression_ok, String qualite, String format) {
+		super(numImpression, pathImpression, client, Impression_ok, qualite, format);
 	}
 
 	public List<Couple<Photo>> getPhotos() {

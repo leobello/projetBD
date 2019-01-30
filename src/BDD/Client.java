@@ -8,6 +8,8 @@ public class Client {
 	private String nom;
 	private String prenom;
 	private String motDePasse;
+	private boolean actif;
+	private List<Impression> impressions = new ArrayList<Impression>();
 	private List<FichierImage> fichierImages = new ArrayList<FichierImage>();
 	private List<Adresse> adresses = new ArrayList<Adresse>();
 	private List<CodePromo> codePromos = new ArrayList<CodePromo>();
@@ -17,6 +19,7 @@ public class Client {
 		this.nom = nom;
 		this.prenom = prenom;
 		this.motDePasse = motDePasse;
+		this.actif = true;
 	}
 
 	public String getMailClient() {
@@ -109,6 +112,26 @@ public class Client {
 
 	public CodePromo getCodePromo(int i) {
 		return codePromos.get(i);
+	}
+
+	public boolean isActif() {
+		return actif;
+	}
+
+	public void setActif(boolean actif) {
+		this.actif = actif;
+	}
+
+	public List<Impression> getImpressions() {
+		return impressions;
+	}
+
+	public void setImpressions(List<Impression> impressions) {
+		this.impressions = impressions;
+	}
+	
+	public Impression getImpression(int i){
+		return impressions.get(i);
 	}
 
 }
