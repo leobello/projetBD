@@ -133,9 +133,9 @@ public class Client extends TypeUtilisateur {
 		/*Requête des impressions appartenant aux clients.*/
 			//EN ATTENDANT
 			ArrayList<Impression> impressions = new ArrayList<Impression>();
-			Impression imp1 = new Tirage(0, "imp1", "SUPERIEUR", "A4");
-			Impression imp2 = new Tirage(1, "imp2", "MOYENNE", "A4");
-			Impression imp3 = new Tirage(2, "imp3", "SUPERIEUR", "A5");
+			Impression imp1 = new Tirage(0, "imp1", this.clientActuel, false,"SUPERIEUR", "A4");
+			Impression imp2 = new Tirage(1, "imp2", this.clientActuel, false,"MOYENNE", "A4");
+			Impression imp3 = new Tirage(2, "imp3", this.clientActuel, false,"SUPERIEUR", "A5");
 			impressions.add(imp1);impressions.add(imp2);impressions.add(imp3);
 		ArrayList<Integer> nbTaken = new ArrayList<Integer>();
 		for(int i =0; i<impressions.size(); i++) {
