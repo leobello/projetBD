@@ -1,27 +1,55 @@
 package Controler;
 
+import java.sql.ResultSet;
 import java.sql.Statement;
 
 import BDD.Article;
 import BDD.CRUDInterface;
+import serviceBD.BD;
 
 public class ArticleControler implements CRUDInterface<Article>{
 	private Article article;
-	private static Statement stmt;
+	private BD bd;
 
-	public ArticleControler(Statement stmt) {
-		ArticleControler.stmt = stmt;
+	public ArticleControler(BD bd) {
+		this.bd = bd;
 	}
 
 	@Override
-	public boolean create(Article object) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean create(Article article) {
+		boolean checkCreate = false;
+		int insertOk = 0;
+		try {
+			String requete = "INSERT INTO ARTICLE VALUES ( ARTICLES_SEQ.NEXTVALUE"+
+					article.getIdArticle()+ ","+
+					article.getCommande()+","+
+					article.getPrix()+","+
+					article.getQuantite()+","+
+					article.getImpression();
+			insertOk = this.bd.getReadCommittedSTMT().executeUpdate(requete);
+			if (insertOk >0) {
+				checkCreate = true;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return checkCreate;
 	}
 
 	@Override
 	public Article read(int identifiant) {
-		// TODO Auto-generated method stub
+		try {
+			String requete = "SELECT * FROM ARTICLE WHERE ID_ARTICLE = "+ identifiant;
+			ResultSet rs = this.bd.getReadCommittedSTMT().executeQuery(requete);
+			while (rs.next()) {
+				article = new Article(identifiant, 
+						rs.getFloat("PRIX"), 
+						rs.getInt("QUANTITE"));
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		return article;
 	}
 
