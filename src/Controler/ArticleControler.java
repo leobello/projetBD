@@ -11,7 +11,7 @@ import serviceBD.BuildReq;
 
 public class ArticleControler implements CRUDInterface<Article>{
 	private Article article;
-	private static Statement stmt;
+	private Statement stmt;
 
 	public ArticleControler(BD bd) {
 		try {
@@ -41,6 +41,17 @@ public class ArticleControler implements CRUDInterface<Article>{
 	public Article read(int identifiant) {
 
 		// TODO Auto-generated method stub
+		try {
+			String requete = "SELECT * FROM ARTICLE WHERE ID_ARTICLE = "+ identifiant;
+			ResultSet rs = stmt.executeQuery(requete);
+			while (rs.next()) {
+				article = new Article(identifiant, 
+						rs.getFloat("PRIX"), 
+						rs.getInt("QUANTITE"));
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		return article;
 	}
 
