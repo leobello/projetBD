@@ -1,5 +1,7 @@
 package affichage;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import BDD.*;
@@ -146,27 +148,25 @@ public class Gestionnaire extends TypeUtilisateur {
 	private Commande choixCommandeAMaj() {
 		int reponse = -1;
 		ArrayList<Commande> commandes = new ArrayList<Commande>();
-		commandes.add(new Commande());
+		commandes.add(new Commande(new Date(new Timestamp(System.currentTimeMillis()).getTime()), "Domicile", "Prête à l'envoi", 51478, 10));
+		commandes.add(new Commande(new Date(new Timestamp(System.currentTimeMillis()).getTime()), "En retrait", "Prête à l'envoi", 69854, 10));
 		/*requête des différentes commandes dans l'état "En cours" et "Prête à l'envoi"*/
 		commandesToString(commandes);
 		reponse = LectureClavier.lireEntier("\nChoix :");
 		for(int num = 0; num<commandes.size(); num++) {
-			/*if(reponse-1 == num) {
+			if(reponse-1 == num) {
 				return commandes.get(num);
-			}*/
+			}
 			if(reponse == 0)return null;
-			Commande commande = new Commande();
-			commande.setNumCommande(25894);
-			return commande;
 		}
 		return null;
 	}
 
 	private void commandesToString(ArrayList<Commande> commandes) {
-		// TODO Auto-generated method stub
-		System.out.println(	"2 - Commande n°25894 - Etat = Prête à l'envoi\n"
-						+ 	"1 - Commande n°53886 - Etat = Prête à l'envoi\n\n"
-						+ 	"0 - Retour au menu principal");
+		for(int i=0; i<commandes.size(); i++) {
+			System.out.println(commandes.size()-i+" - Commande n°"+commandes.get(commandes.size()-i).getNumCommande()+" - Etat = "+commandes.get(commandes.size()-i).getStatutCommande()+"\n");
+		}
+		System.out.println( 	"\n0 - Retour au menu principal\n");
 	}
 
 	private void majStock() {
@@ -246,7 +246,7 @@ public class Gestionnaire extends TypeUtilisateur {
 			System.out.println(	"/***************** Réalisation d'une impression *****************/\n"
 							+ 	"Voici les impressions en attente...\n");
 			ArrayList<Impression> impressions = new ArrayList<Impression>();
-			/*Requête des impressions en attente de réalisation*/Impression imp = new Impression(); imp.setNumImpression(25894); impressions.add(imp); impressions.add(imp);
+			/*Requête des impressions en attente de réalisation*/Impression imp = new Impression(25894, "lepathdelimpression"); impressions.add(imp); impressions.add(imp);
 			impressionsToString(impressions);
 			reponse = LectureClavier.lireEntier("\nChoix :");
 			for(int num = 0; num<=impressions.size(); num++) {
@@ -285,9 +285,10 @@ public class Gestionnaire extends TypeUtilisateur {
 	}
 
 	private void impressionsToString(ArrayList<Impression> impressions) {
-		System.out.println(	"2 - Impression n°25894 - Commande n°25874\n"
-						+ 	"1 - Impression n°53886 - Commande n°98536\n\n"
-						+ 	"0 - Retour au menu principal");
+		for(int i=0; i<impressions.size(); i++) {
+			System.out.println(impressions.size()-i+" - Impression n°"+impressions.get(impressions.size()-i).getNumImpression()+"\n");
+		}
+		System.out.println( 	"\n0 - Retour au menu principal\n");
 	}
 
 	private void supprimerFichierImage() {
@@ -297,7 +298,7 @@ public class Gestionnaire extends TypeUtilisateur {
 			System.out.println(	"/**************** Suppression d'un fichier image ****************/\n"
 							+ 	"Voici les fichiers images effacables...\n");
 			ArrayList<FichierImage> fichiersImage = new ArrayList<FichierImage>();
-			/*Requête des impressions en attente de réalisation*/FichierImage fi = new FichierImage("512587/photo/vacance.png", "", "", 0, ""); fi.setPath(); fichiersImage.add(fi); fichiersImage.add(fi);
+			/*Requête des impressions en attente de réalisation*/FichierImage fi = new FichierImage("512587/photo/vacance.png", "", "", 0, new Date(new Timestamp(System.currentTimeMillis()).getTime())); fi.setProprietaire(new Client("louisreynaud26@gmail.com", "Reynaud", "Louis", "MotDePasse"));fichiersImage.add(fi); fichiersImage.add(fi);
 			fichiersImageToString(fichiersImage);
 			reponse = LectureClavier.lireEntier("\nChoix :");
 			for(int num = 0; num<=fichiersImage.size(); num++) {
@@ -339,6 +340,10 @@ public class Gestionnaire extends TypeUtilisateur {
 		System.out.println(	"2 - fichier Image : "+fichiersImage.get(1).getPath()+" - Client Louis REYNAUD\n"
 						+ 	"1 - fichier Image : "+fichiersImage.get(0).getPath()+"- Client Louis REYNAUD\n\n"
 						+ 	"0 - Retour au menu principal");
+		for(int i=0; i<fichiersImage.size(); i++) {
+			System.out.println(fichiersImage.size()-i+" - fichier Image : "+fichiersImage.get(fichiersImage.size()-i).getPath()+" - Propriétaire : "+fichiersImage.get(fichiersImage.size()-i).getProprietaire(). getMailClient()+"\n");
+		}
+		System.out.println( 	"\n0 - Retour au menu principal\n");
 	}
 
 	private void supprimerClient() {
@@ -388,9 +393,13 @@ public class Gestionnaire extends TypeUtilisateur {
 	}
 
 	private void clientsToString(ArrayList<Client> clients) {
-		System.out.println(	"2 - Client : "+clients.get(1).getMailClient()+" - Client Louis REYNAUD\n"
-				+ 	"1 - Client : "+clients.get(0).getMailClient()+"- Client Louis REYNAUD\n\n"
+		System.out.println(	"2 - Client : "+clients.get(1).getMailClient()+" - Nom : Louis REYNAUD\n"
+				+ 	"1 - Client : "+clients.get(0).getMailClient()+"- Nom : Louis REYNAUD\n\n"
 				+ 	"0 - Retour au menu principal");
+		for(int i=0; i<clients.size(); i++) {
+			System.out.println(clients.size()-i+" - Client : "+clients.get(clients.size()-i).getMailClient()+" - Nom : "+clients.get(clients.size()-i).getNom()+" "+clients.get(clients.size()-i).getPrenom()+"\n");
+		}
+		System.out.println( 	"\n0 - Retour au menu principal\n");
 		
 	}
 

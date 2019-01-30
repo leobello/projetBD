@@ -86,6 +86,7 @@ public class Client extends TypeUtilisateur {
 	
 	private void supprimerImpression() {
 		System.out.println("Supprimer une impression\n");
+		
 	}
 
 	private void modifierImpression() {
@@ -118,7 +119,11 @@ public class Client extends TypeUtilisateur {
 	}
 
 	private void supprimerFichierImage() {
-		System.out.println("Supprimer les fichiers images\n");
+		int reponse = -1;
+		boolean flagUp = false;
+		System.out.println("/***************** Suppression d'une commande *****************/\n\n");
+		/*Requête des fichiers images appartenant au client*/
+		fiToString();
 	}
 
 	private void creerCommande() {
@@ -145,7 +150,7 @@ public class Client extends TypeUtilisateur {
 			if(reponse>1 && reponse<impressions.size()) {
 				do {
 					nbTaken.set(reponse-1, LectureClavier.lireEntier("En combien d'exemplaire souhaitez-vous ce produit?\n"));
-				}while(nbTaken.get(reponse-1)>=0);
+				}while(nbTaken.get(reponse-1)<=0);
 			}if(reponse == 0) {
 				return;
 			}if(reponse == 1) {
@@ -169,11 +174,10 @@ public class Client extends TypeUtilisateur {
 				default : General.erreurDeChoix(); break;
 			}
 		}
-		CRUDInterface<Commande> commandeControler = _GlobalControler.getCommandeControler();
 		Couple<ArrayList<Article>> articlesMontant = getMontantArticles(impressions,nbTaken);
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		Date now = new Date(timestamp.getTime());
-		Commande cmd = new Commande(now, modelivraison, "En Cours", commandeControler.getMaxId(),articlesMontant.getNumero());
+		Commande cmd = new Commande(now, modelivraison, "En Cours", 0,articlesMontant.getNumero());
 		cmd.setArticles(articlesMontant.getGenerique());
 		do{
 			System.out.println("Veuillez régler votre commande : "
@@ -185,6 +189,7 @@ public class Client extends TypeUtilisateur {
 				case 0 : return;
 			}
 		}while(!stockSuffisant());
+		CRUDInterface<Commande> commandeControler = _GlobalControler.getCommandeControler();
 		commandeControler.create(cmd);
 	}
 	private boolean stockSuffisant() {
@@ -221,7 +226,7 @@ public class Client extends TypeUtilisateur {
 			}
 			montant+= nbTaken.get(i)*prixU*nbPages;
 			CRUDInterface<Article> articleControler = _GlobalControler.getArticleControler();
-			Article article = new Article(articleControler.getMaxId(), nbTaken.get(i)*prixU*nbPages, nbTaken.get(i));
+			Article article = new Article(0, nbTaken.get(i)*prixU*nbPages, nbTaken.get(i));
 			article.setImpression(impressions.get(i));
 			articles.add(article);
 		}
@@ -230,7 +235,7 @@ public class Client extends TypeUtilisateur {
 
 	private void impressionsToString(ArrayList<Impression> impressions, ArrayList<Integer> nbTaken) {
 			for(int i=0; i<impressions.size();i++) {
-					System.out.println(impressions.size()+1-i+" - "+impressions.get(i).getNumImpression()+" - "+impressions.get(i).getPathImpression()+"("+nbTaken.get(i)+")");
+					System.out.println(impressions.size()-i+" - "+impressions.get(impressions.size()-i).getNumImpression()+" - "+impressions.get(impressions.size()-i).getPathImpression()+"("+nbTaken.get(impressions.size()-i)+")");
 			}
 			return;
 	}
@@ -376,14 +381,14 @@ public class Client extends TypeUtilisateur {
 		if(prefix)
 		{
 			for(int i=0; i<clientJours.size();i++) {
-				System.out.println(clientJours.size()-i+" - "+clientJours.get(i).getNumImpression()+" - "+clientJours.get(i).getPathImpression());
+				System.out.println(clientJours.size()-i+" - "+clientJours.get(clientJours.size()-i).getNumImpression()+" - "+clientJours.get(clientJours.size()-i).getPathImpression());
 			}
 			return;
 		}
 		else 
 		{
 			for(int i=0; i<clientJours.size();i++) {
-				System.out.println(clientJours.get(i).getNumImpression()+" - "+clientJours.get(i).getPathImpression());
+				System.out.println(clientJours.get(clientJours.size()-i).getNumImpression()+" - "+clientJours.get(clientJours.size()-i).getPathImpression());
 			}
 			return;
 		}
@@ -429,13 +434,13 @@ public class Client extends TypeUtilisateur {
 				}
 			}
 			CRUDInterface<Jour> joursControler = _GlobalControler.getJoursControler();
-			Jour toCreate = new Jour(joursControler.getMaxId(), path);
+			Jour toCreate = new Jour(0, path, 365);
 			joursControler.create(toCreate);
 			System.out.println("Agenda Jour enregistré. \n");
 			return true;
 		}else
 		{
-			System.out.println("Attention ce calendrier mural existe déjà, veuillez modifier le chemin.\n");
+			System.out.println("Attention ce Agenda Jour existe déjà, veuillez modifier le chemin.\n");
 		}
 		return false;
 	}
@@ -574,8 +579,8 @@ public class Client extends TypeUtilisateur {
 					default : General.erreurDeChoix(); break;
 				}
 			}
+			Mural toCreate = new Mural(0, path);
 			CRUDInterface<Mural> muralControler = _GlobalControler.getMuralControler();
-			Mural toCreate = new Mural(muralControler.getMaxId(), path);
 			muralControler.create(toCreate);
 			System.out.println("calendrier mural enregistré. \n");
 			return true;
@@ -787,8 +792,8 @@ public class Client extends TypeUtilisateur {
 					default : General.erreurDeChoix(); break;
 				}
 			}
+			Tirage toCreate = new Tirage(0, path, qualite, format);
 			CRUDInterface<Tirage> tirageControler = _GlobalControler.getTirageControler();
-			Tirage toCreate = new Tirage(tirageControler.getMaxId(), path);
 			tirageControler.create(toCreate);
 			System.out.println("tirage enregistré. \n");
 			return true;
@@ -921,46 +926,46 @@ public class Client extends TypeUtilisateur {
 	}
 
 	private void ImpressionPhotosToString(ArrayList<Couple<Photo>> photos, boolean toConcat , boolean asPages, boolean prefix) {
-		//Pas spécialement important de sort mais si j'ai le temps je ferais un affichage plus léché.
+		//Pas spécialement important de sort mais si j'ai le temps je ferais un meilleur affichage
 		if(prefix&&toConcat)
 		{
 			for(int i=0; i<photos.size();i++) {
-				System.out.println(photos.size()-i+" - "+photos.get(i).getGenerique().getIdPhoto()+" - nombre d'exemplaires : "+photos.get(i).getNumero());
+				System.out.println(photos.size()-i+" - "+photos.get(photos.size()-i).getGenerique().getIdPhoto()+" - nombre d'exemplaires : "+photos.get(photos.size()-i).getNumero());
 			}
 			return;
 		}
 		if(prefix)
 		{
 			for(int i=0; i<photos.size();i++) {
-				System.out.println(photos.size()-i+" - "+photos.get(i).getGenerique().getIdPhoto());
+				System.out.println(photos.size()-i+" - "+photos.get(photos.size()-i).getGenerique().getIdPhoto());
 			}
 			return;
 		}
 		if(prefix&&asPages)
 		{
 			for(int i=0; i<photos.size();i++) {
-				System.out.println(photos.size()-i+" - Page "+photos.get(i).getNumero()+" - "+photos.get(i).getGenerique().getIdPhoto());
+				System.out.println(photos.size()-i+" - Page "+photos.get(photos.size()-i).getNumero()+" - "+photos.get(photos.size()-i).getGenerique().getIdPhoto());
 				}
 			return;
 		}
 		if(toConcat)
 		{
 			for(int i=0; i<photos.size();i++) {
-				System.out.println(photos.get(i).getGenerique().getIdPhoto()+" - nombre d'exemplaires : "+photos.get(i).getNumero());
+				System.out.println(photos.get(photos.size()-i).getGenerique().getIdPhoto()+" - nombre d'exemplaires : "+photos.get(photos.size()-i).getNumero());
 			}
 			return;
 		}
 		if(asPages)
 		{
 			for(int i=0; i<photos.size();i++) {
-				System.out.println("Page "+photos.get(i).getNumero()+" - "+photos.get(i).getGenerique().getIdPhoto());
+				System.out.println("Page "+photos.get(photos.size()-i).getNumero()+" - "+photos.get(photos.size()-i).getGenerique().getIdPhoto());
 			}
 			return;
 		}
 		else 
 		{
 			for(int i=0; i<photos.size();i++) {
-				System.out.println(photos.get(i).getGenerique().getIdPhoto());
+				System.out.println(photos.get(photos.size()-i).getGenerique().getIdPhoto());
 			}
 			return;
 		}
