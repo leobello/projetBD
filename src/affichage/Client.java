@@ -6,6 +6,7 @@ import java.util.*;
 
 import BDD.*;
 import Controler.*;
+import serviceBD.GestionStock;
 import serviceBD.LectureClavier;
 
 public class Client extends TypeUtilisateur {
@@ -31,16 +32,16 @@ public class Client extends TypeUtilisateur {
 			System.out.println("Que souhaitez vous faire?\n");
 			if(this.connecte) {
 				System.out.println(	"/*************     Gestion des commandes     *************/\n"
-								+ 	"11 - Visualiser les détails d'une commande\n"
+								+ 	"11 - Visualiser les détails d'une commande (Work in progress)\n"
 								+ 	"10 - Créer une commande\n"
 								+ 	"/*****     Gestion des fichiers images et photos     *****/\n"
-								+	"9 - Visualiser le chemin des photos les plus utilisées\n"
-								+ 	"8 - Visualiser ma liste d'images partagées\n"
+								+	"9 - Visualiser le chemin des photos les plus utilisées (Work in progress)\n"
+								+ 	"8 - Visualiser ma liste d'images partagées (Work in progress)\n"
 								+ 	"7 - Supprimer un fichier image\n"
 								+ 	"/************     Gestion des impressions     ************/\n"
-								+	"6 - Visualiser mes impressions\n"
-								+	"5 - Supprimer une impression\n"
-								+ 	"4 - Modifier une impression\n"
+								+	"6 - Visualiser mes impressions (Work in progress)\n"
+								+	"5 - Supprimer une impression (Work in progress)\n"
+								+ 	"4 - Modifier une impression (Work in progress)\n"
 								+ 	"3 - Créer une impression\n"
 								+ 	"/*********************     Autre     *********************/\n"
 								+ 	"2 - Visualiser les informations de mon compte\n"
@@ -244,15 +245,54 @@ public class Client extends TypeUtilisateur {
 			switch(reponse) {
 				case 1 : break;
 				case 0 : return;
+				default : General.erreurDeChoix(); break;
 			}
-		}while(!stockSuffisant());
+		}while(!stockSuffisant(articlesMontant));
 		//CRUDInterface<Commande> commandeControler = _GlobalControler.getCommandeControler();
 		//commandeControler.create(cmd);
 	}
 	
-	private boolean stockSuffisant() {
-		
-		return false;
+	private boolean stockSuffisant(Couple<ArrayList<Article>> articlesMontant) {
+		GestionStock gestStock = new GestionStock();
+		for(int i = 0; i<articlesMontant.getGenerique().size(); i++) {
+			if(	articlesMontant.getGenerique().get(i).getImpression() instanceof Tirage 
+				&& !gestStock.decrStock(articlesMontant.getGenerique().get(i).getQuantite(), 
+										"TIRAGE", 
+										articlesMontant.getGenerique().get(i).getImpression().getQualite(), 
+										articlesMontant.getGenerique().get(i).getImpression().getFormat()))
+				return false;
+			if( articlesMontant.getGenerique().get(i).getImpression() instanceof Cadre 
+				&& !gestStock.decrStock(articlesMontant.getGenerique().get(i).getQuantite(), 
+										"CADRE", 
+										articlesMontant.getGenerique().get(i).getImpression().getQualite(), 
+										articlesMontant.getGenerique().get(i).getImpression().getFormat()))
+				return false;
+			if( articlesMontant.getGenerique().get(i).getImpression() instanceof Mural 
+				&& !gestStock.decrStock(articlesMontant.getGenerique().get(i).getQuantite(), 
+										"MURAL", 
+										articlesMontant.getGenerique().get(i).getImpression().getQualite(), 
+										articlesMontant.getGenerique().get(i).getImpression().getFormat()))
+				return false;
+			if( articlesMontant.getGenerique().get(i).getImpression() instanceof Bureau 
+				&& !gestStock.decrStock(articlesMontant.getGenerique().get(i).getQuantite(), 
+										"BUREAU", 
+										articlesMontant.getGenerique().get(i).getImpression().getQualite(), 
+										articlesMontant.getGenerique().get(i).getImpression().getFormat()))
+				return false;
+			if( articlesMontant.getGenerique().get(i).getImpression() instanceof Jour 
+				&& !gestStock.decrStock(articlesMontant.getGenerique().get(i).getQuantite(), 
+										"JOUR", 
+										articlesMontant.getGenerique().get(i).getImpression().getQualite(), 
+										articlesMontant.getGenerique().get(i).getImpression().getFormat()))
+				return false;
+			if( articlesMontant.getGenerique().get(i).getImpression() instanceof Semaine 
+				&& !gestStock.decrStock(articlesMontant.getGenerique().get(i).getQuantite(), 
+										"SEMAINE", 
+										articlesMontant.getGenerique().get(i).getImpression().getQualite(), 
+										articlesMontant.getGenerique().get(i).getImpression().getFormat()))
+				return false;
+		}
+		return true;
 	}
 
 	/**
@@ -1118,8 +1158,16 @@ public class Client extends TypeUtilisateur {
 		String email = LectureClavier.lireChaine("\nEmail : ");
 		String mdp = LectureClavier.lireChaine("\nMot De Passe : ");
 		/*Requête de vérification de l'existence du client*/
+		/*ClientControler clientCtrler = _GlobalControler.getClientControler();
+		this.actualClient = clientCtrler.read(email, mdp)
+		 
+		if(this.actualClient != null)
+			System.out.println("Vous êtes bien connecté\n");
+		else
+			System.out.println("Erreur de connexion, Client inconnu\n");
+		*/
 			/*EN ATTENDANT*/
-			this.clientActuel = new BDD.Client(email, "Louis", "Reynaud", mdp);
+		this.clientActuel = new BDD.Client(email, "Louis", "Reynaud", mdp);
 		this.connecte = true;
 		
 		System.out.println("Vous êtes connecté.\n");
@@ -1137,7 +1185,13 @@ public class Client extends TypeUtilisateur {
 		String prenom = LectureClavier.lireChaine("\nPrénom : ");
 		/*Requête de vérification de non existence du client avec les informations renseignées*/
 			/*EN ATTENDANT*/
+		BDD.Client newClient = new BDD.Client(email, nom, prenom, mdp);
+		/*ClientControler clientCtrler = _GlobalControler.getClientControler();
+		if(clientCtrler.create(newClient))
 			System.out.println("Mail envoyé à "+email+", merci de votre inscription.\n");
+		else
+			System.out.println("Client déjà existant");
+		*/System.out.println("Mail envoyé à "+email+", merci de votre inscription.\n");
 		/*Requête de création du nouveau client avec les informations renseignées.*/
 	}
 	
