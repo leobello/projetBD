@@ -5,20 +5,21 @@ import java.sql.Statement;
 
 import BDD.CRUDInterface;
 import BDD.Tirage;
+import serviceBD.BD;
 
 public class TirageControler implements CRUDInterface<Tirage> {
 	private Tirage tirage;
-	private Statement stmt;
+	private BD bd;
 	
-	public  TirageControler(Statement stmt) {
-		this.stmt = stmt;
+	public  TirageControler(BD bd) {
+		this.bd = bd;
 	}
 
 	@Override
 	public boolean create(Tirage tirage) {
-		// TODO Auto-generated method stub
+		boolean checkCreate = false;
 		try {
-			this.stmt.executeQuery(null);
+			//String requete = "INSERT INTO TIRAGE VALUES ("+                
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

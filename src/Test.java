@@ -1,5 +1,7 @@
 import java.sql.SQLException;
 
+import BDD.Adresse;
+import BDD.Client;
 import BDD.Stock;
 import Controler._GlobalControler;
 
@@ -17,9 +19,21 @@ public class Test {
 		boolean testCreate = myGlobalControler.getAdresseControler().create(createTest);
 		System.out.println(testCreate);*/
 		
-		Stock stock = _GlobalControler.getStockControler().readStock("BUREAU", "SUPERIEURE", "A5");
+		//Stock stock = _GlobalControler.getStockControler().readStock("JOURS", "MOYENNE", "A4");
+		//System.out.println(stock.getQuantiteStock());
 		
-		System.out.println(stock.getQuantiteStock());
+		Stock stock = _GlobalControler.getStockControler().readStock("SEMAINES", "MOYENNE", "A4");
+		System.out.println("stock avant : "+ stock.getQuantiteStock());
+		
+		stock = new Stock ("SEMAINES",200,"MOYENNE","A4");
+		boolean stockOk = _GlobalControler.getStockControler().update(stock);
+		stock = _GlobalControler.getStockControler().readStock("SEMAINES", "MOYENNE", "A4");
+		System.out.println("stock apres : "+stock.getQuantiteStock());
+		
+		//Client client = _GlobalControler.getClientControler().readClient("WILLY@ORANGE.FR");
+		//System.out.println(client.getNom());
+		
+		
 
 	}
 
