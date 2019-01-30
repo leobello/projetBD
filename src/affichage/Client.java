@@ -6,6 +6,7 @@ import java.util.*;
 
 import BDD.*;
 import Controler.*;
+import serviceBD.GestionStock;
 import serviceBD.LectureClavier;
 
 public class Client extends TypeUtilisateur {
@@ -234,8 +235,9 @@ public class Client extends TypeUtilisateur {
 			}
 		}
 		Couple<ArrayList<Article>> articlesMontant = getMontantArticles(impressions,nbTaken);
+
 		Commande cmd = new Commande(General.getDateNow(), modelivraison, "En Cours", 0, (float) articlesMontant.getNumero());
-		cmd.setArticles(articlesMontant.getGenerique());
+
 		do{
 			System.out.println("Veuillez r�gler votre commande :\n"
 					+ "1 - Valider\n"
@@ -244,15 +246,54 @@ public class Client extends TypeUtilisateur {
 			switch(reponse) {
 				case 1 : break;
 				case 0 : return;
+				default : General.erreurDeChoix(); break;
 			}
-		}while(!stockSuffisant());
+		}while(!stockSuffisant(articlesMontant));
 		//CRUDInterface<Commande> commandeControler = _GlobalControler.getCommandeControler();
 		//commandeControler.create(cmd);
 	}
 	
-	private boolean stockSuffisant() {
-		
-		return false;
+	private boolean stockSuffisant(Couple<ArrayList<Article>> articlesMontant) {
+		GestionStock gestStock = new GestionStock();
+		for(int i = 0; i<articlesMontant.getGenerique().size(); i++) {
+			if(	articlesMontant.getGenerique().get(i).getImpression() instanceof Tirage 
+				&& !gestStock.decrStock(articlesMontant.getGenerique().get(i).getQuantite(), 
+										"TIRAGE", 
+										articlesMontant.getGenerique().get(i).getImpression().getQualite(), 
+										articlesMontant.getGenerique().get(i).getImpression().getFormat()))
+				return false;
+			if( articlesMontant.getGenerique().get(i).getImpression() instanceof Cadre 
+				&& !gestStock.decrStock(articlesMontant.getGenerique().get(i).getQuantite(), 
+										"CADRE", 
+										articlesMontant.getGenerique().get(i).getImpression().getQualite(), 
+										articlesMontant.getGenerique().get(i).getImpression().getFormat()))
+				return false;
+			if( articlesMontant.getGenerique().get(i).getImpression() instanceof Mural 
+				&& !gestStock.decrStock(articlesMontant.getGenerique().get(i).getQuantite(), 
+										"MURAL", 
+										articlesMontant.getGenerique().get(i).getImpression().getQualite(), 
+										articlesMontant.getGenerique().get(i).getImpression().getFormat()))
+				return false;
+			if( articlesMontant.getGenerique().get(i).getImpression() instanceof Bureau 
+				&& !gestStock.decrStock(articlesMontant.getGenerique().get(i).getQuantite(), 
+										"BUREAU", 
+										articlesMontant.getGenerique().get(i).getImpression().getQualite(), 
+										articlesMontant.getGenerique().get(i).getImpression().getFormat()))
+				return false;
+			if( articlesMontant.getGenerique().get(i).getImpression() instanceof Jour 
+				&& !gestStock.decrStock(articlesMontant.getGenerique().get(i).getQuantite(), 
+										"JOUR", 
+										articlesMontant.getGenerique().get(i).getImpression().getQualite(), 
+										articlesMontant.getGenerique().get(i).getImpression().getFormat()))
+				return false;
+			if( articlesMontant.getGenerique().get(i).getImpression() instanceof Semaine 
+				&& !gestStock.decrStock(articlesMontant.getGenerique().get(i).getQuantite(), 
+										"SEMAINE", 
+										articlesMontant.getGenerique().get(i).getImpression().getQualite(), 
+										articlesMontant.getGenerique().get(i).getImpression().getFormat()))
+				return false;
+		}
+		return true;
 	}
 
 	/**
@@ -1117,9 +1158,18 @@ public class Client extends TypeUtilisateur {
 						+ 	"Veuillez saisir vos identifiants : \n");
 		String email = LectureClavier.lireChaine("\nEmail : ");
 		String mdp = LectureClavier.lireChaine("\nMot De Passe : ");
+
 		/*Requ�te de v�rification de l'existence du client*/
+		/*ClientControler clientCtrler = _GlobalControler.getClientControler();
+		this.actualClient = clientCtrler.read(email, mdp)
+		 
+		if(this.actualClient != null)
+			System.out.println("Vous �tes bien connect�\n");
+		else
+			System.out.println("Erreur de connexion, Client inconnu\n");
+		*/
 			/*EN ATTENDANT*/
-			this.clientActuel = new BDD.Client(email, "Louis", "Reynaud", mdp);
+		this.clientActuel = new BDD.Client(email, "Louis", "Reynaud", mdp);
 		this.connecte = true;
 		
 		System.out.println("Vous �tes connect�.\n");
@@ -1139,6 +1189,7 @@ public class Client extends TypeUtilisateur {
 			/*EN ATTENDANT*/
 			System.out.println("Mail envoy� � "+email+", merci de votre inscription.\n");
 		/*Requ�te de cr�ation du nouveau client avec les informations renseign�es.*/
+
 	}
 	
 	private void seDeconnecter() {
