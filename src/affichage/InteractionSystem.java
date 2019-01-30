@@ -1,5 +1,6 @@
 package affichage;
 
+import Controler.*;
 import serviceBD.LectureClavier;
 
 /**
@@ -12,7 +13,7 @@ public class InteractionSystem {
 	private static TypeUtilisateur utilisateur;
 	
 	public static void run() {
-		
+		_GlobalControler myGlobalControler = new _GlobalControler();
 		int reponse;
 		while(true) 
 		{
