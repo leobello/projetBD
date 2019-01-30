@@ -16,7 +16,11 @@ public class CommandeControler implements CRUDInterface<Commande>{
 
 	public CommandeControler(Statement stmt) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 		CommandeControler.stmt = stmt;
+=======
+		this.stmt = stmt;
+>>>>>>> parent of 0f5b4bb... changes
 =======
 		this.stmt = stmt;
 >>>>>>> parent of 0f5b4bb... changes
@@ -27,7 +31,10 @@ public class CommandeControler implements CRUDInterface<Commande>{
 		BuildReq br = new BuildReq();
 		ResultSet rs;
 <<<<<<< HEAD
+<<<<<<< HEAD
 		String cp = (object.getCodePromo() == null) ? "NULL" : object.getCodePromo().getCode();
+=======
+>>>>>>> parent of 0f5b4bb... changes
 =======
 >>>>>>> parent of 0f5b4bb... changes
 		//String req = br.insert("COMMANDE","2O19-01-28", "ADRESSE", "EN COURS", "10", "NULL", "LEOBELLO.WD@GMAIL.COM", "10");
@@ -37,7 +44,11 @@ public class CommandeControler implements CRUDInterface<Commande>{
 				object.getStatutCommande(),
 				String.valueOf(object.getNumCommande()),
 <<<<<<< HEAD
+<<<<<<< HEAD
 				cp,
+=======
+				object.getCodePromo().getCode(),
+>>>>>>> parent of 0f5b4bb... changes
 =======
 				object.getCodePromo().getCode(),
 >>>>>>> parent of 0f5b4bb... changes

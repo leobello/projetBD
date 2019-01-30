@@ -8,8 +8,11 @@ public class Tirage extends Impression {
 
 	public Tirage(int numImpression, String pathImpression, Client client, boolean Impression_ok, String qualite, String format) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 		super(numImpression, pathImpression, client, Impression_ok, qualite, format);
 =======
+=======
+>>>>>>> parent of 0f5b4bb... changes
 		super(numImpression, pathImpression, client, Impression_ok);
 		this.qualite = qualite;
 		this.format = format;

@@ -3,6 +3,9 @@ import java.sql.SQLException;
 <<<<<<< HEAD
 =======
 import BDD.Adresse;
+<<<<<<< HEAD
+>>>>>>> parent of 0f5b4bb... changes
+=======
 >>>>>>> parent of 0f5b4bb... changes
 import BDD.Stock;
 import Controler._GlobalControler;
@@ -22,7 +25,11 @@ public class Test {
 		System.out.println(testCreate);*/
 		
 <<<<<<< HEAD
+<<<<<<< HEAD
 		Stock stock = _GlobalControler.getStockControler().readStock("BUREAU", "SUPERIEURE", "A5");
+=======
+		Stock stock = myGlobalControler.getStockControler().readStock("BUREAU", "SUPERIEURE", "A5");
+>>>>>>> parent of 0f5b4bb... changes
 =======
 		Stock stock = myGlobalControler.getStockControler().readStock("BUREAU", "SUPERIEURE", "A5");
 >>>>>>> parent of 0f5b4bb... changes

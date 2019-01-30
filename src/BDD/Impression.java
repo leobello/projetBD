@@ -36,6 +36,7 @@ public class Impression {
 		return qualite;
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 	public void setQualite(String qualite) {
 		this.qualite = qualite;
@@ -44,6 +45,8 @@ public class Impression {
 	public String getFormat() {
 		return format;
 	}
+=======
+>>>>>>> parent of 0f5b4bb... changes
 =======
 >>>>>>> parent of 0f5b4bb... changes
 

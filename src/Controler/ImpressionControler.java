@@ -11,7 +11,11 @@ public class ImpressionControler implements CRUDInterface<Impression> {
 
 	public ImpressionControler(Statement stmt) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 		ImpressionControler.stmt = stmt;
+=======
+		this.stmt = stmt;
+>>>>>>> parent of 0f5b4bb... changes
 =======
 		this.stmt = stmt;
 >>>>>>> parent of 0f5b4bb... changes

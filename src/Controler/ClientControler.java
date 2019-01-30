@@ -1,7 +1,10 @@
 package Controler;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of 0f5b4bb... changes
 import java.sql.Statement;
 
 >>>>>>> parent of 0f5b4bb... changes
