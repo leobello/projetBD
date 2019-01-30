@@ -7,6 +7,7 @@ import java.sql.Statement;
 
 import BDD.CRUDInterface;
 import BDD.Commande;
+import serviceBD.BD;
 import serviceBD.BuildReq;
 
 public class CommandeControler implements CRUDInterface<Commande>{
@@ -14,44 +15,26 @@ public class CommandeControler implements CRUDInterface<Commande>{
 	private Commande commande;
 	private static Statement stmt;
 
-	public CommandeControler(Statement stmt) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-		CommandeControler.stmt = stmt;
-=======
-		this.stmt = stmt;
->>>>>>> parent of 0f5b4bb... changes
-=======
-		this.stmt = stmt;
->>>>>>> parent of 0f5b4bb... changes
+	public CommandeControler(BD bd) {
+		try {
+			this.stmt = bd.getSerializableSTMT();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public boolean create(Commande object) {
 		BuildReq br = new BuildReq();
 		ResultSet rs;
-<<<<<<< HEAD
-<<<<<<< HEAD
 		String cp = (object.getCodePromo() == null) ? "NULL" : object.getCodePromo().getCode();
-=======
->>>>>>> parent of 0f5b4bb... changes
-=======
->>>>>>> parent of 0f5b4bb... changes
 		//String req = br.insert("COMMANDE","2O19-01-28", "ADRESSE", "EN COURS", "10", "NULL", "LEOBELLO.WD@GMAIL.COM", "10");
 		String req = br.insert("COMMANDE",
 				object.getDate().toString(),
 				object.getModeLivraison(),
 				object.getStatutCommande(),
 				String.valueOf(object.getNumCommande()),
-<<<<<<< HEAD
-<<<<<<< HEAD
 				cp,
-=======
-				object.getCodePromo().getCode(),
->>>>>>> parent of 0f5b4bb... changes
-=======
-				object.getCodePromo().getCode(),
->>>>>>> parent of 0f5b4bb... changes
 				object.getClient().getMailClient(),
 				String.valueOf(object.getMontant()));
 		try {
@@ -71,11 +54,12 @@ public class CommandeControler implements CRUDInterface<Commande>{
 		ResultSet rs;
 		Date date;
 		String modeLivraison, statut, codePromo, mail;
-		Float montant;
+		float montant;
 		Integer numCommande;
+		Commande cmd = null;
 		try {
 			rs = stmt.executeQuery(req);
-			if (rs.first()){
+			while (rs.next()){
 				date = rs.getDate("DATEC");
 				modeLivraison = rs.getString("MODELIVRAISON");
 				statut = rs.getString("STATUT_COMMANDE");
@@ -90,27 +74,31 @@ public class CommandeControler implements CRUDInterface<Commande>{
 						+ " " + codePromo
 						+ " " + mail
 						+ " " + montant);
+				cmd = new Commande(date, modeLivraison, statut,numCommande,montant);
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return null;
 		}
-		return commande;
+		return cmd;
 	}
 
 	@Override
 	public boolean update(Commande object) {
 		// TODO Auto-generated method stub
 		String req = "UPDATE COMMANDE SET" +
-					 " DATEC = " + object.getDate().toString() +
-					 " MODELIVRAISON = " + object.getModeLivraison() +
-					 " STATUT_COMMANDE = " + object.getStatutCommande() +
-					 " CODEPROMO = " + object.getCodePromo() +
-					 " MAILCLIENT = " + object.getClient().getMailClient() +
-					 " PRIX TOTAL = " + object.getMontant() +
+					 " DATEC = '" + object.getDate().toString() + "'," +
+					 " MODELIVRAISON = '" + object.getModeLivraison() + "'," +
+					 " STATUT_COMMANDE = '" + object.getStatutCommande() + "'," +
+					 " CODEPROMO = " + object.getCodePromo() + "," +
+					 " MAILCLIENT = '" + object.getClient().getMailClient() + "'," +
+					 " PRIXTOTAL = " + object.getMontant() + " " +
 					 " WHERE NUMCOMMANDE = " + object.getNumCommande();
-		System.out.println(req);
+		try {
+			ResultSet rs = stmt.executeQuery(req);
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return false;
 	}
 

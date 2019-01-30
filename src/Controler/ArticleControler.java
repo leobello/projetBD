@@ -1,44 +1,57 @@
 package Controler;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import BDD.Article;
 import BDD.CRUDInterface;
 import serviceBD.BD;
+import serviceBD.BuildReq;
 
 public class ArticleControler implements CRUDInterface<Article>{
 	private Article article;
-	private static BD bd;
+	private Statement stmt;
 
 	public ArticleControler(BD bd) {
-		this.bd = bd;
+		try {
+			this.stmt = bd.getSerializableSTMT();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
-	public boolean create(Article article) {
-		boolean checkCreate = false;
-		int insertOk = 0;
+	public boolean create(Article object) {
+		BuildReq br = new BuildReq();
+		String req = br.insert("ARTICLE",
+								String.valueOf(object.getIdArticle()),
+								String.valueOf(object.getPrix()),
+								String.valueOf(object.getQuantite()));
 		try {
-			String requete = "INSERT INTO ARTICLE VALUES ( ARTICLES_SEQ.NEXTVALUE"+
-					article.getIdArticle()+ ","+
-					article.getCommande()+","+
-					article.getPrix()+","+
-					article.getQuantite()+","+
-					article.getImpression();
-			insertOk = this.bd.getReadCommittedSTMT().executeUpdate(requete);
-			if (insertOk >0) {
-				checkCreate = true;
-			}
-			
-		} catch (Exception e) {
+			ResultSet rs = stmt.executeQuery(req);
+			return true;
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return checkCreate;
+		return false;
 	}
 
 	@Override
 	public Article read(int identifiant) {
+
 		// TODO Auto-generated method stub
+		try {
+			String requete = "SELECT * FROM ARTICLE WHERE ID_ARTICLE = "+ identifiant;
+			ResultSet rs = stmt.executeQuery(requete);
+			while (rs.next()) {
+				article = new Article(identifiant, 
+						rs.getFloat("PRIX"), 
+						rs.getInt("QUANTITE"));
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		return article;
 	}
 

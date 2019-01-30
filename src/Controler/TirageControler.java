@@ -17,9 +17,9 @@ public class TirageControler implements CRUDInterface<Tirage> {
 
 	@Override
 	public boolean create(Tirage tirage) {
-		// TODO Auto-generated method stub
+		boolean checkCreate = false;
 		try {
-			this.stmt.executeQuery(null);
+			//String requete = "INSERT INTO TIRAGE VALUES ("+                
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
