@@ -1,26 +1,31 @@
 package Controler;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 import BDD.CRUDInterface;
 import BDD.Tirage;
+import serviceBD.BD;
 
 public class TirageControler implements CRUDInterface<Tirage> {
 	private Tirage tirage;
-	private Statement stmt;
+	private BD bd;
 	
-	public  TirageControler(Statement stmt) {
-		this.stmt = stmt;
+	public  TirageControler(BD bd) {
+		this.bd = bd;
 	}
 
 	@Override
 	public boolean create(Tirage tirage) {
-		// TODO Auto-generated method stub
+		boolean checkCreate = false;
 		try {
-			this.stmt.executeQuery(null);
+			String requete = "INSERT INTO TIRAGE VALUES ("+ tirage.getNumImpression()+")";               
+			int insert = this.bd.getReadCommittedSTMT().executeUpdate(requete);
+			if (insert>0) {
+				checkCreate = true;
+			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return false;
@@ -28,7 +33,21 @@ public class TirageControler implements CRUDInterface<Tirage> {
 
 	@Override
 	public Tirage read(int identifiant) {
-		// TODO Auto-generated method stub
+		String requete = "SELECT * FROM TIRAGE NATURAL JOIN IMPRESSION WHERE NUMIMPRESSION = "+ identifiant; ;
+		ResultSet rs;
+		try {
+			rs = this.bd.getReadCommittedSTMT().executeQuery(requete);
+			while (rs.next()) {
+			tirage = new Tirage (rs.getInt("NUMIMPRESSION"),
+						rs.getString("PATH_IMPRESSION"),
+						_GlobalControler.getClientControler().readClient(rs.getString("MAILCLIENT")),
+						rs.getBoolean("IMPRESSION_OK"),
+						rs.getString("QUALITE"),
+						rs.getString("FORMAT"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return tirage;
 	}
 

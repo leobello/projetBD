@@ -35,7 +35,6 @@ public class Impression {
 	public String getQualite() {
 		return qualite;
 	}
-
 	public void setQualite(String qualite) {
 		this.qualite = qualite;
 	}
