@@ -42,9 +42,9 @@ public class _GlobalControler {
 		//return new CalendrierControler(bd);
 	//}
 	
-	//public static CRUDInterface<Client> getClientControler() {
-		//return new ClientControler(bd);
-	//}
+	public static ClientControler getClientControler() {
+		return new ClientControler(bd);
+	}
 	
 	//public static CRUDInterface<CodePromo> getCodePromoControler(){
 	//	return new CodePromoControler(bd);
@@ -58,9 +58,9 @@ public class _GlobalControler {
 	//	return new FichierControler(bd);
 	//}
 
-	//public static CRUDInterface<Impression> getImpressioncontroler() {
-	//	return new ImpressionControler(bd);
-	//}
+	public static CRUDInterface<Impression> getImpressioncontroler() {
+		return new ImpressionControler(bd);
+	}
 	
 	//public static CRUDInterface<Jour> getJourControler() {
 	//	return new JoursControler(bd);
@@ -82,9 +82,9 @@ public class _GlobalControler {
 		return new StockControler(bd);
 	}
 	
-	/*
+	
 	public static CRUDInterface<Tirage> getTirageControler() {
-		return new TirageControler(stmt);
+		return new TirageControler(bd);
 	}
-	*/
+
 }

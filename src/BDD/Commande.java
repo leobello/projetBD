@@ -16,7 +16,7 @@ public class Commande {
 	private List<Adresse> adresses = new ArrayList<Adresse>();
 	private List<Article> articles = new ArrayList<Article>();
 
-	public Commande(Date date, String modeLivraison, String statutCommande, int numCommande, float montant) {
+	public Commande(Date date, String modeLivraison, String statutCommande, int numCommande, Float montant) {
 		this.date = date;
 		this.modeLivraison = modeLivraison;
 		this.statutCommande = statutCommande;

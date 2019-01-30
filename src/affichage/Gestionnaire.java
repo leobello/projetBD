@@ -146,8 +146,8 @@ public class Gestionnaire extends TypeUtilisateur {
 	private Commande choixCommandeAMaj() {
 		int reponse = -1;
 		ArrayList<Commande> commandes = new ArrayList<Commande>();
-		commandes.add(new Commande(General.getDateNow(), "Domicile", "Prête à l'envoi", 51478, 10));
-		commandes.add(new Commande(General.getDateNow(), "En retrait", "Prête à l'envoi", 69854, 10));
+		commandes.add(new Commande(General.getDateNow(), "Domicile", "Prête à l'envoi", 51478, (float) 10));
+		commandes.add(new Commande(General.getDateNow(), "En retrait", "Prête à l'envoi", 69854, (float) 10));
 		/*requête des différentes commandes dans l'état "Prête à l'envoi"*/
 		commandesToString(commandes);
 		reponse = LectureClavier.lireEntier("\nChoix :");
