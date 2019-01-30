@@ -15,7 +15,7 @@ public class Connexion {
 	  	    
 	  	    // Etablissement de la connection
 	  	    System.out.print("Connecting to the database... ");
-			this.conn = DriverManager.getConnection(CONN_URL, user, password);
+			Connexion.conn = DriverManager.getConnection(CONN_URL, user, password);
 	   	    System.out.println("connected");
 
 			
@@ -32,7 +32,7 @@ public class Connexion {
 	}
 	
 	public Connection getConnection() {
-		return this.conn;
+		return Connexion.conn;
 	}
 
 }

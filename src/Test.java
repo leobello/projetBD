@@ -1,6 +1,6 @@
 import java.sql.SQLException;
 
-import BDD.Adresse;
+import BDD.Stock;
 import Controler._GlobalControler;
 
 
@@ -9,12 +9,18 @@ public class Test {
 	
 	public static void main(String[] args) throws SQLException {
 		
-				
-		/*
-		boolean test = myGlobalControler.getAdresseControler().delete(0);
-		System.out.println(test);
-		*/
+		//Adresse test = new Adresse() ;
+		/*Adresse test = myGlobalControler.getAdresseControler().read(11);
+		System.out.println("la ville est : "+ test.getVille());
 		
+		Adresse createTest = new Adresse(12,13013,"Marseille","test","test","rue");
+		boolean testCreate = myGlobalControler.getAdresseControler().create(createTest);
+		System.out.println(testCreate);*/
+		
+		Stock stock = _GlobalControler.getStockControler().readStock("BUREAU", "SUPERIEURE", "A5");
+		
+		System.out.println(stock.getQuantiteStock());
+
 	}
 
 }

@@ -11,7 +11,7 @@ public class FichierControler implements CRUDInterface<FichierImage> {
 	private static Statement stmt;
 
 	public FichierControler(Statement stmt) {
-		this.stmt = stmt;
+		FichierControler.stmt = stmt;
 	}
 
 	@Override

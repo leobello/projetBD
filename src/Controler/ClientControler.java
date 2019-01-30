@@ -1,22 +1,36 @@
 package Controler;
 
-import java.sql.Statement;
-
 import BDD.CRUDInterface;
 import BDD.Client;
+import serviceBD.BD;
 
 public class ClientControler implements CRUDInterface<Client> {
 	private Client client;
-	private static Statement stmt;
-
-	public ClientControler(Statement stmt) {
-		this.stmt = stmt;
+	private BD bd;
+	
+	
+	public ClientControler(BD bd) {
+		this.bd = bd;
 	}
 
+
 	@Override
-	public boolean create(Client object) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean create(Client client) {
+		boolean createOK = false;
+		try {
+			String requete = "INSERT INTO ADRESSE VALUES ("+ 
+					client.getMailClient()+","+
+					client.getNom()+","+
+					client.getPrenom()+";"+
+					client.getMotDePasse()+")";                                  
+			
+			createOK = this.bd.getReadCommittedSTMT().execute(requete);
+			 
+					} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return createOK;
 	}
 
 	@Override

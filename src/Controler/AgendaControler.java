@@ -10,7 +10,7 @@ public class AgendaControler implements CRUDInterface <Agenda> {
 	private static Statement stmt;
 
 	public AgendaControler(Statement stmt) {
-		this.stmt = stmt;
+		AgendaControler.stmt = stmt;
 	}
 
 	@Override

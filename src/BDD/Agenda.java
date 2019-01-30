@@ -5,14 +5,15 @@ import java.util.List;
 
 public class Agenda extends Impression {
 
+
 	private int noPageAgenda;
 	private List<Couple<Photo>> photos = new ArrayList<Couple<Photo>>();
 
-	public Agenda(int numImpression, String pathImpression, int noPageAgenda) {
-		super(numImpression, pathImpression);
+	public Agenda(int numImpression, String pathImpression,Client client, boolean Impression_ok, int noPageAgenda, String qualite, String format) {
+		super(numImpression, pathImpression, client, Impression_ok, qualite, format);
 		this.noPageAgenda = noPageAgenda;
 	}
-
+	
 	public int getNoPageAgenda() {
 		return noPageAgenda;
 	}

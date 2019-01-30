@@ -32,7 +32,6 @@ public class BuildReq {
     private boolean isInteger(String chaine) {
         try {
             Double.parseDouble(chaine);
-            //Integer.parseInt(chaine);
         } catch (NumberFormatException e){
             return false;
         }

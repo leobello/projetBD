@@ -10,7 +10,7 @@ public class MuralControler implements CRUDInterface<Mural>{
 	private static Statement stmt;
 
 	public MuralControler(Statement stmt) {
-		this.stmt = stmt;
+		MuralControler.stmt = stmt;
 	}
 
 	@Override

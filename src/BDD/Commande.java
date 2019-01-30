@@ -9,9 +9,10 @@ public class Commande {
 	private String modeLivraison;
 	private String statutCommande;
 	private int numCommande;
-	private float montant;
+	private float prixTotal;
 	private CodePromo codePromo;
 	private Client client;
+
 	private List<Adresse> adresses = new ArrayList<Adresse>();
 	private List<Article> articles = new ArrayList<Article>();
 
@@ -20,7 +21,7 @@ public class Commande {
 		this.modeLivraison = modeLivraison;
 		this.statutCommande = statutCommande;
 		this.numCommande = numCommande;
-		this.montant = montant;
+		this.prixTotal = montant;
 	}
 
 	public Date getDate() {
@@ -56,7 +57,7 @@ public class Commande {
 	}
 
 	public void setMontant(float montant) {
-		this.montant = montant;
+		this.prixTotal = montant;
 	}
 
 	public List<Adresse> getCommandeAdresse() {
@@ -100,12 +101,13 @@ public class Commande {
 	}
 
 	public float getMontant() {
-		return montant;
+		return prixTotal;
 	}
 
 	public void ajouterDansAdresses(Adresse adresse) {
 		this.adresses.add(adresse);
 	}
+
 
 	public void supprimerDansAdresses(Adresse adresse) {
 		this.adresses.remove(adresse);
@@ -119,11 +121,20 @@ public class Commande {
 		this.articles.remove(article);
 	}
 
+
 	public Adresse getAdresse(int i) {
 		return adresses.get(i);
 	}
 
 	public Article getArticle(int i) {
 		return articles.get(i);
+	}
+
+	public float getPrixTotal() {
+		return prixTotal;
+	}
+
+	public void setPrixTotal(float prixTotal) {
+		this.prixTotal = prixTotal;
 	}
 }
