@@ -1,8 +1,6 @@
 package init;
 import serviceBD.*;
 
-import java.sql.SQLException;
-
 public class Run {
 	public static void main(String args[]) {
 

@@ -10,7 +10,7 @@ public class CadreControler implements CRUDInterface<Cadre>{
 	private static Statement stmt;
 
 	public CadreControler(Statement stmt) {
-		this.stmt = stmt;
+		CadreControler.stmt = stmt;
 	}
 
 	@Override

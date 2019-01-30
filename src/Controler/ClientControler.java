@@ -1,7 +1,5 @@
 package Controler;
 
-import java.sql.Statement;
-
 import BDD.CRUDInterface;
 import BDD.Client;
 import serviceBD.BD;

@@ -4,6 +4,7 @@ import serviceBD.LectureClavier;
 
 public class Client extends TypeUtilisateur {
 	
+	@Override
 	public void run() {
 		System.out.println(	"/**********************************************************************************************/\n"
 						+ 	"Bienvenue dans l'application dédiée au client. \n");
