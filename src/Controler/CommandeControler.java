@@ -82,6 +82,15 @@ public class CommandeControler implements CRUDInterface<Commande>{
 	@Override
 	public boolean update(Commande object) {
 		// TODO Auto-generated method stub
+		String req = "UPDATE COMMANDE SET" +
+					 " DATEC = " + object.getDate().toString() +
+					 " MODELIVRAISON = " + object.getModeLivraison() +
+					 " STATUT_COMMANDE = " + object.getStatutCommande() +
+					 " CODEPROMO = " + object.getCodePromo() +
+					 " MAILCLIENT = " + object.getClient().getMailClient() +
+					 " PRIX TOTAL = " + object.getMontant() +
+					 " WHERE NUMCOMMANDE = " + object.getNumCommande();
+		System.out.println(req);
 		return false;
 	}
 

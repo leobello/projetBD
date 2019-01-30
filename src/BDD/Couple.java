@@ -16,7 +16,7 @@ public class Couple<T> {
 		this.numero = numero;
 	}
 
-	public void setPhoto(T photo) {
+	public void setGenerique(T photo) {
 		this.generique = photo;
 	}
 
@@ -24,7 +24,7 @@ public class Couple<T> {
 		this.numero = numero;
 	}
 
-	public T getPhoto() {
+	public T getGenerique() {
 		return generique;
 	}
 
