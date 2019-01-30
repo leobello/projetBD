@@ -3,6 +3,7 @@ import java.sql.SQLException;
 import BDD.Adresse;
 import BDD.Client;
 import BDD.Stock;
+import BDD.Tirage;
 import Controler._GlobalControler;
 
 
@@ -32,7 +33,6 @@ public class Test {
 		
 		//Client client = _GlobalControler.getClientControler().readClient("WILLY@ORANGE.FR");
 		//System.out.println(client.getNom());
-		
 		
 
 	}
