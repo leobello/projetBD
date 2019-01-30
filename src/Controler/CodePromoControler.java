@@ -10,7 +10,7 @@ public class CodePromoControler implements CRUDInterface<CodePromo>{
 	private static Statement stmt;
 
 	public CodePromoControler(Statement stmt) {
-		this.stmt = stmt;
+		CodePromoControler.stmt = stmt;
 	}
 
 	@Override

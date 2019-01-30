@@ -10,7 +10,7 @@ public class ImpressionControler implements CRUDInterface<Impression> {
 	private static Statement stmt;
 
 	public ImpressionControler(Statement stmt) {
-		this.stmt = stmt;
+		ImpressionControler.stmt = stmt;
 	}
 
 	@Override

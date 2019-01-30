@@ -10,7 +10,7 @@ public class BureauControler implements CRUDInterface<Bureau>{
 	private static Statement stmt;
 
 	public BureauControler(Statement stmt) {
-		this.stmt = stmt;
+		BureauControler.stmt = stmt;
 	}
 
 	@Override

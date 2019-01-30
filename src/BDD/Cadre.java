@@ -1,9 +1,7 @@
 package BDD;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class Cadre extends Impression {
 	private List<Couple<Photo>> photos = new ArrayList<Couple<Photo>>();

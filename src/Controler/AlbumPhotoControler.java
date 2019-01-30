@@ -11,7 +11,7 @@ public class AlbumPhotoControler implements CRUDInterface<AlbumPhoto> {
 	private static Statement stmt;
 
 	public AlbumPhotoControler(Statement stmt) {
-		this.stmt = stmt;
+		AlbumPhotoControler.stmt = stmt;
 	}
 
 	@Override

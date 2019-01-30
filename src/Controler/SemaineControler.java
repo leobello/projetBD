@@ -11,7 +11,7 @@ public class SemaineControler implements CRUDInterface<Semaine>{
 	private static Statement stmt;
 
 	public SemaineControler(Statement stmt) {
-		this.stmt = stmt;
+		SemaineControler.stmt = stmt;
 	}
 
 	@Override
