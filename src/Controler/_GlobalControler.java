@@ -82,9 +82,9 @@ public class _GlobalControler {
 		return new StockControler(bd);
 	}
 	
-	/*
+	
 	public static CRUDInterface<Tirage> getTirageControler() {
-		return new TirageControler(stmt);
+		return new TirageControler(bd);
 	}
-	*/
+
 }
