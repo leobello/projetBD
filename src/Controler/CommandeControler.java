@@ -9,8 +9,6 @@ import BDD.CRUDInterface;
 import BDD.Commande;
 import serviceBD.BuildReq;
 
-import static java.sql.Connection.TRANSACTION_SERIALIZABLE;
-
 public class CommandeControler implements CRUDInterface<Commande>{
 
 	private Commande commande;
@@ -99,9 +97,5 @@ public class CommandeControler implements CRUDInterface<Commande>{
 		// TODO Auto-generated method stub
 		return false;
 	}
-
-
-	
-	
 
 }
