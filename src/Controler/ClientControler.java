@@ -51,8 +51,8 @@ public class ClientControler implements CRUDInterface<Client> {
 
 	private void loadImpressions(Client client) throws SQLException {
 		String idClient = client.getMailClient();
-		Statement stmt = BD.getInstance().getRepeatableReadSTMT();
-		String req = "SELECT * FROM IMPRESSION WHERE MAILCLIENT = " + idClient;
+		Statement stmt = BD.getInstance().getReadCommittedSTMT();
+		String req = "SELECT * FROM IMPRESSION WHERE MAILCLIENT = '" + idClient+"'";
 		ResultSet rs = stmt.executeQuery(req);
 		boolean impressionOK;
 		while(rs.next()) {

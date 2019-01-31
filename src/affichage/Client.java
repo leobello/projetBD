@@ -288,16 +288,15 @@ public class Client extends TypeUtilisateur {
 			reponse = LectureClavier.lireEntier("\nChoix :");
 			switch(reponse) 
 			{
-				case 2 : modelivraison = "Dépot Relais"; flagUp = true; break;
-				case 1 : modelivraison = "A domicile"; flagUp = true; break;
+				case 2 : modelivraison = "POINT RELAIS"; flagUp = true; break;
+				case 1 : modelivraison = "ADRESSE"; flagUp = true; break;
 				case 0 : return;
 				default : General.erreurDeChoix(); break;
 			}
 		}
 		Couple<ArrayList<Article>> articlesMontant = getMontantArticles(impressions,nbTaken);
-
-		Commande cmd = new Commande(General.getDateNow(), modelivraison, "En Cours", 0, (float) articlesMontant.getNumero());
-
+		Commande cmd = new Commande(General.getDateNow(), modelivraison, "EN COURS", (int) new Timestamp(System.currentTimeMillis()).getTime(), (float) articlesMontant.getNumero());
+		cmd.setClient(this.clientActuel);
 		do{
 			System.out.println("Veuillez régler votre commande :\n"
 					+ "1 - Valider\n"
@@ -381,7 +380,7 @@ public class Client extends TypeUtilisateur {
 					}
 				}
 				montant+= nbTaken.get(i)*prixU*nbPages;
-				Article article = new Article(0, nbTaken.get(i)*prixU*nbPages, nbTaken.get(i));
+				Article article = new Article((int) new Timestamp(System.currentTimeMillis()).getTime(), nbTaken.get(i)*prixU*nbPages, nbTaken.get(i));
 				article.setImpression(impressions.get(i));
 				CRUDInterface<Article> articleControler = _GlobalControler.getArticleControler();
 				articleControler.create(article);
@@ -1670,8 +1669,11 @@ public class Client extends TypeUtilisateur {
 		String mdp = LectureClavier.lireChaine("\nMot De Passe : ");
 
 		ClientControler clientCtrler = _GlobalControler.getClientControler();
-		this.clientActuel = clientCtrler.readClient(email);
-		 
+		try {
+			this.clientActuel = clientCtrler.readClient(email);
+		}catch(Exception e) {
+			
+		}
 		if(this.clientActuel != null && this.clientActuel.getMotDePasse().equals(mdp)) {
 			this.connecte = true;
 			System.out.println("Vous êtes bien connecté\n");
