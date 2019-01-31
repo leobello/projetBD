@@ -4,13 +4,14 @@ import java.sql.Statement;
 
 import BDD.Bureau;
 import BDD.CRUDInterface;
+import serviceBD.BD;
 
-public class BureauControler implements CRUDInterface<Bureau>{
+public class BureauControler implements CRUDInterface<Bureau> {
 	private Bureau bureau;
-	private static Statement stmt;
+	private BD bd;
 
-	public BureauControler(Statement stmt) {
-		BureauControler.stmt = stmt;
+	public BureauControler(BD bd) {
+		this.bd = bd;
 	}
 
 	@Override
@@ -37,7 +38,4 @@ public class BureauControler implements CRUDInterface<Bureau>{
 		return false;
 	}
 
-
-	
-	
 }

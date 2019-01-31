@@ -11,7 +11,6 @@ import serviceBD.BD;
 public class AdresseControler implements CRUDInterface <Adresse>{
 	private Adresse adresse ;
 	private BD bd;
-	
 
 	public AdresseControler(BD bd) {
 		this.bd = bd;

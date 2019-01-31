@@ -4,14 +4,15 @@ import java.sql.Statement;
 
 import BDD.AlbumPhoto;
 import BDD.CRUDInterface;
+import serviceBD.BD;
 
 public class AlbumPhotoControler implements CRUDInterface<AlbumPhoto> {
 
 	private AlbumPhoto albumPhoto;
-	private static Statement stmt;
+	private BD bd;
 
-	public AlbumPhotoControler(Statement stmt) {
-		AlbumPhotoControler.stmt = stmt;
+	public AlbumPhotoControler(BD bd) {
+		this.bd = bd;
 	}
 
 	@Override
