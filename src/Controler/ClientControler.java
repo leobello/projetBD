@@ -3,8 +3,10 @@ package Controler;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 import BDD.CRUDInterface;
 import BDD.Client;
+import BDD.Impression;
 import serviceBD.BD;
 
 public class ClientControler implements CRUDInterface<Client> {
@@ -40,13 +42,33 @@ public class ClientControler implements CRUDInterface<Client> {
 				client = new Client(rs.getString("MAILCLIENT"), rs.getString("NOM"), rs.getString("PRENOM"),
 						rs.getString("MOTDEPASSE"));
 			}
+			loadImpressions(client);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return client;
 	}
 
-	//
+	private void loadImpressions(Client client) throws SQLException {
+		String idClient = client.getMailClient();
+		Statement stmt = BD.getInstance().getRepeatableReadSTMT();
+		String req = "SELECT * FROM IMPRESSION WHERE MAILCLIENT = " + idClient;
+		ResultSet rs = stmt.executeQuery(req);
+		boolean impressionOK;
+		while(rs.next()) {
+			if(Integer.parseInt(rs.getString("IMPRESSION_OK")) == 1){
+				impressionOK = true;
+			} else {
+				impressionOK = false;
+			}
+			client.getImpressions().add(new Impression(Integer.parseInt(rs.getString("NUMIMPRESSION")),
+					rs.getString("PATH_IMPRESSION"),
+					impressionOK,
+					rs.getString("QUALITE"),
+					rs.getString("FORMAT")));
+		}
+	}
+
 	@Override
 	public boolean update(Client object) {
 		// TODO Auto-generated method stub
