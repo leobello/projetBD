@@ -372,21 +372,21 @@ public class Client extends TypeUtilisateur {
 					prixU = 1;
 				else
 					prixU = 2;
-			}
-			Impression imp = impressions.get(i);
-			if(imp instanceof Tirage) {
-				nbPages=0;
-				List<Couple<Photo>> photos = ((Tirage) imp).getPhotos();
-				for(int nb=0; nb<photos.size(); nb++) {
-					nbPages+=photos.get(nb).getNumero();
+				Impression imp = impressions.get(i);
+				if(imp instanceof Tirage) {
+					nbPages=0;
+					List<Couple<Photo>> photos = ((Tirage) imp).getPhotos();
+					for(int nb=0; nb<photos.size(); nb++) {
+						nbPages+=photos.get(nb).getNumero();
+					}
 				}
+				montant+= nbTaken.get(i)*prixU*nbPages;
+				Article article = new Article(0, nbTaken.get(i)*prixU*nbPages, nbTaken.get(i));
+				article.setImpression(impressions.get(i));
+				CRUDInterface<Article> articleControler = _GlobalControler.getArticleControler();
+				articleControler.create(article);
+				articles.add(article);
 			}
-			montant+= nbTaken.get(i)*prixU*nbPages;
-			Article article = new Article(0, nbTaken.get(i)*prixU*nbPages, nbTaken.get(i));
-			article.setImpression(impressions.get(i));
-			CRUDInterface<Article> articleControler = _GlobalControler.getArticleControler();
-			articleControler.create(article);
-			articles.add(article);
 		}
 		return new Couple<ArrayList<Article>>(articles, montant);
 	}
@@ -1675,9 +1675,10 @@ public class Client extends TypeUtilisateur {
 		if(this.clientActuel != null && this.clientActuel.getMotDePasse().equals(mdp)) {
 			this.connecte = true;
 			System.out.println("Vous êtes bien connecté\n");
-		}else
+		}else {
+			this.clientActuel = null;
 			System.out.println("Erreur de connexion, Client inconnu\n");
-		
+		}
 			/*EN ATTENDANT*/
 			//this.clientActuel = new BDD.Client(email, "Louis", "Reynaud", mdp);		
 			//System.out.println("Vous êtes connecté.\n");
