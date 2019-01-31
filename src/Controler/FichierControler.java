@@ -45,11 +45,11 @@ public class FichierControler implements CRUDInterface<FichierImage> {
 	public FichierImage readFichier(String path, String proprietaire){
 		try {
 			String requete = "SELECT * FROM FICHIERIMAGE "
-							+ "NATURAL JOIN CLIENT"
+							+ "NATURAL JOIN CLIENT "
 							+ "where PATH = '" + path 
 							+ " AND PROPRIETAIRE =" + proprietaire + "'";
 			ResultSet result = this.bd.getReadCommittedSTMT().executeQuery(requete);
-			if (result.first()) {
+			if (result.next()) {
 				fichier = new FichierImage(result.getString("PATH"), 
 										   result.getString("INFOPRISEDEVUE"), 
 										   result.getString("REVOLUTION"), 

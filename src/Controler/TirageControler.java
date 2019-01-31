@@ -34,10 +34,7 @@ public class TirageControler implements CRUDInterface<Tirage> {
 
 	@Override
 	public Tirage read(int identifiant) {
-		String requete = "SELECT * FROM TIRAGE "
-						+ "NATURAL JOIN IMPRESSION "
-						+ "NATURAL JOIN CLIENT "
-						+ "WHERE NUMIMPRESSION = "+ identifiant; ;
+		String requete = "SELECT * FROM TIRAGE NATURAL JOIN IMPRESSION NATURAL JOIN CLIENT WHERE NUMIMPRESSION="+ identifiant;
 		ResultSet rs;
 		try {
 			rs = this.bd.getReadCommittedSTMT().executeQuery(requete);

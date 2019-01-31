@@ -24,8 +24,7 @@ public class ImpressionControler implements CRUDInterface<Impression> {
 			if(impression.isImpression_ok()) {
 				 i = 1;
 			}
-			String requete = "INSERT INTO IMPRESSION VALUES (IMPRESSIONS_SEQ.NEXTVAL"+
-					impression.getNumImpression()+"'"
+			String requete = "INSERT INTO IMPRESSION VALUES (IMPRESSIONS_SEQ.NEXTVAL '"
 					+impression.getClient().getMailClient()+"','"
 					+impression.getPathImpression()+"',"
 					+impression.getArticle(i)+",'"
