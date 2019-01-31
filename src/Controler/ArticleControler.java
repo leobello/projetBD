@@ -24,7 +24,7 @@ public class ArticleControler implements CRUDInterface<Article> {
 	@Override
 	public boolean create(Article object) {
 		BuildReq br = new BuildReq();
-		String req = br.insert("ARTICLE", String.valueOf(object.getIdArticle()), String.valueOf(object.getPrix()),
+		String req = br.insert("ARTICLE", "ARTICLES_SEQ.NEXTVAL", String.valueOf(object.getPrix()),
 				String.valueOf(object.getQuantite()));
 		try {
 			ResultSet rs = stmt.executeQuery(req);

@@ -16,12 +16,13 @@ public class Commande {
 	private List<Adresse> adresses = new ArrayList<Adresse>();
 	private List<Article> articles = new ArrayList<Article>();
 
-	public Commande(Date date, String modeLivraison, String statutCommande, int numCommande, Float montant) {
+	public Commande(Date date, String modeLivraison, String statutCommande, int numCommande, Float montant, Client client) {
 		this.date = date;
 		this.modeLivraison = modeLivraison;
 		this.statutCommande = statutCommande;
 		this.numCommande = numCommande;
 		this.prixTotal = montant;
+		this.client = client;
 	}
 
 	public Date getDate() {
