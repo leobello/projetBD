@@ -4,12 +4,14 @@ import java.sql.Statement;
 
 import BDD.CRUDInterface;
 import BDD.Calendrier;
+import serviceBD.BD;
 
-public class CalendrierControler implements CRUDInterface<Calendrier>{
+public class CalendrierControler implements CRUDInterface<Calendrier> {
 	private Calendrier calendrier;
+	private BD bd;
 
-	public CalendrierControler(Statement stmt) {
-		// TODO Auto-generated constructor stub
+	public CalendrierControler(BD bd) {
+		this.bd = bd;
 	}
 
 	@Override
@@ -35,7 +37,5 @@ public class CalendrierControler implements CRUDInterface<Calendrier>{
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
-
 
 }

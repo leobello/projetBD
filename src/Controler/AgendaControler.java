@@ -4,13 +4,14 @@ import java.sql.Statement;
 
 import BDD.Agenda;
 import BDD.CRUDInterface;
+import serviceBD.BD;
 
 public class AgendaControler implements CRUDInterface <Agenda> {
 	private Agenda agenda;
-	private static Statement stmt;
+	private BD bd; 
 
-	public AgendaControler(Statement stmt) {
-		AgendaControler.stmt = stmt;
+	public AgendaControler(BD bd) {
+		this.bd = bd;
 	}
 
 	@Override

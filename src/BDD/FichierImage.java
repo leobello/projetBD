@@ -81,4 +81,12 @@ public class FichierImage {
 	public Photo getPhoto(int i) {
 		return photos.get(i);
 	}
+
+	public void ajouterPhoto(Photo photo) {
+		photos.add(photo);
+	}
+
+	public void supprimerPhoto(Photo photo) {
+		photos.remove(photo);
+	}
 }

@@ -4,14 +4,15 @@ import java.sql.Statement;
 
 import BDD.CRUDInterface;
 import BDD.Semaine;
+import serviceBD.BD;
 
-public class SemaineControler implements CRUDInterface<Semaine>{
-	
+public class SemaineControler implements CRUDInterface<Semaine> {
+
 	private Semaine semaine;
-	private static Statement stmt;
+	private BD bd;
 
-	public SemaineControler(Statement stmt) {
-		SemaineControler.stmt = stmt;
+	public SemaineControler(BD bd) {
+		this.bd = bd;
 	}
 
 	@Override
@@ -37,7 +38,5 @@ public class SemaineControler implements CRUDInterface<Semaine>{
 		// TODO Auto-generated method stub
 		return false;
 	}
-
-
 
 }

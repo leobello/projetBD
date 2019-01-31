@@ -10,7 +10,7 @@ public class AlbumPhoto extends Impression {
 
 	public AlbumPhoto(int numImpression, String pathImpression,Client client, boolean Impression_ok, int idPhoto, String titre, String qualite,
 			String format) {
-		super(numImpression, pathImpression, client, Impression_ok, qualite, format);
+		super(numImpression, pathImpression, Impression_ok, qualite, format);
 		this.idPhoto = idPhoto;
 		this.titre = titre;
 	}

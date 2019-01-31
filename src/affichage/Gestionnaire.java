@@ -18,12 +18,12 @@ public class Gestionnaire extends TypeUtilisateur {
 		{
 			reponse = -1;
 			System.out.println(	"/**********************************************************************************************/\n"
-							+ 	"Bienvenue dans l'application dédiée au gestionnaire. \n\n"
+							+ 	"Bienvenue dans l'application dï¿½diï¿½e au gestionnaire. \n\n"
 							+	"Que souhaitez vous faire?\n\n"
 							+	"6 - Supprimer un client\n"
 							+	"5 - Supprimer un fichier image\n"
-							+	"4 - Réaliser une impression\n"
-							+	"3 - Mettre à jour le stock\n"
+							+	"4 - Rï¿½aliser une impression\n"
+							+	"3 - Mettre ï¿½ jour le stock\n"
 							+	"2 - Envoyer une commande\n"
 							+	"1 - Visualiser les statistiques des produits\n\n"
 							+ 	"0 - Quitter l'application Gestionnaire");
@@ -47,10 +47,10 @@ public class Gestionnaire extends TypeUtilisateur {
 		while(true) {
 			int reponse = -1;
 			System.out.println(	"/******* Visualisation des statistiques de vente des produits *******\n"
-						+ 	"Selon quels critères souhaitez-vous ces statistiques?\n"
-						+ 	"3 - Par catégorie\n"
+						+ 	"Selon quels critï¿½res souhaitez-vous ces statistiques?\n"
+						+ 	"3 - Par catï¿½gorie\n"
 						+ 	"2 - Par format\n"
-						+ 	"1 - Par qualité\n\n"
+						+ 	"1 - Par qualitï¿½\n\n"
 						+ 	"0 - Retour au menu principal\n");
 			reponse = LectureClavier.lireEntier("\nChoix :");
 			switch(reponse) 
@@ -66,10 +66,10 @@ public class Gestionnaire extends TypeUtilisateur {
 
 	private boolean getStats(String filtre) {
 		int reponse = -1;
-		/*requêtes des impressions vendues ordonnées selon le filtre*/ 
-			/*en attendant on simule pour qualité*/
+		/*requï¿½tes des impressions vendues ordonnï¿½es selon le filtre*/ 
+			/*en attendant on simule pour qualitï¿½*/
 			ArrayList<String> typeStats = new ArrayList<String>();
-			typeStats.add("Supérieur");
+			typeStats.add("Supï¿½rieur");
 			typeStats.add("Moyenne");
 			ArrayList<Double> stats = new ArrayList<Double>();
 			stats.add(10.0);
@@ -117,7 +117,7 @@ public class Gestionnaire extends TypeUtilisateur {
 						commande.setStatutCommande("Envoyée");
 						//CRUDInterface<Commande> commandeControler = _GlobalControler.getCommandeControler();
 						//commandeControler.update(commande);
-						System.out.println("La commande n°"+commande.getNumCommande()+" à été envoyée\n");
+						System.out.println("La commande nï¿½"+commande.getNumCommande()+" ï¿½ ï¿½tï¿½ envoyï¿½e\n");
 						break;
 				case "return" : break;
 				case "returnMenu" : return;
@@ -128,7 +128,7 @@ public class Gestionnaire extends TypeUtilisateur {
 	private String validationEtatCommandeAMaj(Commande commande) {
 		int reponse = -1;
 		while(true) {
-			System.out.println("Voulez-vous vraiment envoyer la commande n°"+commande.getNumCommande()+" ?\n\n"
+			System.out.println("Voulez-vous vraiment envoyer la commande nï¿½"+commande.getNumCommande()+" ?\n\n"
 							+	"2 - Envoyer\n\n"
 							+	"1 - Retour\n"
 							+ 	"0 - Retour au menu principal\n");
@@ -146,9 +146,9 @@ public class Gestionnaire extends TypeUtilisateur {
 	private Commande choixCommandeAMaj() {
 		int reponse = -1;
 		ArrayList<Commande> commandes = new ArrayList<Commande>();
-		commandes.add(new Commande(General.getDateNow(), "Domicile", "Prête à l'envoi", 51478, (float) 10));
-		commandes.add(new Commande(General.getDateNow(), "En retrait", "Prête à l'envoi", 69854, (float) 10));
-		/*requête des différentes commandes dans l'état "Prête à l'envoi"*/
+		commandes.add(new Commande(General.getDateNow(), "Domicile", "Prï¿½te ï¿½ l'envoi", 51478, (float) 10));
+		commandes.add(new Commande(General.getDateNow(), "En retrait", "Prï¿½te ï¿½ l'envoi", 69854, (float) 10));
+		/*requï¿½te des diffï¿½rentes commandes dans l'ï¿½tat "Prï¿½te ï¿½ l'envoi"*/
 		commandesToString(commandes);
 		reponse = LectureClavier.lireEntier("\nChoix :");
 		for(int num = 0; num<commandes.size(); num++) {
@@ -162,7 +162,7 @@ public class Gestionnaire extends TypeUtilisateur {
 
 	private void commandesToString(ArrayList<Commande> commandes) {
 		for(int i=0; i<commandes.size(); i++) {
-			System.out.println(commandes.size()-i+" - Commande n°"+commandes.get(commandes.size()-1-i).getNumCommande()+" - Etat = "+commandes.get(commandes.size()-1-i).getStatutCommande()+"\n");
+			System.out.println(commandes.size()-i+" - Commande nï¿½"+commandes.get(commandes.size()-1-i).getNumCommande()+" - Etat = "+commandes.get(commandes.size()-1-i).getStatutCommande()+"\n");
 		}
 		System.out.println( 	"\n0 - Retour au menu principal\n");
 	}
@@ -170,8 +170,8 @@ public class Gestionnaire extends TypeUtilisateur {
 	private void majStock() {
 		int reponse = -1;
 		while(true) {
-			System.out.println(	"/********************* Mise à jour du stock *********************/\n"
-							+ 	"Quel élément du stock voulez-vous mettre à jour?\n"
+			System.out.println(	"/********************* Mise ï¿½ jour du stock *********************/\n"
+							+ 	"Quel ï¿½lï¿½ment du stock voulez-vous mettre ï¿½ jour?\n"
 							+ 	"7 - Cadre\n"
 							+ 	"6 - Tirage\n"
 							+ 	"5 - Album\n"
@@ -200,10 +200,10 @@ public class Gestionnaire extends TypeUtilisateur {
 		int reponse = -1;
 		while(true) {
 			System.out.println(	"/**************************** Tirage ****************************/\n"
-							+ 	"5 - Recevoir une livraison de "+element+" format A4 Qualité Supérieure\n"
-							+ 	"4 - Recevoir une livraison de "+element+" format A4 Qualité Moyenne\n"
-							+ 	"3 - Recevoir une livraison de "+element+" format A5 Qualité Supérieure\n"
-							+ 	"2 - Recevoir une livraison de "+element+" format A5 Qualité Moyenne\n\n"
+							+ 	"5 - Recevoir une livraison de "+element+" format A4 Qualitï¿½ Supï¿½rieure\n"
+							+ 	"4 - Recevoir une livraison de "+element+" format A4 Qualitï¿½ Moyenne\n"
+							+ 	"3 - Recevoir une livraison de "+element+" format A5 Qualitï¿½ Supï¿½rieure\n"
+							+ 	"2 - Recevoir une livraison de "+element+" format A5 Qualitï¿½ Moyenne\n\n"
 							+ 	"1 - Retour\n"
 							+ 	"0 - Retour au menu principal\n");
 			reponse = LectureClavier.lireEntier("\nChoix :");
@@ -212,19 +212,19 @@ public class Gestionnaire extends TypeUtilisateur {
 			String qualite = "";
 			switch(reponse) 
 			{
-				case 5 : 	nombreMaj=LectureClavier.lireEntier("Quelle quantité recevez-vous?\n\nChoix :"); 
+				case 5 : 	nombreMaj=LectureClavier.lireEntier("Quelle quantitï¿½ recevez-vous?\n\nChoix :"); 
 							format="A4"; 
-							qualite="Supérieure"; 
+							qualite="Supï¿½rieure"; 
 							break; 
-				case 4 : 	nombreMaj=LectureClavier.lireEntier("Quelle quantité recevez-vous?\n\nChoix :"); 
+				case 4 : 	nombreMaj=LectureClavier.lireEntier("Quelle quantitï¿½ recevez-vous?\n\nChoix :"); 
 							format="A4"; 
 							qualite="Moyenne"; 
 							break; 
-				case 3 : 	nombreMaj=LectureClavier.lireEntier("Quelle quantité recevez-vous?\n\nChoix :"); 
+				case 3 : 	nombreMaj=LectureClavier.lireEntier("Quelle quantitï¿½ recevez-vous?\n\nChoix :"); 
 							format="A5"; 
-							qualite="Supérieure"; 
+							qualite="Supï¿½rieure"; 
 							break;
-				case 2 : 	nombreMaj=LectureClavier.lireEntier("Quelle quantité recevez-vous?\n\nChoix :"); 
+				case 2 : 	nombreMaj=LectureClavier.lireEntier("Quelle quantitï¿½ recevez-vous?\n\nChoix :"); 
 							format="A5"; 
 							qualite="Moyenne"; 
 							break;
@@ -234,7 +234,7 @@ public class Gestionnaire extends TypeUtilisateur {
 			}
 			//GestionStock stockControl = new GestionStock();
 			//stockControl.incrStock(nombreMaj, element, qualite, format);
-			System.out.println( nombreMaj+" exemplaires ont étés ajoutés au stock de "+element+" format "+format+" en qualité "+qualite+".\n");
+			System.out.println( nombreMaj+" exemplaires ont ï¿½tï¿½s ajoutï¿½s au stock de "+element+" format "+format+" en qualitï¿½ "+qualite+".\n");
 		}
 	}
 
@@ -242,10 +242,13 @@ public class Gestionnaire extends TypeUtilisateur {
 		int reponse = -1;
 		while(true)
 		{
-			System.out.println(	"/***************** Réalisation d'une impression *****************/\n"
+			System.out.println(	"/***************** Rï¿½alisation d'une impression *****************/\n"
 							+ 	"Voici les impressions en attente...\n");
 			ArrayList<Impression> impressions = new ArrayList<Impression>();
-			/*Requête des impressions en attente de réalisation*/Impression imp = new Impression(25894, "lepathdelimpression", new Client("l@r.com", "Reynaud", "Louis", "mdp"), false, "SUPERIEUR", "A4"); impressions.add(imp); impressions.add(imp);
+			/*Requï¿½te des impressions en attente de rï¿½alisation*/Impression imp = new Impression(25894, "lepathdelimpression", false, "SUPERIEUR", "A4");
+			imp.setClient(new Client("l@r.com", "Reynaud", "Louis", "mdp"));
+			impressions.add(imp); 
+			impressions.add(imp);
 			impressionsToString(impressions);
 			reponse = LectureClavier.lireEntier("\nChoix :");
 			for(int num = 0; num<=impressions.size(); num++) {
@@ -256,7 +259,7 @@ public class Gestionnaire extends TypeUtilisateur {
 						impression.setImpression_ok(true);
 						//CRUDInterface<Impression> impressionControler = _GlobalControler.getImpressionControler();
 						// impressionControler.update(impression);
-						System.out.println("L'impression n° "+impression.getNumImpression()+" à été réalisée.");
+						System.out.println("L'impression nï¿½ "+impression.getNumImpression()+" ï¿½ ï¿½tï¿½ rï¿½alisï¿½e.");
 					}else if(choix.equals("returnMenu")) {
 						return;
 					}
@@ -270,7 +273,7 @@ public class Gestionnaire extends TypeUtilisateur {
 	private String faireImpression(Impression impression) {
 		int reponse;
 		while(true) {
-			System.out.println("Voulez-vous vraiment effectuer l'impression n°"+impression.getNumImpression()+" ?\n\n"
+			System.out.println("Voulez-vous vraiment effectuer l'impression nï¿½"+impression.getNumImpression()+" ?\n\n"
 							+	"2 - Valider\n\n"
 							+	"1 - Retour\n"
 							+ 	"0 - Retour au menu principal\n");
@@ -287,7 +290,7 @@ public class Gestionnaire extends TypeUtilisateur {
 
 	private void impressionsToString(ArrayList<Impression> impressions) {
 		for(int i=0; i<impressions.size(); i++) {
-			System.out.println(impressions.size()-i+" - Impression n°"+impressions.get(impressions.size()-1-i).getNumImpression());
+			System.out.println(impressions.size()-i+" - Impression nï¿½"+impressions.get(impressions.size()-1-i).getNumImpression());
 		}
 		System.out.println( 	"\n0 - Retour au menu principal\n");
 	}
@@ -299,7 +302,7 @@ public class Gestionnaire extends TypeUtilisateur {
 			System.out.println(	"/**************** Suppression d'un fichier image ****************/\n"
 							+ 	"Voici les fichiers images effacables...\n");
 			ArrayList<FichierImage> fichiersImage = new ArrayList<FichierImage>();
-			/*Requête des impressions en attente de réalisation*/FichierImage fi = new FichierImage("512587/photo/vacance.png", "", "", 0, General.getDateNow()); fi.setProprietaire(new Client("louisreynaud26@gmail.com", "Reynaud", "Louis", "MotDePasse"));fichiersImage.add(fi); fichiersImage.add(fi);
+			/*Requï¿½te des impressions en attente de rï¿½alisation*/FichierImage fi = new FichierImage("512587/photo/vacance.png", "", "", 0, General.getDateNow()); fi.setProprietaire(new Client("louisreynaud26@gmail.com", "Reynaud", "Louis", "MotDePasse"));fichiersImage.add(fi); fichiersImage.add(fi);
 			fichiersImageToString(fichiersImage);
 			reponse = LectureClavier.lireEntier("\nChoix :");
 			for(int num = 0; num<=fichiersImage.size(); num++) {
@@ -309,7 +312,7 @@ public class Gestionnaire extends TypeUtilisateur {
 					if(choix.equals("V")) {
 						//CRUDInterface<FichierImage> fiControler = _GlobalControler.getFichierControler();
 						//fiControler.delete(fichierImage.getPath(), fichierImage.getProprietaire().getMailClient());
-						System.out.println("Le fichier image n° "+fichierImage.getPath()+" à été effacé.");
+						System.out.println("Le fichier image nï¿½ "+fichierImage.getPath()+" ï¿½ ï¿½tï¿½ effacï¿½.");
 					}else if(choix.equals("returnMenu")) {
 						return;
 					}
@@ -343,7 +346,7 @@ public class Gestionnaire extends TypeUtilisateur {
 						+ 	"1 - fichier Image : "+fichiersImage.get(0).getPath()+"- Client Louis REYNAUD\n\n"
 						+ 	"0 - Retour au menu principal");*/
 		for(int i=0; i<fichiersImage.size(); i++) {
-			System.out.println(fichiersImage.size()-i+" - fichier Image : "+fichiersImage.get(fichiersImage.size()-1-i).getPath()+" - Propriétaire : "+fichiersImage.get(fichiersImage.size()-1-i).getProprietaire(). getMailClient());
+			System.out.println(fichiersImage.size()-i+" - fichier Image : "+fichiersImage.get(fichiersImage.size()-1-i).getPath()+" - Propriï¿½taire : "+fichiersImage.get(fichiersImage.size()-1-i).getProprietaire(). getMailClient());
 		}
 		System.out.println( 	"\n0 - Retour au menu principal\n");
 	}
@@ -356,7 +359,7 @@ public class Gestionnaire extends TypeUtilisateur {
 			System.out.println(	"/********************* Suppression d'un client ******************/\n"
 							+ 	"Voici les clients supprimables...\n");
 			ArrayList<BDD.Client> clients = new ArrayList<BDD.Client>();
-			/*Requête des impressions en attente de réalisation*/BDD.Client fi = new BDD.Client("louisreynaud@gmail.com", "Louis", "Reynaud", "motdepasse"); clients.add(fi); clients.add(fi);
+			/*Requï¿½te des impressions en attente de rï¿½alisation*/BDD.Client fi = new BDD.Client("louisreynaud@gmail.com", "Louis", "Reynaud", "motdepasse"); clients.add(fi); clients.add(fi);
 			clientsToString(clients);
 			reponse = LectureClavier.lireEntier("\nChoix :");
 			for(int num = 0; num<=clients.size(); num++) {
@@ -366,7 +369,7 @@ public class Gestionnaire extends TypeUtilisateur {
 					if(choix.equals("V")) {
 						//ClientInterface clientControler = _GlobalControler.getClientControler();
 						//fiControler.delete(.getPath(), fichierImage.getProprietaire().getMailClient());
-						System.out.println("Le client "+client.getMailClient()+" à été désactivé.");
+						System.out.println("Le client "+client.getMailClient()+" ï¿½ ï¿½tï¿½ dï¿½sactivï¿½.");
 					}else if(choix.equals("returnMenu")) {
 						return;
 					}
@@ -407,6 +410,6 @@ public class Gestionnaire extends TypeUtilisateur {
 	}
 
 	private void quitter() {
-		System.out.println("A bientôt");
+		System.out.println("A bientï¿½t");
 	}
 }

@@ -4,13 +4,14 @@ import java.sql.Statement;
 
 import BDD.CRUDInterface;
 import BDD.Cadre;
+import serviceBD.BD;
 
 public class CadreControler implements CRUDInterface<Cadre>{
 	private Cadre cadre;
-	private static Statement stmt;
+	private BD bd;
 
-	public CadreControler(Statement stmt) {
-		CadreControler.stmt = stmt;
+	public CadreControler(BD bd) {
+		this.bd = bd;
 	}
 
 	@Override

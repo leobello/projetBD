@@ -10,7 +10,7 @@ public class Agenda extends Impression {
 	private List<Couple<Photo>> photos = new ArrayList<Couple<Photo>>();
 
 	public Agenda(int numImpression, String pathImpression,Client client, boolean Impression_ok, int noPageAgenda, String qualite, String format) {
-		super(numImpression, pathImpression, client, Impression_ok, qualite, format);
+		super(numImpression, pathImpression, Impression_ok, qualite, format);
 		this.noPageAgenda = noPageAgenda;
 	}
 	
