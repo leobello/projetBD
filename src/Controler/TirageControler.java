@@ -1,26 +1,32 @@
 package Controler;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 import BDD.CRUDInterface;
+import BDD.Client;
 import BDD.Tirage;
+import serviceBD.BD;
 
 public class TirageControler implements CRUDInterface<Tirage> {
 	private Tirage tirage;
-	private Statement stmt;
+	private BD bd;
 	
-	public  TirageControler(Statement stmt) {
-		this.stmt = stmt;
+	public  TirageControler(BD bd) {
+		this.bd = bd;
 	}
 
 	@Override
 	public boolean create(Tirage tirage) {
-		// TODO Auto-generated method stub
+		boolean checkCreate = false;
 		try {
-			this.stmt.executeQuery(null);
+			String requete = "INSERT INTO TIRAGE VALUES (IMPRESSION.NEXTVAL)";               
+			int insert = this.bd.getReadCommittedSTMT().executeUpdate(requete);
+			if (insert>0) {
+				checkCreate = true;
+			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return false;
@@ -28,14 +34,43 @@ public class TirageControler implements CRUDInterface<Tirage> {
 
 	@Override
 	public Tirage read(int identifiant) {
-		// TODO Auto-generated method stub
+		String requete = "SELECT * FROM TIRAGE "
+						+ "NATURAL JOIN IMPRESSION "
+						+ "NATURAL JOIN CLIENT "
+						+ "WHERE NUMIMPRESSION = "+ identifiant; ;
+		ResultSet rs;
+		try {
+			rs = this.bd.getReadCommittedSTMT().executeQuery(requete);
+			while (rs.next()) {
+			tirage = new Tirage (rs.getInt("NUMIMPRESSION"),
+						rs.getString("PATH_IMPRESSION"),
+						rs.getBoolean("IMPRESSION_OK"),
+						rs.getString("QUALITE"),
+						rs.getString("FORMAT"));
+			tirage.setClient(new Client(rs.getString("MAILCLIENT"), rs.getString("NOM"), rs.getString("PRENOM"),
+					rs.getString("MOTDEPASSE")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return tirage;
 	}
 
 	@Override
-	public boolean update(Tirage object) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean update(Tirage object) {		
+		boolean checkUpdate = false;
+		try {
+		String requete = "UPDATE TIRAGE set PATHIMPRESSION = " + object.getPathImpression()
+				+ " WHERE NUMIMPRESSION = '" + object.getNumImpression() + "'";
+		int insert = this.bd.getSerializableSTMT().executeUpdate(requete);
+		if (insert > 0) {
+			checkUpdate = true;
+		}
+
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+	return checkUpdate;
 	}
 
 	@Override

@@ -16,10 +16,9 @@ public class Impression {
 	private List<Article> articles = new ArrayList<Article>();
 
 	
-	public Impression(int numImpression, String pathImpression, Client client, boolean impression_ok, String qualite, String format) {
+	public Impression(int numImpression, String pathImpression, boolean impression_ok, String qualite, String format) {
 		this.numImpression = numImpression;
 		this.pathImpression = pathImpression;
-		this.client = client;
 		this.impression_ok = impression_ok;
 		this.qualite = qualite;
 		this.format = format;
@@ -35,7 +34,6 @@ public class Impression {
 	public String getQualite() {
 		return qualite;
 	}
-
 	public void setQualite(String qualite) {
 		this.qualite = qualite;
 	}

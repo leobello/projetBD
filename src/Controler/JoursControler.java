@@ -4,13 +4,14 @@ import java.sql.Statement;
 
 import BDD.CRUDInterface;
 import BDD.Jour;
+import serviceBD.BD;
 
-public class JoursControler implements CRUDInterface<Jour>{
+public class JoursControler implements CRUDInterface<Jour> {
 	private Jour jour;
-	private static Statement stmt;
+	private BD bd;
 
-	public JoursControler(Statement stmt) {
-		JoursControler.stmt = stmt;
+	public JoursControler(BD bd) {
+		this.bd = bd;
 	}
 
 	@Override
@@ -36,11 +37,5 @@ public class JoursControler implements CRUDInterface<Jour>{
 		// TODO Auto-generated method stub
 		return false;
 	}
-
-
-
-
-	
-	
 
 }
