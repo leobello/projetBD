@@ -14,7 +14,7 @@ import serviceBD.BD;
 public class FichierControler implements CRUDInterface<FichierImage> {
 	private FichierImage fichier;
 	private BD bd;
-
+	// serializable
 	public FichierControler(BD bd) {
 		this.bd = bd;
 	}
@@ -27,7 +27,7 @@ public class FichierControler implements CRUDInterface<FichierImage> {
 					+ object.getProprietaire().getMailClient() + "," + object.getInfoPriseDeVue() + ","
 					+ object.getResoluton() + "," + object.getInfoPriseDeVue() + "," + object.getInfoPriseDeVue() + ")";
 
-			ResultSet rs = this.bd.getReadCommittedSTMT().executeQuery(requete);
+			ResultSet rs = this.bd.getSerializableSTMT().executeQuery(requete);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -49,7 +49,7 @@ public class FichierControler implements CRUDInterface<FichierImage> {
 							"where PATH = '" + path
 							+ "' AND PROPRIETAIRE = '" + proprietaire + "'";
 			
-			ResultSet result = this.bd.getReadCommittedSTMT().executeQuery(requete);
+			ResultSet result = this.bd.getSerializableSTMT().executeQuery(requete);
 			
 			if (result.next()) {
 				fichier = new FichierImage(result.getString("PATH"), result.getString("INFOPRISEDEVUE"),
@@ -60,7 +60,7 @@ public class FichierControler implements CRUDInterface<FichierImage> {
 							result.getString("PRENOM"), result.getString("MOTDEPASSE")));
 				String requete2 = "SELECT * FROM FICHIERIMAGE NATURAL JOIN PHOTO where PATH='" + path
 						+ "' AND PROPRIETAIRE ='" + proprietaire + "'";
-				ResultSet result2 = this.bd.getReadCommittedSTMT().executeQuery(requete2);
+				ResultSet result2 = this.bd.getSerializableSTMT().executeQuery(requete2);
 				while (result2.next()) {
 					fichier.ajouterPhoto(new Photo(result.getInt("ID_PHOTO"), result.getString("RETOUCHE"),
 							result.getString("DESCRIPTION")));

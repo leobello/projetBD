@@ -8,6 +8,7 @@ import serviceBD.BD;
 public class StockControler implements CRUDInterface<Stock> {
 	private Stock stock;
 	private BD bd;
+	// serializable
 
 	public StockControler(BD bd) {
 		this.bd = bd;
@@ -17,7 +18,7 @@ public class StockControler implements CRUDInterface<Stock> {
 		try {
 			String requete = "SELECT * FROM STOCK " + "where TYPE_IMPRESSION = '" + typeImp + "' " + "AND QUALITE = '"
 					+ qualite + "' " + "AND FORMAT = '" + format + "'";
-			ResultSet result = this.bd.getReadCommittedSTMT().executeQuery(requete);
+			ResultSet result = this.bd.getSerializableSTMT().executeQuery(requete);
 			while (result.next()) {
 				stock = new Stock(result.getString("TYPE_IMPRESSION"), result.getInt("QUANTITESTOCK"),
 						result.getString("QUALITE"), result.getString("FORMAT"));

@@ -12,7 +12,7 @@ import serviceBD.BD;
 public class ClientControler implements CRUDInterface<Client> {
 	private Client client;
 	private BD bd;
-
+	// read committed
 	public ClientControler(BD bd) {
 		this.bd = bd;
 	}

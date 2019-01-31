@@ -14,7 +14,7 @@ public class CommandeControler implements CRUDInterface<Commande> {
 
 	private Commande commande;
 	private BD bd;
-
+	// serializable
 	public CommandeControler(BD bd) {
 		this.bd = bd;
 	}

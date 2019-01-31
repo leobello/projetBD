@@ -9,6 +9,7 @@ import serviceBD.BD;
 public class BureauControler implements CRUDInterface<Bureau> {
 	private Bureau bureau;
 	private BD bd;
+	// read commited
 
 	public BureauControler(BD bd) {
 		this.bd = bd;

@@ -9,7 +9,7 @@ import serviceBD.BD;
 public class AgendaControler implements CRUDInterface <Agenda> {
 	private Agenda agenda;
 	private BD bd; 
-
+	// read commiteds
 	public AgendaControler(BD bd) {
 		this.bd = bd;
 	}
