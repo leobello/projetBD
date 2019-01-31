@@ -51,7 +51,7 @@ public class _GlobalControler {
 		return new CommandeControler(bd);
 	}
 
-	public static CRUDInterface<FichierImage> getFichierControler() {
+	public static FichierControler getFichierControler() {
 		return new FichierControler(bd);
 	}
 

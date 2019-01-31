@@ -21,7 +21,7 @@ public class TirageControler implements CRUDInterface<Tirage> {
 	public boolean create(Tirage tirage) {
 		boolean checkCreate = false;
 		try {
-			String requete = "INSERT INTO TIRAGE VALUES ("+ tirage.getNumImpression()+")";               
+			String requete = "INSERT INTO TIRAGE VALUES (IMPRESSION.NEXTVAL)";               
 			int insert = this.bd.getReadCommittedSTMT().executeUpdate(requete);
 			if (insert>0) {
 				checkCreate = true;
@@ -57,9 +57,20 @@ public class TirageControler implements CRUDInterface<Tirage> {
 	}
 
 	@Override
-	public boolean update(Tirage object) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean update(Tirage object) {		
+		boolean checkUpdate = false;
+		try {
+		String requete = "UPDATE TIRAGE set PATHIMPRESSION = " + object.getPathImpression()
+				+ " WHERE NUMIMPRESSION = '" + object.getNumImpression() + "'";
+		int insert = this.bd.getSerializableSTMT().executeUpdate(requete);
+		if (insert > 0) {
+			checkUpdate = true;
+		}
+
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+	return checkUpdate;
 	}
 
 	@Override

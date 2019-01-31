@@ -8,7 +8,7 @@ import serviceBD.BD;
 
 public class MuralControler implements CRUDInterface<Mural> {
 	private Mural mural;
-	private static BD bd;
+	private BD bd;
 
 	public MuralControler(BD bd) {
 		this.bd = bd;

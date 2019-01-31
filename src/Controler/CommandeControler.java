@@ -13,14 +13,10 @@ import serviceBD.BuildReq;
 public class CommandeControler implements CRUDInterface<Commande> {
 
 	private Commande commande;
-	private Statement stmt;
+	private BD bd;
 
 	public CommandeControler(BD bd) {
-		try {
-			this.stmt = bd.getSerializableSTMT();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		this.bd = bd;
 	}
 
 	@Override
@@ -34,7 +30,7 @@ public class CommandeControler implements CRUDInterface<Commande> {
 				object.getStatutCommande(), String.valueOf(object.getNumCommande()), cp,
 				object.getClient().getMailClient(), String.valueOf(object.getMontant()));
 		try {
-			stmt.executeQuery(req);
+			bd.getSerializableSTMT().executeQuery(req);
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -54,7 +50,7 @@ public class CommandeControler implements CRUDInterface<Commande> {
 		Integer numCommande;
 		Commande cmd = null;
 		try {
-			rs = stmt.executeQuery(req);
+			rs = bd.getSerializableSTMT().executeQuery(req);
 			while (rs.next()) {
 				date = rs.getDate("DATEC");
 				modeLivraison = rs.getString("MODELIVRAISON");
@@ -82,7 +78,7 @@ public class CommandeControler implements CRUDInterface<Commande> {
 				+ "'," + " PRIXTOTAL = " + object.getMontant() + " " + " WHERE NUMCOMMANDE = "
 				+ object.getNumCommande();
 		try {
-			ResultSet rs = stmt.executeQuery(req);
+			ResultSet rs = bd.getSerializableSTMT().executeQuery(req);
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();

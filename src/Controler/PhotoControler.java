@@ -22,8 +22,10 @@ public class PhotoControler implements CRUDInterface<Photo> {
 	public boolean create(Photo object) {
 		boolean createOK = false;
 		try {
-			String requete = "INSERT INTO ADRESSE VALUES ( ADRESSES_SEQ.NEXTVAL," + photo.getFichierImage().getPath()
-					+ "," + photo.getFichierImage().getProprietaire().getMailClient() + "," + photo.getRetouche() + ","
+			String requete = "INSERT INTO PHOTO VALUES (PHOTOS_SEQ.NEXTVAL," 
+					+ photo.getFichierImage().getPath()
+					+ "," + photo.getFichierImage().getProprietaire().getMailClient() + "," 
+					+ photo.getRetouche() + ","
 					+ photo.getDescription() + ")";
 
 			ResultSet rs = this.bd.getReadCommittedSTMT().executeQuery(requete);

@@ -1,8 +1,10 @@
 package Controler;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
+import BDD.Adresse;
 import BDD.CRUDInterface;
 import BDD.CodePromo;
 import serviceBD.BD;
@@ -19,8 +21,9 @@ public class CodePromoControler implements CRUDInterface<CodePromo> {
 	public boolean create(CodePromo object) {
 		boolean createOK = false;
 		try {
-			String requete = "INSERT INTO CODEPROMO VALUES (" + codePromo.getCode() + "," + codePromo.getPourcentage()
-					+ "," + codePromo.getTypeCodePromo() + ")";
+			String requete = "INSERT INTO CODEPROMO VALUES (" + codePromo.getCode() + "," 
+						+ codePromo.getPourcentage() + ","
+						+ codePromo.getTypeCodePromo() + ")";
 
 			ResultSet rs = this.bd.getReadCommittedSTMT().executeQuery(requete);
 
@@ -33,7 +36,23 @@ public class CodePromoControler implements CRUDInterface<CodePromo> {
 
 	@Override
 	public CodePromo read(int identifiant) {
-		// TODO Auto-generated method stub
+		return codePromo;
+	}
+	
+	public CodePromo readClient(String code){
+		try {
+			ResultSet result = this.bd.getReadCommittedSTMT().executeQuery("SELECT * FROM CODEPROMO WHERE CODE = "+ 
+			code);
+			while(result.next()) {
+				codePromo = new CodePromo(code, 
+						result.getInt("POURCENTAGE"), 
+						(result.getInt("DEJAUTILISE") == 1) , 
+						result.getString("TYPE_CODEPROMO"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return codePromo;
 	}
 

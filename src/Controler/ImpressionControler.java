@@ -10,7 +10,7 @@ import serviceBD.BD;
 
 public class ImpressionControler implements CRUDInterface<Impression> {
 	private Impression impression;
-	private static BD bd;
+	private BD bd;
 
 	public ImpressionControler(BD bd) {
 		this.bd = bd;
@@ -25,8 +25,8 @@ public class ImpressionControler implements CRUDInterface<Impression> {
 				 i = 1;
 			}
 			String requete = "INSERT INTO IMPRESSION VALUES (IMPRESSIONS_SEQ.NEXTVAL"+
-					impression.getNumImpression()
-					+"'"+impression.getClient().getMailClient()+"','"
+					impression.getNumImpression()+"'"
+					+impression.getClient().getMailClient()+"','"
 					+impression.getPathImpression()+"',"
 					+impression.getArticle(i)+",'"
 					+impression.getQualite()+"','"
