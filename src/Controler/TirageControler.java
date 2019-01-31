@@ -20,9 +20,6 @@ public class TirageControler implements CRUDInterface<Tirage> {
 	@Override
 	public boolean create(Tirage tirage) {
 		boolean checkCreate = false;
-<<<<<<< HEAD
-		//String requete = "INSERT INTO TIRAGE VALUES ("+
-=======
 		try {
 			String requete = "INSERT INTO TIRAGE VALUES (IMPRESSION.NEXTVAL)";               
 			int insert = this.bd.getReadCommittedSTMT().executeUpdate(requete);
@@ -32,7 +29,6 @@ public class TirageControler implements CRUDInterface<Tirage> {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
->>>>>>> 1e856eddeaee0388bbc239d231fcb0fc079d7f4f
 		return false;
 	}
 
