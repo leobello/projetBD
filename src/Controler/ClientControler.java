@@ -2,7 +2,6 @@ package Controler;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import BDD.CRUDInterface;
 import BDD.Client;
 import serviceBD.BD;
@@ -46,7 +45,7 @@ public class ClientControler implements CRUDInterface<Client> {
 		return client;
 	}
 
-	//
+	// inutilisées...
 	@Override
 	public boolean update(Client object) {
 		// TODO Auto-generated method stub
