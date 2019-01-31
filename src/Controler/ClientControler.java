@@ -3,6 +3,7 @@ package Controler;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 import BDD.CRUDInterface;
 import BDD.Client;
 import BDD.Impression;
@@ -67,7 +68,7 @@ public class ClientControler implements CRUDInterface<Client> {
 					rs.getString("FORMAT")));
 		}
 	}
-	//
+
 	@Override
 	public boolean update(Client object) {
 		// TODO Auto-generated method stub

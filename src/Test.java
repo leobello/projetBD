@@ -9,7 +9,6 @@ public class Test {
 	
 	public static void main(String[] args) throws SQLException {
 		
-		//Adresse test = new Adresse() ;
 		/*Adresse test = myGlobalControler.getAdresseControler().read(11);
 		System.out.println("la ville est : "+ test.getVille());
 		
@@ -38,8 +37,10 @@ public class Test {
 		System.out.println(ph.getDescription());
 		System.out.println(ph.getCoupleTirage(0).getGenerique().getFormat());*/
 		
-		FichierImage f = _GlobalControler.getFichierControler().readFichier("/HGJ/DG","JEAP@GMAIL.COM");
-		System.out.println(f.getInfoPriseDeVue());
+		/*FichierImage f = _GlobalControler.getFichierControler().readFichier("/HGJ/DG","JEAP@GMAIL.COM");
+		System.out.println(f.getInfoPriseDeVue());*/
+		
+		
 	}
 
 }
