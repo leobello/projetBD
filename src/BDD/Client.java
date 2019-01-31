@@ -33,8 +33,8 @@ public class Client {
 	}
 
 	private void loadImpressions(String idClient) throws SQLException {
-		Statement stmt = BD.getInstance().getRepeatableReadSTMT();
-		String req = "SELECT * FROM IMPRESSION WHERE MAILCLIENT = " + idClient;
+		Statement stmt = BD.getInstance().getReadCommittedSTMT();//      getRepeatableReadSTMT();
+		String req = "SELECT * FROM IMPRESSION WHERE MAILCLIENT = '" + idClient+"'";
 		ResultSet rs = stmt.executeQuery(req);
 		boolean impressionOK;
 		while(rs.next()) {

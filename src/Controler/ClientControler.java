@@ -33,7 +33,7 @@ public class ClientControler implements CRUDInterface<Client> {
 	//
 	public Client readClient(String mailClient) {
 		try {
-			String requete = "SELECT * FROM CLIENT WHERE MAILCLIENT = " + "'" + mailClient + "'";
+			String requete = "SELECT * FROM CLIENT WHERE MAILCLIENT = '" + mailClient+"'"  ;
 			ResultSet rs = this.bd.getReadCommittedSTMT().executeQuery(requete);
 			while (rs.next()) {
 				client = new Client(rs.getString("MAILCLIENT"), rs.getString("NOM"), rs.getString("PRENOM"),

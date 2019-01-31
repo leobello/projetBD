@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Commande {
-	private Date date;
+	private String date;
 	private String modeLivraison;
 	private String statutCommande;
 	private int numCommande;
@@ -16,7 +16,7 @@ public class Commande {
 	private List<Adresse> adresses = new ArrayList<Adresse>();
 	private List<Article> articles = new ArrayList<Article>();
 
-	public Commande(Date date, String modeLivraison, String statutCommande, int numCommande, Float montant) {
+	public Commande(String date, String modeLivraison, String statutCommande, int numCommande, Float montant) {
 		this.date = date;
 		this.modeLivraison = modeLivraison;
 		this.statutCommande = statutCommande;
@@ -24,11 +24,11 @@ public class Commande {
 		this.prixTotal = montant;
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 

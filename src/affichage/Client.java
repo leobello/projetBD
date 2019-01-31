@@ -295,8 +295,11 @@ public class Client extends TypeUtilisateur {
 			}
 		}
 		Couple<ArrayList<Article>> articlesMontant = getMontantArticles(impressions,nbTaken);
-
-		Commande cmd = new Commande(General.getDateNow(), modelivraison, "En Cours", 0, (float) articlesMontant.getNumero());
+		
+		//
+		String date = General.getDateNow().toString(); 
+		//
+		Commande cmd = new Commande(date, modelivraison, "En Cours", 0, (float) articlesMontant.getNumero());
 
 		do{
 			System.out.println("Veuillez régler votre commande :\n"
@@ -1672,15 +1675,17 @@ public class Client extends TypeUtilisateur {
 		ClientControler clientCtrler = _GlobalControler.getClientControler();
 		this.clientActuel = clientCtrler.readClient(email);
 		 
-		if(this.clientActuel != null && this.clientActuel.getMotDePasse().equals(mdp))
+		if(this.clientActuel != null && this.clientActuel.getMotDePasse().equals(mdp)) {
+			this.connecte = true;
 			System.out.println("Vous ï¿½tes bien connecté\n");
+		}
 		else
 			System.out.println("Erreur de connexion, Client inconnu\n");
 			/*EN ATTENDANT*/
-		this.clientActuel = new BDD.Client(email, "Louis", "Reynaud", mdp);
+		/*this.clientActuel = new BDD.Client(email, "Louis", "Reynaud", mdp);
 		this.connecte = true;
 		
-		System.out.println("Vous ï¿½tes connecté.\n");
+		System.out.println("Vous ï¿½tes connecté.\n");*/
 	}
 	
 	private void sInscrire() {
