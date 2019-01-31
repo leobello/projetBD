@@ -40,17 +40,23 @@ public class PhotoControler implements CRUDInterface<Photo> {
 	@Override
 	public Photo read(int identifiant) {
 		try {
-			String requete = "SELECT * FROM PHOTO NATURAL JOIN PHOTOTIRAGE NATURAL JOIN TIRAGE NATURAL JOIN IMPRESSION "
-					+ "where IDPHOTO = '" + identifiant + "'";
+			String requete = "SELECT * FROM PHOTO where ID_PHOTO = '" + identifiant + "'";
+			
 			ResultSet result = this.bd.getReadCommittedSTMT().executeQuery(requete);
-			if (result.first()) {
+			if (result.next()) {
 				photo = new Photo(result.getInt("ID_PHOTO"), result.getString("RETOUCHE"),
 						result.getString("DESCRIPTION"));
 
-				while (result.next()) {
-					photo.ajouterDansTirages(new Couple<Tirage>(new Tirage(result.getInt("NUMIMPRESSION"),
-							result.getString("PATH_IMPRESSION"), result.getBoolean("IMPRESSION_OK"),
-							result.getString("QUALITE"), result.getString("FORMAT")), result.getInt("NBEXEMPLAIRE")));
+				String requete2 = "SELECT * FROM PHOTO "
+						+ "NATURAL JOIN PHOTOTIRAGE "
+						+ "NATURAL JOIN TIRAGE "
+						+ "NATURAL JOIN IMPRESSION "
+						+ "where ID_PHOTO = '" + identifiant + "'";
+				ResultSet result2 = this.bd.getReadCommittedSTMT().executeQuery(requete2);
+				while (result2.next()) {
+					photo.ajouterDansTirages(new Couple<Tirage>(new Tirage(result2.getInt("NUMIMPRESSION"),
+							result2.getString("PATH_IMPRESSION"), result2.getBoolean("IMPRESSION_OK"),
+							result2.getString("QUALITE"), result2.getString("FORMAT")), result2.getInt("NBEXEMPLAIRE")));
 				}
 			}
 		} catch (Exception e) {

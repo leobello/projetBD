@@ -1,11 +1,8 @@
 import java.sql.SQLException;
 
-import BDD.Adresse;
-import BDD.Client;
-import BDD.Stock;
 import BDD.Tirage;
 import Controler._GlobalControler;
-
+import BDD.*;
 
 public class Test {
 	public static _GlobalControler myGlobalControler = new _GlobalControler();
@@ -23,18 +20,26 @@ public class Test {
 		//Stock stock = _GlobalControler.getStockControler().readStock("JOURS", "MOYENNE", "A4");
 		//System.out.println(stock.getQuantiteStock());
 		
-		Stock stock = _GlobalControler.getStockControler().readStock("SEMAINES", "MOYENNE", "A4");
+		/*Stock stock = _GlobalControler.getStockControler().readStock("SEMAINES", "MOYENNE", "A4");
 		System.out.println("stock avant : "+ stock.getQuantiteStock());
 		
 		stock = new Stock ("SEMAINES",200,"MOYENNE","A4");
 		boolean stockOk = _GlobalControler.getStockControler().update(stock);
 		stock = _GlobalControler.getStockControler().readStock("SEMAINES", "MOYENNE", "A4");
-		System.out.println("stock apres : "+stock.getQuantiteStock());
+		System.out.println("stock apres : "+stock.getQuantiteStock());*/
 		
 		//Client client = _GlobalControler.getClientControler().readClient("WILLY@ORANGE.FR");
 		//System.out.println(client.getNom());
 		
-
+		/*Tirage tir = _GlobalControler.getTirageControler().read(11);
+		System.out.println("Le nom du client : "+tir.getClient().getNom());
+		
+		Photo ph = _GlobalControler.getPhotoControler().read(2);
+		System.out.println(ph.getDescription());
+		System.out.println(ph.getCoupleTirage(0).getGenerique().getFormat());*/
+		
+		FichierImage f = _GlobalControler.getFichierControler().readFichier("/HGJ/DG","JEAP@GMAIL.COM");
+		System.out.println(f.getInfoPriseDeVue());
 	}
 
 }
