@@ -41,26 +41,25 @@ public class FichierControler implements CRUDInterface<FichierImage> {
 
 		return fichier;
 	}
-	
-	public FichierImage readFichier(String path, String proprietaire){
+
+	public FichierImage readFichier(String path, String proprietaire) {
 		try {
-			String requete = "SELECT * FROM FICHIERIMAGE "
-							+ "NATURAL JOIN CLIENT "
-							+ "where PATH = '" + path 
-							+ " AND PROPRIETAIRE =" + proprietaire + "'";
+			String requete = "SELECT * FROM FICHIERIMAGE " + 
+							"NATURAL JOIN CLIENT " + 
+							"where PATH = '" + path
+							+ "' AND PROPRIETAIRE = '" + proprietaire + "'";
+			
 			ResultSet result = this.bd.getReadCommittedSTMT().executeQuery(requete);
+			
 			if (result.next()) {
-				fichier = new FichierImage(result.getString("PATH"), 
-										   result.getString("INFOPRISEDEVUE"), 
-										   result.getString("REVOLUTION"), 
-										   result.getInt("PARTAGE"), 
-										   result.getDate("DATE"));
+				fichier = new FichierImage(result.getString("PATH"), result.getString("INFOPRISEDEVUE"),
+						result.getString("RESOLUTION"), result.getInt("PARTAGE"), result.getDate("DATEACCES"));
 
 				while (result.next())
 					fichier.setProprietaire(new Client(result.getString("MAILCLIENT"), result.getString("NOM"),
 							result.getString("PRENOM"), result.getString("MOTDEPASSE")));
-				String requete2 = "SELECT * FROM FICHIERIMAGE NATURAL JOIN PHOTO where PATH='" + path 
-						+ " AND PROPRIETAIRE ='" + proprietaire + "'";
+				String requete2 = "SELECT * FROM FICHIERIMAGE NATURAL JOIN PHOTO where PATH='" + path
+						+ "' AND PROPRIETAIRE ='" + proprietaire + "'";
 				ResultSet result2 = this.bd.getReadCommittedSTMT().executeQuery(requete2);
 				while (result2.next()) {
 					fichier.ajouterPhoto(new Photo(result.getInt("ID_PHOTO"), result.getString("RETOUCHE"),
