@@ -295,7 +295,8 @@ public class Client extends TypeUtilisateur {
 			}
 		}
 		Couple<ArrayList<Article>> articlesMontant = getMontantArticles(impressions,nbTaken);
-		Commande cmd = new Commande(General.getDateNow().toString(), modelivraison, "EN COURS", (int) new Timestamp(System.currentTimeMillis()).getTime(), (float) articlesMontant.getNumero());
+		int numCommande = Math.abs( (int) new Timestamp(System.currentTimeMillis()).getTime());
+		Commande cmd = new Commande(General.getDateNow().toString(), modelivraison, "EN COURS", numCommande, (float) articlesMontant.getNumero());
 		cmd.setClient(this.clientActuel);
 		do{
 			System.out.println("Veuillez régler votre commande :\n"
@@ -310,6 +311,8 @@ public class Client extends TypeUtilisateur {
 		}while(!stockSuffisant(articlesMontant));
 		CRUDInterface<Commande> commandeControler = _GlobalControler.getCommandeControler();
 		commandeControler.create(cmd);
+		Commande maCommande = commandeControler.read(numCommande);
+		System.out.println("num : "+maCommande.getNumCommande()+", montant : "+maCommande.getMontant());
 	}
 	
 	private boolean stockSuffisant(Couple<ArrayList<Article>> articlesMontant) {
@@ -1526,9 +1529,10 @@ public class Client extends TypeUtilisateur {
 				default : General.erreurDeChoix(); break;
 			}
 		}
-		Cadre toCreate = new Cadre(0, path, this.clientActuel, false, qualite, format);
+		int numCadre = Math.abs( (int) new Timestamp(System.currentTimeMillis()).getTime());
+		Cadre toCreate = new Cadre(numCadre, path, this.clientActuel, false, qualite, format);
 		if(cadreControler.create(toCreate)) {
-				System.out.println("tirage enregistré. \n");
+				System.out.println("Cadre enregistré. \n");
 				return true;
 		}else
 		{
@@ -1611,11 +1615,9 @@ public class Client extends TypeUtilisateur {
 			do {
 				numero = LectureClavier.lireEntier(questionNumero);
 			}while(numero<1 && nbMaxPage!= 0 || numero>nbMaxPage && nbMaxPage!= 0);
-			/*Requête de récupération de la photo d'id idphoto*/
-				//EN ATTENDANT
-				Photo photo = new Photo(idphoto,"","");
-			 	Couple<Photo> cPhoto = new Couple<Photo>(photo,numero);
-			 	
+			CRUDInterface<Photo> photoControler = _GlobalControler.getPhotoControler();
+			Photo photo = photoControler.read(idphoto);
+			Couple<Photo> cPhoto = new Couple<Photo>(photo,numero);
 			photos.add(cPhoto);
 			return photos;
 		}
@@ -1631,10 +1633,9 @@ public class Client extends TypeUtilisateur {
 				boolean isUsableByClient = true;
 			
 			if(isUsableByClient) {
-				/*Requête de récupération de la photo d'id idphoto*/
-					//EN ATTENDANT
-					Photo photo = new Photo(idphoto, "", "");
-					Couple<Photo> cPhoto = new Couple<Photo>(photo,0);
+				CRUDInterface<Photo> photoControler = _GlobalControler.getPhotoControler();
+				Photo photo = photoControler.read(idphoto);
+				Couple<Photo> cPhoto = new Couple<Photo>(photo,0);
 				photos.add(cPhoto);
 				return photos;
 			}

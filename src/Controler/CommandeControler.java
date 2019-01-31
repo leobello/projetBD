@@ -27,9 +27,9 @@ public class CommandeControler implements CRUDInterface<Commande> {
 		String cp = (object.getCodePromo() == null) ? "NULL" : object.getCodePromo().getCode();
 		// String req = br.insert("COMMANDE","2O19-01-28", "ADRESSE", "EN
 		// COURS", "10", "NULL", "LEOBELLO.WD@GMAIL.COM", "10");
-		String req = "INSERT INTO COMMANDE VALUES ('"+object.getDate().toString()+"', '"+object.getModeLivraison()+"', '"
+		/*String req = "INSERT INTO COMMANDE VALUES ('"+object.getDate().toString()+"', '"+object.getModeLivraison()+"', '"
 		+object.getStatutCommande()+"', COMMANDES_SEQ.NEXTVAL, '"+cp+"', '"+object.getClient().getMailClient()+"', "
-		+String.valueOf(object.getMontant())+");";
+		+String.valueOf(object.getMontant())+");";*/
 				//String req = br.insert("COMMANDE", object.getDate().toString(), object.getModeLivraison(),
 				//object.getStatutCommande(), "COMMANDES_SEQ.NEXTVAL", cp,
 				//object.getClient().getMailClient(), String.valueOf(object.getMontant()));
