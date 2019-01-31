@@ -9,7 +9,7 @@ import BDD.CRUDInterface;
 import serviceBD.BD;
 import serviceBD.BuildReq;
 
-public class ArticleControler implements CRUDInterface<Article>{
+public class ArticleControler implements CRUDInterface<Article> {
 	private Article article;
 	private Statement stmt;
 
@@ -24,10 +24,8 @@ public class ArticleControler implements CRUDInterface<Article>{
 	@Override
 	public boolean create(Article object) {
 		BuildReq br = new BuildReq();
-		String req = br.insert("ARTICLE",
-								String.valueOf(object.getIdArticle()),
-								String.valueOf(object.getPrix()),
-								String.valueOf(object.getQuantite()));
+		String req = br.insert("ARTICLE", String.valueOf(object.getIdArticle()), String.valueOf(object.getPrix()),
+				String.valueOf(object.getQuantite()));
 		try {
 			ResultSet rs = stmt.executeQuery(req);
 			return true;
@@ -42,12 +40,10 @@ public class ArticleControler implements CRUDInterface<Article>{
 
 		// TODO Auto-generated method stub
 		try {
-			String requete = "SELECT * FROM ARTICLE WHERE ID_ARTICLE = "+ identifiant;
+			String requete = "SELECT * FROM ARTICLE WHERE ID_ARTICLE = " + identifiant;
 			ResultSet rs = stmt.executeQuery(requete);
 			while (rs.next()) {
-				article = new Article(identifiant, 
-						rs.getFloat("PRIX"), 
-						rs.getInt("QUANTITE"));
+				article = new Article(identifiant, rs.getFloat("PRIX"), rs.getInt("QUANTITE"));
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -66,8 +62,5 @@ public class ArticleControler implements CRUDInterface<Article>{
 		// TODO Auto-generated method stub
 		return false;
 	}
-
-
-	
 
 }

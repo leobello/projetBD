@@ -11,9 +11,8 @@ import BDD.Tirage;
 import serviceBD.BD;
 
 public class PhotoControler implements CRUDInterface<Photo> {
-	private Photo photo ;
+	private Photo photo;
 	private BD bd;
-	private static Statement stmt;
 
 	public PhotoControler(BD bd) {
 		this.bd = bd;
@@ -21,33 +20,42 @@ public class PhotoControler implements CRUDInterface<Photo> {
 
 	@Override
 	public boolean create(Photo object) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean createOK = false;
+		try {
+			String requete = "INSERT INTO PHOTO VALUES (PHOTOS_SEQ.NEXTVAL," 
+					+ photo.getFichierImage().getPath()
+					+ "," + photo.getFichierImage().getProprietaire().getMailClient() + "," 
+					+ photo.getRetouche() + ","
+					+ photo.getDescription() + ")";
+
+			ResultSet rs = this.bd.getReadCommittedSTMT().executeQuery(requete);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return createOK;
 	}
 
 	@Override
 	public Photo read(int identifiant) {
 		try {
-		String requete = "SELECT * FROM PHOTO NATURAL JOIN PHOTOTIRAGE NATURAL JOIN TIRAGE NATURAL JOIN IMPRESSION "
-				+ "where IDPHOTO = '"+identifiant+"'";
-		ResultSet result = this.bd.getReadCommittedSTMT().executeQuery(requete);
-		while (result.next()) {
-			photo = new Photo (result.getInt("ID_PHOTO"),
-					result.getString("RETOUCHE"), 
-					result.getString("DESCRIPTION"));
-		}
-	      if(result.first()){
-			photo = new Photo (result.getInt("ID_PHOTO"),
-						result.getString("RETOUCHE"), 
+			String requete = "SELECT * FROM PHOTO NATURAL JOIN PHOTOTIRAGE NATURAL JOIN TIRAGE NATURAL JOIN IMPRESSION "
+					+ "where IDPHOTO = '" + identifiant + "'";
+			ResultSet result = this.bd.getReadCommittedSTMT().executeQuery(requete);
+			if (result.first()) {
+				photo = new Photo(result.getInt("ID_PHOTO"), result.getString("RETOUCHE"),
 						result.getString("DESCRIPTION"));
-	          CRUDInterface<Tirage> tirContr = _GlobalControler.getTirageControler();
-	              
-	          while(result.next())
-	            photo.ajouterDansTirages(new Couple<Tirage>(tirContr.read(result.getInt("NUMIMPRESSION")), result.getInt("NBEXEMPLAIRE")));
-	      }
-	} catch (Exception e) {
-		e.printStackTrace();
-	}
+
+				while (result.next()) {
+					photo.ajouterDansTirages(new Couple<Tirage>(new Tirage(result.getInt("NUMIMPRESSION"),
+							result.getString("PATH_IMPRESSION"), result.getBoolean("IMPRESSION_OK"),
+							result.getString("QUALITE"), result.getString("FORMAT")), result.getInt("NBEXEMPLAIRE")));
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return photo;
 	}
 
@@ -62,7 +70,5 @@ public class PhotoControler implements CRUDInterface<Photo> {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
-
 
 }

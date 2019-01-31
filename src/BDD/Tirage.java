@@ -6,8 +6,8 @@ import java.util.List;
 public class Tirage extends Impression {
 	private List<Couple<Photo>> photos = new ArrayList<Couple<Photo>>();
 
-	public Tirage(int numImpression, String pathImpression, Client client, boolean Impression_ok, String qualite, String format) {
-		super(numImpression, pathImpression, client, Impression_ok, qualite, format);
+	public Tirage(int numImpression, String pathImpression, boolean Impression_ok, String qualite, String format) {
+		super(numImpression, pathImpression, Impression_ok, qualite, format);
 	}
 
 	public List<Couple<Photo>> getPhotos() {

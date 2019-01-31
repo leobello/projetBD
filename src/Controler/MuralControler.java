@@ -4,13 +4,14 @@ import java.sql.Statement;
 
 import BDD.CRUDInterface;
 import BDD.Mural;
+import serviceBD.BD;
 
-public class MuralControler implements CRUDInterface<Mural>{
+public class MuralControler implements CRUDInterface<Mural> {
 	private Mural mural;
-	private static Statement stmt;
+	private BD bd;
 
-	public MuralControler(Statement stmt) {
-		MuralControler.stmt = stmt;
+	public MuralControler(BD bd) {
+		this.bd = bd;
 	}
 
 	@Override
@@ -36,7 +37,5 @@ public class MuralControler implements CRUDInterface<Mural>{
 		// TODO Auto-generated method stub
 		return false;
 	}
-
-
 
 }

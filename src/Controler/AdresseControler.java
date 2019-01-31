@@ -11,7 +11,6 @@ import serviceBD.BD;
 public class AdresseControler implements CRUDInterface <Adresse>{
 	private Adresse adresse ;
 	private BD bd;
-	
 
 	public AdresseControler(BD bd) {
 		this.bd = bd;
@@ -22,7 +21,7 @@ public class AdresseControler implements CRUDInterface <Adresse>{
 		boolean createOK = false;
 		int misAj = 0;
 		try {
-			String requete = "INSERT INTO ADRESSE VALUES ("+adresse.getIdAdresse()+","
+			String requete = "INSERT INTO ADRESSE VALUES (ADRESSES_SEQ.NEXTVAL,"
 					+adresse.getCodePostal()+",'"
 					+adresse.getVille()+"','"
 					+adresse.getNomAdresse()+"','"
