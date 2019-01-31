@@ -12,7 +12,7 @@ import serviceBD.BuildReq;
 public class ArticleControler implements CRUDInterface<Article> {
 	private Article article;
 	private Statement stmt;
-
+	// serializable
 	public ArticleControler(BD bd) {
 		try {
 			this.stmt = bd.getSerializableSTMT();

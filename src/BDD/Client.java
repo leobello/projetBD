@@ -1,10 +1,5 @@
 package BDD;
 
-import serviceBD.BD;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,30 +20,6 @@ public class Client {
 		this.prenom = prenom;
 		this.motDePasse = motDePasse;
 		this.actif = true;
-		try {
-			this.loadImpressions(mailClient);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void loadImpressions(String idClient) throws SQLException {
-		Statement stmt = BD.getInstance().getReadCommittedSTMT();//      getRepeatableReadSTMT();
-		String req = "SELECT * FROM IMPRESSION WHERE MAILCLIENT = '" + idClient+"'";
-		ResultSet rs = stmt.executeQuery(req);
-		boolean impressionOK;
-		while(rs.next()) {
-			if(Integer.parseInt(rs.getString("IMPRESSION_OK")) == 1){
-				impressionOK = true;
-			} else {
-				impressionOK = false;
-			}
-			impressions.add(new Impression(Integer.parseInt(rs.getString("NUMIMPRESSION")),
-					                       rs.getString("PATH_IMPRESSION"),
-									       impressionOK,
-										   rs.getString("QUALITE"),
-									       rs.getString("FORMAT")));
-		}
 	}
 
 	public String getMailClient() {

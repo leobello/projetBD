@@ -11,7 +11,7 @@ import serviceBD.BD;
 public class ImpressionControler implements CRUDInterface<Impression> {
 	private Impression impression;
 	private BD bd;
-
+	// seriazable
 	public ImpressionControler(BD bd) {
 		this.bd = bd;
 	}
@@ -30,7 +30,7 @@ public class ImpressionControler implements CRUDInterface<Impression> {
 					+impression.getArticle(i)+",'"
 					+impression.getQualite()+"','"
 					+impression.getFormat()+"'";
-			int insert = this.bd.getReadCommittedSTMT().executeUpdate(requete);
+			int insert = this.bd.getSerializableSTMT().executeUpdate(requete);
 			
 			if (insert>0) {
 				checkCreate = true;
@@ -47,7 +47,7 @@ public class ImpressionControler implements CRUDInterface<Impression> {
 			String requete = "SELECT * FROM IMPRESSION "
 							+ "NATURAL JOIN CLIENT "
 							+ "WHERE NUMIMPRESSION = "+ identifiant;               
-			ResultSet rs = this.bd.getReadCommittedSTMT().executeQuery(requete);
+			ResultSet rs = this.bd.getSerializableSTMT().executeQuery(requete);
 			while(rs.next()) {
 				impression = new Impression(rs.getInt("NUMIPRESSION"),
 								rs.getString("PATH_IMPRESSION"),

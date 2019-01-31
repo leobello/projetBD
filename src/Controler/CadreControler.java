@@ -9,7 +9,7 @@ import serviceBD.BD;
 public class CadreControler implements CRUDInterface<Cadre>{
 	private Cadre cadre;
 	private BD bd;
-
+	// read commited
 	public CadreControler(BD bd) {
 		this.bd = bd;
 	}

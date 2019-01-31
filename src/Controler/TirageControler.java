@@ -12,7 +12,7 @@ import serviceBD.BD;
 public class TirageControler implements CRUDInterface<Tirage> {
 	private Tirage tirage;
 	private BD bd;
-	
+	// read commited
 	public  TirageControler(BD bd) {
 		this.bd = bd;
 	}
@@ -59,7 +59,7 @@ public class TirageControler implements CRUDInterface<Tirage> {
 		try {
 		String requete = "UPDATE TIRAGE set PATHIMPRESSION = " + object.getPathImpression()
 				+ " WHERE NUMIMPRESSION = '" + object.getNumImpression() + "'";
-		int insert = this.bd.getSerializableSTMT().executeUpdate(requete);
+		int insert = this.bd.getReadCommittedSTMT().executeUpdate(requete);
 		if (insert > 0) {
 			checkUpdate = true;
 		}

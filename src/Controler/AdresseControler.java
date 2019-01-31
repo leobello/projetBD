@@ -9,6 +9,7 @@ import BDD.CRUDInterface;
 import serviceBD.BD;
 
 public class AdresseControler implements CRUDInterface <Adresse>{
+	// read commited
 	private Adresse adresse ;
 	private BD bd;
 
@@ -92,7 +93,7 @@ public class AdresseControler implements CRUDInterface <Adresse>{
 		try {
 			Statement stmt = this.bd.getReadCommittedSTMT();
 			stmt.executeQuery("delete from ADRESSE where ID_ADRESSE = " + identifiant);
-			System.out.println("C'est passé");
+			System.out.println("C'est passï¿½");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
