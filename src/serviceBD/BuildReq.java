@@ -10,7 +10,7 @@ public class BuildReq {
         ArrayList<String> args = new ArrayList<>();
         int i = 0;
         for(String arg : arguments){
-            if(this.isInteger(arg) || i == 0 || arg.equalsIgnoreCase("null")){
+            if(this.isInteger(arg) || i == 0 || arg.equalsIgnoreCase("null") || arg.equals("COMMANDES_SEQ.NEXTVAL")){
                 args.add(arg);
             } else {
                 args.add("'"+arg+"'");

@@ -295,7 +295,7 @@ public class Client extends TypeUtilisateur {
 			}
 		}
 		Couple<ArrayList<Article>> articlesMontant = getMontantArticles(impressions,nbTaken);
-		Commande cmd = new Commande(General.getDateNow(), modelivraison, "EN COURS", (int) new Timestamp(System.currentTimeMillis()).getTime(), (float) articlesMontant.getNumero());
+		Commande cmd = new Commande(General.getDateNow().toString(), modelivraison, "EN COURS", (int) new Timestamp(System.currentTimeMillis()).getTime(), (float) articlesMontant.getNumero());
 		cmd.setClient(this.clientActuel);
 		do{
 			System.out.println("Veuillez régler votre commande :\n"

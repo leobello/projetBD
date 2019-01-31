@@ -12,7 +12,7 @@ import serviceBD.BD;
 public class CodePromoControler implements CRUDInterface<CodePromo> {
 	private CodePromo codePromo;
 	private BD bd;
-
+	//seriazble
 	public CodePromoControler(BD bd) {
 		this.bd = bd;
 	}
@@ -25,7 +25,7 @@ public class CodePromoControler implements CRUDInterface<CodePromo> {
 						+ codePromo.getPourcentage() + ","
 						+ codePromo.getTypeCodePromo() + ")";
 
-			ResultSet rs = this.bd.getReadCommittedSTMT().executeQuery(requete);
+			ResultSet rs = this.bd.getSerializableSTMT().executeQuery(requete);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -41,7 +41,7 @@ public class CodePromoControler implements CRUDInterface<CodePromo> {
 	
 	public CodePromo readClient(String code){
 		try {
-			ResultSet result = this.bd.getReadCommittedSTMT().executeQuery("SELECT * FROM CODEPROMO WHERE CODE = "+ 
+			ResultSet result = this.bd.getSerializableSTMT().executeQuery("SELECT * FROM CODEPROMO WHERE CODE = "+
 			code);
 			while(result.next()) {
 				codePromo = new CodePromo(code, 

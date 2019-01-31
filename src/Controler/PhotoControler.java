@@ -6,14 +6,13 @@ import java.sql.Statement;
 import BDD.CRUDInterface;
 import BDD.Couple;
 import BDD.Photo;
-import BDD.Stock;
 import BDD.Tirage;
 import serviceBD.BD;
 
 public class PhotoControler implements CRUDInterface<Photo> {
 	private Photo photo;
 	private BD bd;
-
+	// seriazable
 	public PhotoControler(BD bd) {
 		this.bd = bd;
 	}
@@ -28,7 +27,7 @@ public class PhotoControler implements CRUDInterface<Photo> {
 					+ photo.getRetouche() + ","
 					+ photo.getDescription() + ")";
 
-			ResultSet rs = this.bd.getReadCommittedSTMT().executeQuery(requete);
+			ResultSet rs = this.bd.getSerializableSTMT().executeQuery(requete);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -42,7 +41,7 @@ public class PhotoControler implements CRUDInterface<Photo> {
 		try {
 			String requete = "SELECT * FROM PHOTO where ID_PHOTO = '" + identifiant + "'";
 			
-			ResultSet result = this.bd.getReadCommittedSTMT().executeQuery(requete);
+			ResultSet result = this.bd.getSerializableSTMT().executeQuery(requete);
 			if (result.next()) {
 				photo = new Photo(result.getInt("ID_PHOTO"), result.getString("RETOUCHE"),
 						result.getString("DESCRIPTION"));
@@ -52,7 +51,7 @@ public class PhotoControler implements CRUDInterface<Photo> {
 						+ "NATURAL JOIN TIRAGE "
 						+ "NATURAL JOIN IMPRESSION "
 						+ "where ID_PHOTO = '" + identifiant + "'";
-				ResultSet result2 = this.bd.getReadCommittedSTMT().executeQuery(requete2);
+				ResultSet result2 = this.bd.getSerializableSTMT().executeQuery(requete2);
 				while (result2.next()) {
 					photo.ajouterDansTirages(new Couple<Tirage>(new Tirage(result2.getInt("NUMIMPRESSION"),
 							result2.getString("PATH_IMPRESSION"), result2.getBoolean("IMPRESSION_OK"),

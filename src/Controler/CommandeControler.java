@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import BDD.CRUDInterface;
+import BDD.Client;
 import BDD.Commande;
 import serviceBD.BD;
 import serviceBD.BuildReq;
@@ -14,7 +15,7 @@ public class CommandeControler implements CRUDInterface<Commande> {
 
 	private Commande commande;
 	private BD bd;
-
+	// serializable
 	public CommandeControler(BD bd) {
 		this.bd = bd;
 	}
@@ -23,7 +24,7 @@ public class CommandeControler implements CRUDInterface<Commande> {
 	public boolean create(Commande object) {
 		BuildReq br = new BuildReq();
 		ResultSet rs;
-		String cp = (object.getCodePromo() == null) ? "RIEN" : object.getCodePromo().getCode();
+		String cp = (object.getCodePromo() == null) ? "NULL" : object.getCodePromo().getCode();
 		// String req = br.insert("COMMANDE","2O19-01-28", "ADRESSE", "EN
 		// COURS", "10", "NULL", "LEOBELLO.WD@GMAIL.COM", "10");
 		String req = "INSERT INTO COMMANDE VALUES ('"+object.getDate().toString()+"', '"+object.getModeLivraison()+"', '"
@@ -32,14 +33,19 @@ public class CommandeControler implements CRUDInterface<Commande> {
 				//String req = br.insert("COMMANDE", object.getDate().toString(), object.getModeLivraison(),
 				//object.getStatutCommande(), "COMMANDES_SEQ.NEXTVAL", cp,
 				//object.getClient().getMailClient(), String.valueOf(object.getMontant()));
+		String req = br.insert("COMMANDE", object.getDate().toString(), object.getModeLivraison(),
+				object.getStatutCommande(), String.valueOf(object.getNumCommande()), cp, 
+				object.getClient().getMailClient(), String.valueOf(object.getMontant()));
 		try {
-			bd.getSerializableSTMT().executeQuery(req);
-			return true;
+			int z = bd.getSerializableSTMT().executeUpdate(req);
+			if (z>0) {
+				return true;
+			} else return false;
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
 		}
-
 	}
 
 	@Override
@@ -64,7 +70,7 @@ public class CommandeControler implements CRUDInterface<Commande> {
 				montant = rs.getFloat("PRIXTOTAL");
 				System.out.println(date.toString() + " " + modeLivraison + " " + statut + " " + numCommande.toString()
 						+ " " + codePromo + " " + mail + " " + montant);
-				cmd = new Commande(date, modeLivraison, statut, numCommande, montant);
+				cmd = new Commande(date.toString(), modeLivraison, statut, numCommande, montant);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -88,6 +94,8 @@ public class CommandeControler implements CRUDInterface<Commande> {
 		}
 		return false;
 	}
+	
+
 
 	@Override
 	public boolean delete(int idenTtifiant) {

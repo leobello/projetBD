@@ -9,7 +9,7 @@ import serviceBD.BD;
 public class JoursControler implements CRUDInterface<Jour> {
 	private Jour jour;
 	private BD bd;
-
+	// read commited
 	public JoursControler(BD bd) {
 		this.bd = bd;
 	}

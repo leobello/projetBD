@@ -10,6 +10,7 @@ public class AlbumPhotoControler implements CRUDInterface<AlbumPhoto> {
 
 	private AlbumPhoto albumPhoto;
 	private BD bd;
+	// read commited
 
 	public AlbumPhotoControler(BD bd) {
 		this.bd = bd;

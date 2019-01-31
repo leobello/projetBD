@@ -12,7 +12,7 @@ import serviceBD.BD;
 public class ClientControler implements CRUDInterface<Client> {
 	private Client client;
 	private BD bd;
-
+	// read committed
 	public ClientControler(BD bd) {
 		this.bd = bd;
 	}
@@ -36,7 +36,7 @@ public class ClientControler implements CRUDInterface<Client> {
 	//
 	public Client readClient(String mailClient) {
 		try {
-			String requete = "SELECT * FROM CLIENT WHERE MAILCLIENT = " + "'" + mailClient + "'";
+			String requete = "SELECT * FROM CLIENT WHERE MAILCLIENT = '" + mailClient+"'"  ;
 			ResultSet rs = this.bd.getReadCommittedSTMT().executeQuery(requete);
 			while (rs.next()) {
 				client = new Client(rs.getString("MAILCLIENT"), rs.getString("NOM"), rs.getString("PRENOM"),
