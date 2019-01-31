@@ -40,8 +40,8 @@ public class Client extends TypeUtilisateur {
 								+ 	"7 - Supprimer un fichier image\n"
 								+ 	"/************     Gestion des impressions     ************/\n"
 								+	"6 - Visualiser mes impressions (Work in progress)\n"
-								+	"5 - Supprimer une impression (Work in progress)\n"
-								+ 	"4 - Modifier une impression (Work in progress)\n"
+								+	"5 - Supprimer une impression\n"
+								+ 	"4 - Modifier une impression\n"
 								+ 	"3 - Créer une impression\n"
 								+ 	"/*********************     Autre     *********************/\n"
 								+ 	"2 - Visualiser les informations de mon compte\n"
@@ -86,15 +86,69 @@ public class Client extends TypeUtilisateur {
 	}
 	
 	private void supprimerImpression() {
-		System.out.println("Supprimer une impression\n");
-		
+		int reponse = -1;
+		boolean flagUp = false;
+		System.out.println("/**************** Suppression d'une impression ***************/\n\n");
+		ArrayList<Impression> impressions = new ArrayList<Impression>();
+		/*Requête des impressions appartenant au client*/
+			//EN ATTENDANT
+			Impression impression1 = new Impression(1, "path/1", this.clientActuel,false, "SUPERIEUR", "A4"); 
+			Impression impression2 = new Impression(2, "path/2", this.clientActuel,false, "SUPERIEUR", "A4");
+			Impression impression3 = new Impression(3, "path/3", this.clientActuel,false, "SUPERIEUR", "A4"); 
+			impressions.add(impression1);
+			impressions.add(impression2);
+			impressions.add(impression3);
+		while(!flagUp) {
+			impressionsToString(impressions);
+			reponse = LectureClavier.lireEntier("Choisissez le fichier à supprimer\n");
+			if(reponse>1 && reponse<=impressions.size()) {
+				Impression impToDelete = impressions.get(reponse-1);
+				String choix = validerSuppressionImpression(impToDelete);
+				if(choix.equals("V")) {
+					//CRUDInterface<FichierImage> FichierImageControler = _GlobalControler.getFichierControler();
+					// FichierImageControler.delete(fiToDelete);
+					System.out.println("Le fichier Image : "+impToDelete.getPathImpression()+" à été supprimé.");
+				}else if(choix.equals("returnMenu")) {
+					return;
+				}
+			}if(reponse == 0) {
+				return;
+			}if(reponse == 1) {
+				flagUp = true;
+			}
+		}	
+	}
+
+	private String validerSuppressionImpression(Impression impToDelete) {
+		int reponse = -1;
+		while(true) {
+			System.out.println("Voulez-vous vraiment supprimer l'impression :"+impToDelete.getPathImpression()+" ?\n\n"
+							+	"2 - Envoyer\n\n"
+							+	"1 - Retour\n"
+							+ 	"0 - Retour au menu principal\n");
+			reponse = LectureClavier.lireEntier("\nChoix :");
+			switch(reponse) 
+			{
+				case 2 : return "E";
+				case 1 : return "return";
+				case 0 : return "returnMenu";
+				default : General.erreurDeChoix(); break;
+			}	
+		}
+	}
+
+	private void impressionsToString(ArrayList<Impression> impressions) {
+		for(int i=0; i<impressions.size(); i++) {
+			System.out.println(impressions.size()-i+" - Impression : "+impressions.get(impressions.size()-1-i).getPathImpression()+"\n");
+		}
+		System.out.println( 	"\n0 - Retour au menu principal\n");
 	}
 
 	private void modifierImpression() {
 		int reponse = -1;
 		while(true) {
-			System.out.println(	"/**************** Création d'une impression ***************/\n\n"
-					+ "Quelle est le type de l'impression que vous souhaitez modifier?"
+			System.out.println(	"/************** Modification d'une impression *************/\n\n"
+					+ "Quelle est le type de l'impression que vous souhaitez modifier?\n"
 					+	"7 - Cadre\n"
 					+ 	"6 - Tirage\n"
 					+ 	"5 - Album\n"
@@ -130,11 +184,11 @@ public class Client extends TypeUtilisateur {
 		while(!flagUp) {
 			fiToString(fichierImages);
 			reponse = LectureClavier.lireEntier("Choisissez le fichier à supprimer\n");
-			if(reponse>1 && reponse<fichierImages.size()) {
+			if(reponse>1 && reponse<=fichierImages.size()) {
 				FichierImage fiToDelete = fichierImages.get(reponse-1);
-				String choix = validerSuppression(fiToDelete);
+				String choix = validerSuppressionFichierImage(fiToDelete);
 				if(choix.equals("V")) {
-					//_GlobalControler<FichierImage> FichierImageControler = _GlobalControler.getFichierControler();
+					//CRUDInterface<FichierImage> FichierImageControler = _GlobalControler.getFichierControler();
 					// FichierImageControler.delete(fiToDelete);
 					System.out.println("Le fichier Image : "+fiToDelete.getPath()+" à été supprimé.");
 				}else if(choix.equals("returnMenu")) {
@@ -148,7 +202,7 @@ public class Client extends TypeUtilisateur {
 		}
 	}
 
-	private String validerSuppression(FichierImage fiToDelete) {
+	private String validerSuppressionFichierImage(FichierImage fiToDelete) {
 		int reponse = -1;
 		while(true) {
 			System.out.println("Voulez-vous vraiment supprimer le fichier image :"+fiToDelete.getPath()+" ?\n\n"
@@ -195,9 +249,9 @@ public class Client extends TypeUtilisateur {
 			System.out.println("Commande : \n"
 							+ "Choisissez vos impressions : \n");
 			if(nbExemplaireTotal!=0) {
-				impressionsToString(impressions, nbTaken, true);
+				commandesImpressionsToString(impressions, nbTaken, true);
 				reponse = LectureClavier.lireEntier("\nChoix :");
-				if(reponse>1 && reponse<impressions.size()+2) {
+				if(reponse>1 && reponse<=impressions.size()+1) {
 					do {
 						nbTaken.set(reponse-2, LectureClavier.lireEntier("En combien d'exemplaire souhaitez-vous ce produit?\n"));
 					}while(nbTaken.get(reponse-2)<0);
@@ -207,7 +261,7 @@ public class Client extends TypeUtilisateur {
 					flagUp = true;
 				}
 			}else {
-				impressionsToString(impressions, nbTaken, false);
+				commandesImpressionsToString(impressions, nbTaken, false);
 				reponse = LectureClavier.lireEntier("\nChoix :");
 				if(reponse>0 && reponse<impressions.size()+1) {
 					do {
@@ -329,7 +383,7 @@ public class Client extends TypeUtilisateur {
 		return new Couple<ArrayList<Article>>(articles, montant);
 	}
 
-	private void impressionsToString(ArrayList<Impression> impressions, ArrayList<Integer> nbTaken, boolean asExemplaires) {
+	private void commandesImpressionsToString(ArrayList<Impression> impressions, ArrayList<Integer> nbTaken, boolean asExemplaires) {
 		if(asExemplaires) {
 			for(int i=0; i<impressions.size();i++) {
 					System.out.println(impressions.size()+1-i+" - Impression n°"+impressions.get(impressions.size()-1-i).getNumImpression()+" - "+impressions.get(impressions.size()-1-i).getPathImpression()+"("+nbTaken.get(impressions.size()-1-i)+")");
@@ -343,19 +397,23 @@ public class Client extends TypeUtilisateur {
 	}
 
 	private void visualiserDetailsCommande() {
-		System.out.println("Visualiser les détails de commande\n");
+		//Visualiser.detailsCommande();
+		System.out.println("Fonctionnalité en cours de développement.\n");
 	}
 
 	private void visualiserImpressions() {
-		System.out.println("Visualiser les impressions\n");
+		//Visualiser.impressions();
+		System.out.println("Fonctionnalité en cours de développement.\n");
 	}
 
 	private void visualiserListeImagesPartagees() {
-		System.out.println("Visualiser la liste des images partagées\n");
+		//Visualiser.listeImagesPartagees();
+		System.out.println("Fonctionnalité en cours de développement.\n");
 	}
 
 	private void visualiserPhotosPopulaires() {
-		System.out.println("Visualiser les photos populaires\n");
+		//Visualiser.photosPopulaires();
+		System.out.println("Fonctionnalité en cours de développement.\n");
 	}
 	
 	private void creerImpression() {
@@ -388,8 +446,159 @@ public class Client extends TypeUtilisateur {
 	}
 	
 	private boolean creerAgendaSemaines(boolean isInModifMode) {
-		// TODO Auto-generated method stub
+		int reponse = -1;
+		String path = null;
+		ArrayList<Couple<Photo>> photos = null;
+		Semaine semaineToMod = null;
+		boolean flagUp = false;
+		if(isInModifMode){
+			while(!flagUp) {
+				System.out.println("/************** Modification d'un Agenda Jours *************/\n\n");
+				ArrayList<Semaine> semainesClient = new ArrayList<Semaine>();
+				/*Requête de tous les agenda semaines du client*/
+				System.out.println("Veuillez choisir quel agenda jour vous souhaitez modifier :\n");
+				semainePathToString(semainesClient, true);
+				System.out.println("0 - Retour\n");
+				reponse = LectureClavier.lireEntier("\nChoix :");
+				if(reponse == 0) {
+					return true;
+				}else if(reponse>0 && reponse<=semainesClient.size()){
+					semaineToMod = semainesClient.get(reponse-1);
+					path = semaineToMod.getPathImpression();
+					photos = (ArrayList<Couple<Photo>>) semaineToMod.getPhotos();
+					flagUp = true;
+				}
+			}
+		}
+		else {
+			System.out.println("/*************** Création d'un Agenda Semaine **************/\n\n");
+			path = LectureClavier.lireChaine("Veuillez renseigner le chemin de l'agenda Semaines :\n");
+			photos = new ArrayList<Couple<Photo>>();
+		}
+		while(true) {
+			System.out.println("Agenda Semaines : "+path+"\n"
+					+ "Photos :");
+			ImpressionPhotosToString(photos, false, true, false);
+			System.out.println("\nQue souhaitez-vous faire?\n");
+			if(photos.size()==0) {
+				System.out.println(	"3 - Changer le chemin\n"
+								+ 	"2 - Ajouter une photo\n"
+								+ 	"1 - Retour au choix d'impression\n"
+								+ 	"0 - Retour au menu principal\n");
+				reponse = LectureClavier.lireEntier("\nChoix :");
+				switch(reponse) 
+				{
+					case 3 : path = LectureClavier.lireChaine("Veuillez renseigner le chemin de l'agenda Semaines :\n"); break;
+					case 2 : 	int length = photos.size();
+								photos = AjouterPhotoAPage(52, photos, LectureClavier.lireEntier("Entrez l'ID de la photo que vous souhaitez ajouter?\n"), "Dans quelle page souhaitez-vous mettre cette photo?");
+								if(photos.size()==length)
+									System.out.println("Cette photo n'existe pas ou vous n'avez pas la permission de l'utiliser.\n");
+								break;
+					case 1 : return true;
+					case 0 : return false;
+					default : General.erreurDeChoix(); break;
+				}
+			}
+			else {
+				System.out.println(	"5 - Enregistrer l'agenda Semaine\n"
+								+ 	"4 - Changer le chemin\n"
+								+ 	"3 - Retirer une photo\n"
+								+ 	"2 - Ajouter une photo\n"
+								+ 	"1 - Retour au choix d'impression\n"
+								+ 	"0 - Retour au menu principal\n");
+				reponse = LectureClavier.lireEntier("\nChoix :");
+				switch(reponse) 
+				{
+					case 5 : if(!isInModifMode) {
+								if(enregistrerSemaine(path, photos)) return true; else break;
+							}else {
+								semaineToMod.setPathImpression(path);
+								semaineToMod.setPhotos(photos);
+								//CRUDInterface<Semaine> semaineInterface = _GlobalControler.getSemaineControler();
+								//semaineInterface.update(semaineToMod);
+							}break;
+					case 4 : path = LectureClavier.lireChaine("Veuillez renseigner le chemin de l'agenda Semaines :\n"); break;
+					case 3 : photos = RetirerPhoto(photos, false, true, true); break;
+					case 2 :	int length = photos.size();
+								photos = AjouterPhotoAPage(52, photos, LectureClavier.lireEntier("Entrez l'ID de la photo que vous souhaitez ajouter?\n"), "Dans quelle page souhaitez-vous mettre cette photo?");
+								if(photos.size()==length)
+									System.out.println("Cette photo n'existe pas ou vous n'avez pas la permission de l'utiliser.\n");
+								break;
+					case 1 : return true;
+					case 0 : return false;
+					default : General.erreurDeChoix(); break;
+				}
+			}
+		}
+	}
+
+	private boolean enregistrerSemaine(String path, ArrayList<Couple<Photo>> photos) {
+		int reponse = -1;
+		String qualite = "";
+		String format = "";
+		boolean resultRequest = false;
+		//_GlobalControler semaineControler = _GlobalControler.getSemaineControler();
+		//if(!semaineControler.read(path))
+			//EN ATTENDANT
+			resultRequest = true;
+		if(resultRequest) {
+			boolean flag = false;
+			while(!flag) {
+				System.out.println("En quelle qualité souhaitez-vous créer votre Agenda Semaine?\n"
+						+ 	"2 - Moyenne\n"
+						+ 	"1 - Supérieur\n"
+						+ 	"0 - Annuler l'enregistrement\n");
+				reponse = LectureClavier.lireEntier("\nChoix :");
+				switch(reponse) 
+				{
+					case 2 : qualite = "MOYENNE"; flag = true; break;
+					case 1 : qualite = "SUPERIEUR"; flag = true; break;
+					case 0 : return false;
+					default : General.erreurDeChoix(); break;
+				}
+			}
+			flag = false;
+			while(!flag) {
+				System.out.println("En quel format souhaitez-vous créer votre Agenda Semaine?\n"
+						+ 	"2 - A4\n"
+						+ 	"1 - A5\n"
+						+ 	"0 - Annuler l'enregistrement\n");
+				reponse = LectureClavier.lireEntier("\nChoix :");
+				switch(reponse) 
+				{
+					case 2 : format = "A4"; flag = true; break;
+					case 1 : format = "A5"; flag = true; break;
+					case 0 : return false;
+					default : General.erreurDeChoix(); break;
+				}
+			}
+			Semaine toCreate = new Semaine(0, path, this.clientActuel, false, 52, qualite, format);
+			//CRUDInterface<Semaine> semaineControler = _GlobalControler.getSemaineControler();
+			//semaineControler.create(toCreate);
+			System.out.println("Agenda Semaine enregistré. \n");
+			return true;
+		}else
+		{
+			System.out.println("Attention cet Agenda Semaine existe déjà, veuillez modifier le chemin.\n");
+		}
 		return false;
+	}
+
+	private void semainePathToString(ArrayList<Semaine> semainesClient, boolean prefix) {
+		if(prefix)
+		{
+			for(int i=0; i<semainesClient.size();i++) {
+				System.out.println(semainesClient.size()-i+" - "+semainesClient.get(semainesClient.size()-1-i).getNumImpression()+" - "+semainesClient.get(semainesClient.size()-1-i).getPathImpression());
+			}
+			return;
+		}
+		else 
+		{
+			for(int i=0; i<semainesClient.size();i++) {
+				System.out.println(semainesClient.get(semainesClient.size()-1-i).getNumImpression()+" - "+semainesClient.get(semainesClient.size()-1-i).getPathImpression());
+			}
+			return;
+		}
 	}
 
 	private boolean creerAgendaJours(boolean isInModifMode) {
@@ -463,7 +672,7 @@ public class Client extends TypeUtilisateur {
 								jourToMod.setPhotos(photos);
 								//CRUDInterface<Jour> jourInterface = _GlobalControler.getJourControler();
 								//jourInterface.update(jourToMod);
-							}
+							}break;
 					case 4 : path = LectureClavier.lireChaine("Veuillez renseigner le chemin de l'agenda Jours :\n"); break;
 					case 3 : photos = RetirerPhoto(photos, false, true, true); break;
 					case 2 :	int length = photos.size();
@@ -501,13 +710,14 @@ public class Client extends TypeUtilisateur {
 		String qualite = "";
 		String format = "";
 		boolean resultRequest = false;
-		/*Requête qui vérifie qu'il n'existe pas d'album avec ce chemin.*/
+		//CRUDInterface<Jour> jourControler = _GlobalControler.getJourControler();
+		//if(!jourControler.read(path))
 			//EN ATTENDANT
 			resultRequest = true;
 		if(resultRequest) {
 			boolean flag = false;
 			while(!flag) {
-				System.out.println("En quelle qualité souhaitez-vous créer votre calendrier Mural?\n"
+				System.out.println("En quelle qualité souhaitez-vous créer votre Agenda Jour?\n"
 						+ 	"2 - Moyenne\n"
 						+ 	"1 - Supérieur\n"
 						+ 	"0 - Annuler l'enregistrement\n");
@@ -522,7 +732,7 @@ public class Client extends TypeUtilisateur {
 			}
 			flag = false;
 			while(!flag) {
-				System.out.println("En quel format souhaitez-vous créer votre calendrier Mural?\n"
+				System.out.println("En quel format souhaitez-vous créer votre Agenda Jour?\n"
 						+ 	"2 - A4\n"
 						+ 	"1 - A5\n"
 						+ 	"0 - Annuler l'enregistrement\n");
@@ -536,7 +746,6 @@ public class Client extends TypeUtilisateur {
 				}
 			}
 			Jour toCreate = new Jour(0, path, this.clientActuel, false, 365, qualite, format);
-			//CRUDInterface<Jour> joursControler = _GlobalControler.getJoursControler();
 			//joursControler.create(toCreate);
 			System.out.println("Agenda Jour enregistré. \n");
 			return true;
@@ -548,7 +757,155 @@ public class Client extends TypeUtilisateur {
 	}
 
 	private boolean creerCalendrierBureau(boolean isInModifMode) {
-		// TODO Auto-generated method stub
+		int reponse = -1;
+		String path = null;
+		ArrayList<Couple<Photo>> photos = null;
+		Bureau bureauToMod = null;
+		boolean flagUp = false;
+		if(isInModifMode){
+			while(!flagUp) {
+				System.out.println("/*********** Modification d'un Calendrier Bureau ***********/\n\n");
+				ArrayList<Bureau> bureauClient = new ArrayList<Bureau>();
+				/*Requête de tous les Calendrier Bureau du client*/
+				System.out.println("Veuillez choisir quel calendrier Bureau vous souhaitez modifier :\n");
+				bureauPathToString(bureauClient, true);
+				System.out.println("0 - Retour\n");
+				reponse = LectureClavier.lireEntier("\nChoix :");
+				if(reponse == 0) {
+					return true;
+				}else if(reponse>0 && reponse<=bureauClient.size()){
+					bureauToMod = bureauClient.get(reponse-1);
+					path = bureauToMod.getPathImpression();
+					photos = (ArrayList<Couple<Photo>>) bureauToMod.getPhotos();
+					flagUp = true;
+				}
+			}
+		}else {
+			System.out.println("/************** Création d'un calendrier Bureau *************/\n\n");
+			path = LectureClavier.lireChaine("Veuillez renseigner le chemin du calendrier Bureau :\n");
+			photos = new ArrayList<Couple<Photo>>();
+		}
+		while(true) {
+			System.out.println("Calendrier Bureau : "+path+"\n"
+					+ "Photos :");
+			ImpressionPhotosToString(photos, false, true, false);
+			System.out.println("\nQue souhaitez-vous faire?\n");
+			if(photos.size()==0) {
+				System.out.println(	"3 - Changer le chemin\n"
+								+ 	"2 - Ajouter une photo\n"
+								+ 	"1 - Retour au choix d'impression\n"
+								+ 	"0 - Retour au menu principal\n");
+				reponse = LectureClavier.lireEntier("\nChoix :");
+				switch(reponse) 
+				{
+					case 3 : path = LectureClavier.lireChaine("Veuillez renseigner le chemin du calendrier Bureau :\n"); break;
+					case 2 : 	int length = photos.size();
+								photos = AjouterPhotoAPage(12, photos, LectureClavier.lireEntier("Entrez l'ID de la photo que vous souhaitez ajouter?\n"), "Dans quelle page souhaitez-vous mettre cette photo?");
+								if(photos.size()==length)
+									System.out.println("Cette photo n'existe pas ou vous n'avez pas la permission de l'utiliser.\n");
+								break;
+					case 1 : return true;
+					case 0 : return false;
+					default : General.erreurDeChoix(); break;
+				}
+			}
+			else {
+				System.out.println(	"5 - Enregistrer le calendrier Bureau\n"
+								+ 	"4 - Changer le chemin\n"
+								+ 	"3 - Retirer une photo\n"
+								+ 	"2 - Ajouter une photo\n"
+								+ 	"1 - Retour au choix d'impression\n"
+								+ 	"0 - Retour au menu principal\n");
+				reponse = LectureClavier.lireEntier("\nChoix :");
+				switch(reponse) 
+				{
+					case 5 : if(!isInModifMode) {
+								if(enregistrerBureau(path, photos)) return true; else break;
+							}else {
+								bureauToMod.setPathImpression(path);
+								bureauToMod.setPhotos(photos);
+								//CRUDInterface<Bureau> bureauInterface = _GlobalControler.getBureauControler();
+								//bureauInterface.update(bureauToMod);
+							}break;
+					case 4 : path = LectureClavier.lireChaine("Veuillez renseigner le chemin du calendrier bureau :\n"); break;
+					case 3 : photos = RetirerPhoto(photos, false, true, true); break;
+					case 2 :	int length = photos.size();
+								photos = AjouterPhotoAPage(12, photos, LectureClavier.lireEntier("Entrez l'ID de la photo que vous souhaitez ajouter?\n"), "Dans quelle page souhaitez-vous mettre cette photo?");
+								if(photos.size()==length)
+									System.out.println("Cette photo n'existe pas ou vous n'avez pas la permission de l'utiliser.\n");
+								break;
+					case 1 : return true;
+					case 0 : return false;
+					default : General.erreurDeChoix(); break;
+				}
+			}
+		}
+	}
+
+	private void bureauPathToString(ArrayList<Bureau> bureauClient, boolean prefix) {
+		if(prefix)
+		{
+			for(int i=0; i<bureauClient.size();i++) {
+				System.out.println(bureauClient.size()-i+" - "+bureauClient.get(bureauClient.size()-1-i).getNumImpression()+" - "+bureauClient.get(bureauClient.size()-1-i).getPathImpression());
+			}
+			return;
+		}
+		else 
+		{
+			for(int i=0; i<bureauClient.size();i++) {
+				System.out.println(bureauClient.get(bureauClient.size()-1-i).getNumImpression()+" - "+bureauClient.get(bureauClient.size()-1-i).getPathImpression());
+			}
+			return;
+		}	
+	}
+
+	private boolean enregistrerBureau(String path, ArrayList<Couple<Photo>> photos) {
+		int reponse = -1;
+		String qualite = "";
+		String format = "";
+		//CRUDInterface<Bureau> bureauInterface = _GlobalControler.getBureauControler();
+		//if(!bureauInterface.read(path))
+			//EN ATTENDANT
+			boolean resultRequest = true;
+		if(resultRequest) {
+			boolean flag = false;
+			while(!flag) {
+				System.out.println("En quelle qualité souhaitez-vous créer votre calendrier Bureau?\n"
+						+ 	"2 - Moyenne\n"
+						+ 	"1 - Supérieur\n"
+						+ 	"0 - Annuler l'enregistrement\n");
+				reponse = LectureClavier.lireEntier("\nChoix :");
+				switch(reponse) 
+				{
+					case 2 : qualite = "MOYENNE"; flag = true; break;
+					case 1 : qualite = "SUPERIEUR"; flag = true; break;
+					case 0 : return false;
+					default : General.erreurDeChoix(); break;
+				}
+			}
+			flag = false;
+			while(!flag) {
+				System.out.println("En quel format souhaitez-vous créer votre calendrier Bureau?\n"
+						+ 	"2 - A4\n"
+						+ 	"1 - A5\n"
+						+ 	"0 - Annuler l'enregistrement\n");
+				reponse = LectureClavier.lireEntier("\nChoix :");
+				switch(reponse) 
+				{
+					case 2 : format = "A4"; flag = true; break;
+					case 1 : format = "A5"; flag = true; break;
+					case 0 : return false;
+					default : General.erreurDeChoix(); break;
+				}
+			}
+			Bureau toCreate = new Bureau(0, path, clientActuel, false, qualite, format);
+			//bureauInterface.create(toCreate);
+			System.out.println("calendrier Bureau enregistré. \n");
+			return true;
+		}else
+		{
+			System.out.println("Attention ce calendrier Bureau existe déjà, veuillez modifier le chemin.\n");
+		}
 		return false;
 	}
 
@@ -560,10 +917,10 @@ public class Client extends TypeUtilisateur {
 		boolean flagUp = false;
 		if(isInModifMode){
 			while(!flagUp) {
-				System.out.println("/************* Modification d'un Calendrier Mural ************/\n\n");
+				System.out.println("/************ Modification d'un Calendrier Mural ***********/\n\n");				
 				ArrayList<Mural> muralClient = new ArrayList<Mural>();
-				/*Requête de tous les agenda jours du client*/
-				System.out.println("Veuillez choisir quel agenda jour vous souhaitez modifier :\n");
+				/*Requête de tous les calendrier mural du client*/
+				System.out.println("Veuillez choisir quel calendrier Mural vous souhaitez modifier :\n");
 				MuralPathToString(muralClient, true);
 				System.out.println("0 - Retour\n");
 				reponse = LectureClavier.lireEntier("\nChoix :");
@@ -578,7 +935,7 @@ public class Client extends TypeUtilisateur {
 			}
 		}else {
 			System.out.println("/************** Création d'un calendrier Mural *************/\n\n");
-			path = LectureClavier.lireChaine("Veuillez renseigner le chemin du cadre :\n");
+			path = LectureClavier.lireChaine("Veuillez renseigner le chemin du calendrier mural :\n");
 			photos = new ArrayList<Couple<Photo>>();
 		}
 		while(true) {
@@ -620,9 +977,9 @@ public class Client extends TypeUtilisateur {
 							}else {
 								muralToMod.setPathImpression(path);
 								muralToMod.setPhotos(photos);
-								//CRUDInterface<Mural> jourInterface = _GlobalControler.getMuralControler();
-								//jourInterface.update(muralToMod);
-							}
+								//CRUDInterface<Mural> muralInterface = _GlobalControler.getMuralControler();
+								//muralInterface.update(muralToMod);
+							}break;
 					case 4 : path = LectureClavier.lireChaine("Veuillez renseigner le chemin du calendrier mural :\n"); break;
 					case 3 : photos = RetirerPhoto(photos, false, true, true); break;
 					case 2 :	int length = photos.size();
@@ -638,16 +995,29 @@ public class Client extends TypeUtilisateur {
 		}
 	}
 
-	private void MuralPathToString(ArrayList<Mural> muralClient, boolean b) {
-		// TODO Auto-generated method stub
-		
+	private void MuralPathToString(ArrayList<Mural> muralClient, boolean prefix) {
+		if(prefix)
+		{
+			for(int i=0; i<muralClient.size();i++) {
+				System.out.println(muralClient.size()-i+" - "+muralClient.get(muralClient.size()-1-i).getNumImpression()+" - "+muralClient.get(muralClient.size()-1-i).getPathImpression());
+			}
+			return;
+		}
+		else 
+		{
+			for(int i=0; i<muralClient.size();i++) {
+				System.out.println(muralClient.get(muralClient.size()-1-i).getNumImpression()+" - "+muralClient.get(muralClient.size()-1-i).getPathImpression());
+			}
+			return;
+		}	
 	}
 
 	private boolean enregistrerMural(String path, ArrayList<Couple<Photo>> photos) {
 		int reponse = -1;
 		String qualite = "";
 		String format = "";
-		/*Requête qui vérifie qu'il n'existe pas d'album avec ce chemin.*/
+		//CRUDInterface<Mural> muralControler = _GlobalControler.getMuralControler();
+		//if(!muralControler.read(path))
 			//EN ATTENDANT
 			boolean resultRequest = true;
 		if(resultRequest) {
@@ -682,7 +1052,6 @@ public class Client extends TypeUtilisateur {
 				}
 			}
 			Mural toCreate = new Mural(0, path, clientActuel, false, qualite, format);
-			//CRUDInterface<Mural> muralControler = _GlobalControler.getMuralControler();
 			//muralControler.create(toCreate);
 			System.out.println("calendrier mural enregistré. \n");
 			return true;
@@ -693,12 +1062,38 @@ public class Client extends TypeUtilisateur {
 		return false;
 	}
 
-	private boolean creerAlbum(boolean b) {
+	private boolean creerAlbum(boolean isInModifMode) {
 		int reponse = -1;
-		System.out.println("/******************* Création d'un album *******************/\n\n");
-		String path = LectureClavier.lireChaine("Veuillez renseigner le chemin de l'album :\n");
-		int idPhotoCouv = LectureClavier.lireEntier("Veuillez renseigner l'ID de la photo que vous souhaitez mettre en couverture :\n");
-		ArrayList<Couple<Photo>> photos = new ArrayList<Couple<Photo>>();
+		String path = null;
+		ArrayList<Couple<Photo>> photos = null;
+		AlbumPhoto albumToMod = null;
+		int idPhotoCouv = 0;
+		boolean flagUp = false;
+		if(isInModifMode){
+			while(!flagUp) {
+				System.out.println("/***************** Modification d'un Album *****************/\n\n");
+				ArrayList<AlbumPhoto> albumClient = new ArrayList<AlbumPhoto>();
+				/*Requête de tous les albums du client*/
+				System.out.println("Veuillez choisir quel album vous souhaitez modifier :\n");
+				AlbumPhotoPathToString(albumClient, true);
+				System.out.println("0 - Retour\n");
+				reponse = LectureClavier.lireEntier("\nChoix :");
+				if(reponse == 0) {
+					return true;
+				}else if(reponse>0 && reponse<=albumClient.size()){
+					albumToMod = albumClient.get(reponse-1);
+					path = albumToMod.getPathImpression();
+					idPhotoCouv = albumToMod.getIdPhoto();
+					photos = (ArrayList<Couple<Photo>>) albumToMod.getPhotos();
+					flagUp = true;
+				}
+			}
+		}else {
+			System.out.println("/******************* Création d'un album *******************/\n\n");
+			path = LectureClavier.lireChaine("Veuillez renseigner le chemin de l'album :\n");
+			idPhotoCouv = LectureClavier.lireEntier("Veuillez renseigner l'ID de la photo que vous souhaitez mettre en couverture :\n");
+			photos = new ArrayList<Couple<Photo>>();
+		}
 		while(true) {
 			System.out.println("Album : "+path+"\n"
 					+ "Photos :	Couverture - "+idPhotoCouv);
@@ -736,7 +1131,14 @@ public class Client extends TypeUtilisateur {
 				reponse = LectureClavier.lireEntier("\nChoix :");
 				switch(reponse) 
 				{
-					case 6 : if(enregistrerAlbum(path, photos, idPhotoCouv)) return true; else break;
+					case 6 : if(!isInModifMode) {
+								if(enregistrerAlbum(path, photos, idPhotoCouv)) return true; else break;
+							}else {
+								albumToMod.setPathImpression(path);
+								albumToMod.setPhotos(photos);
+								//CRUDInterface<AlbumPhoto> albumInterface = _GlobalControler.getAlbumPhotoControler();
+								//albumInterface.update(albumToMod);
+							}break;
 					case 5 : idPhotoCouv = LectureClavier.lireEntier("Veuillez renseigner l'ID de la photo que vous souhaitez mettre en couverture :\n"); break;
 					case 4 : path = LectureClavier.lireChaine("Veuillez renseigner le chemin de l'album :\n"); break;
 					case 3 : photos = RetirerPhoto(photos, false, true, true); break;
@@ -753,12 +1155,30 @@ public class Client extends TypeUtilisateur {
 		}
 	}
 	
+	private void AlbumPhotoPathToString(ArrayList<AlbumPhoto> albumClient, boolean prefix) {
+		if(prefix)
+		{
+			for(int i=0; i<albumClient.size();i++) {
+				System.out.println(albumClient.size()-i+" - "+albumClient.get(albumClient.size()-1-i).getNumImpression()+" - "+albumClient.get(albumClient.size()-1-i).getPathImpression());
+			}
+			return;
+		}
+		else 
+		{
+			for(int i=0; i<albumClient.size();i++) {
+				System.out.println(albumClient.get(albumClient.size()-1-i).getNumImpression()+" - "+albumClient.get(albumClient.size()-1-i).getPathImpression());
+			}
+			return;
+		}	
+	}
+
 	private boolean enregistrerAlbum(String path, ArrayList<Couple<Photo>> photos, int idCouv) {
 		int reponse = -1;
 		String qualite = "";
 		String format = "";
 		String titreCouv = "";
-		/*Requête qui vérifie qu'il n'existe pas d'album avec ce chemin.*/
+		//CRUDInterface<AlbumPhoto> albumControler = _GlobalControler.getAlbumPhotoControler();
+			//if(!albumControler.read(path))
 			//EN ATTENDANT
 			boolean resultRequest = true;
 		if(resultRequest) {
@@ -793,9 +1213,8 @@ public class Client extends TypeUtilisateur {
 					default : General.erreurDeChoix(); break;
 				}
 			}
-			/*Requête de création de l'album avec pour chemin path, pour photos l'array photos, 
-			 * avec comme photo de couv idCouv et titre de couv titreCouv, 
-			 * pour le format et la qualité donnée, et liée au client connecté*/
+			AlbumPhoto toCreate = new AlbumPhoto(0, path, clientActuel, false, idCouv, titreCouv, qualite, format);
+			//albumControler.create(toCreate);
 			System.out.println("album enregistré. \n");
 			return true;
 		}else
@@ -809,7 +1228,44 @@ public class Client extends TypeUtilisateur {
 		int reponse = -1;
 		String path = "";
 		ArrayList<Couple<Photo>> photos = null;
-		if(!isInModifMode) {
+		Tirage tirageToMod = null;
+		boolean flagUp = false;
+		if(isInModifMode){
+			while(!flagUp) {
+				System.out.println("/***************** Modification d'un Tirage ****************/\n\n");
+				ArrayList<Tirage> tirageClient = new ArrayList<Tirage>();
+				/*Requête de tous les albums du client*/
+					//EN ATTENDANT
+					Couple<Photo> unePhoto = new Couple<Photo>(new Photo(54785, "", ""), 10);
+					Couple<Photo> deuxPhoto = new Couple<Photo>(new Photo(12548, "", ""), 5);
+					Couple<Photo> troisPhoto = new Couple<Photo>(new Photo(35694, "", ""), 2);
+					Tirage untirage = new Tirage(5064, "un chemin", clientActuel, false, "SUPERIEUR", "A4");
+					Tirage deuxtirage = new Tirage(1598, "un autre chemin", clientActuel, false, "SUPERIEUR", "A4");
+					ArrayList<Couple<Photo>> photoTirage1 = new ArrayList<Couple<Photo>>();
+					ArrayList<Couple<Photo>> photoTirage2 = new ArrayList<Couple<Photo>>();
+					photoTirage1.add(unePhoto);
+					photoTirage1.add(deuxPhoto);
+					photoTirage1.add(troisPhoto);
+					photoTirage2.add(unePhoto);
+					photoTirage2.add(deuxPhoto);
+					untirage.setPhotos(photoTirage1);
+					deuxtirage.setPhotos(photoTirage2);
+					tirageClient.add(untirage);
+					tirageClient.add(deuxtirage);
+				System.out.println("Veuillez choisir quel tirage vous souhaitez modifier :\n");
+				tiragePathToString(tirageClient, true);
+				System.out.println("0 - Retour\n");
+				reponse = LectureClavier.lireEntier("\nChoix :");
+				if(reponse == 0) {
+					return true;
+				}else if(reponse>0 && reponse<=tirageClient.size()){
+					tirageToMod = tirageClient.get(reponse-1);
+					path = tirageToMod.getPathImpression();
+					photos = (ArrayList<Couple<Photo>>) tirageToMod.getPhotos();
+					flagUp = true;
+				}
+			}
+		}else {
 			System.out.println("/****************** Création d'un tirage *******************/\n\n");
 			path = LectureClavier.lireChaine("Veuillez renseigner le chemin du tirage :\n");
 			photos = new ArrayList<Couple<Photo>>();
@@ -844,7 +1300,16 @@ public class Client extends TypeUtilisateur {
 				reponse = LectureClavier.lireEntier("\nChoix :");
 				switch(reponse) 
 				{
-					case 5 : if(enregistrerTirage(path, photos)) return true; else break;
+					case 5 : if(!isInModifMode) {
+								if(enregistrerTirage(path, photos)) return true; else break;
+							}else {
+								tirageToMod.setPathImpression(path);
+								tirageToMod.setPhotos(photos);
+								//CRUDInterface<Tirage> tirageInterface = _GlobalControler.getTirageControler();
+								//tirageInterface.update(tirageToMod);
+								System.out.println("Tirage modifié.\n");
+								return true;
+							}
 					case 4 : path = LectureClavier.lireChaine("Veuillez renseigner le chemin du tirage :\n"); break;
 					case 3 : photos = RetirerPhoto(photos, true, false, true); break;
 					case 2 : photos = AjouterPhotoAPage(0, photos, LectureClavier.lireEntier("Entrez l'ID de la photo que vous souhaitez ajouter?\n"), "Combien d'exemplaires souhaitez-vous ajouter?"); break;
@@ -856,11 +1321,29 @@ public class Client extends TypeUtilisateur {
 		}
 	}
 
+	private void tiragePathToString(ArrayList<Tirage> tirageClient, boolean prefix) {
+		if(prefix)
+		{
+			for(int i=0; i<tirageClient.size();i++) {
+				System.out.println(tirageClient.size()-i+" - "+tirageClient.get(tirageClient.size()-1-i).getNumImpression()+" - "+tirageClient.get(tirageClient.size()-1-i).getPathImpression());
+			}
+			return;
+		}
+		else 
+		{
+			for(int i=0; i<tirageClient.size();i++) {
+				System.out.println(tirageClient.get(tirageClient.size()-1-i).getNumImpression()+" - "+tirageClient.get(tirageClient.size()-1-i).getPathImpression());
+			}
+			return;
+		}
+	}
+
 	private boolean enregistrerTirage(String path, ArrayList<Couple<Photo>> photos) {
 		int reponse = -1;
 		String qualite = "";
 		String format = "";
-		/*Requête qui vérifie qu'il n'existe pas de tirage avec ce chemin.*/
+		//CRUDInterface<Tirage> tirageControler = _GlobalControler.getTirageControler();
+		//if(!tirageControler.read(path))
 			//EN ATTENDANT
 			boolean resultRequest = true;
 		if(resultRequest) {
@@ -895,7 +1378,6 @@ public class Client extends TypeUtilisateur {
 				}
 			}
 			Tirage toCreate = new Tirage(0, path, clientActuel, false, qualite, format);
-			//CRUDInterface<Tirage> tirageControler = _GlobalControler.getTirageControler();
 			//tirageControler.create(toCreate);
 			System.out.println("tirage enregistré. \n");
 			return true;
@@ -906,11 +1388,35 @@ public class Client extends TypeUtilisateur {
 		return false;
 	}
 
-	private boolean creerCadre(boolean b) {
+	private boolean creerCadre(boolean isInModifMode) {
 		int reponse = -1;
-		System.out.println("/******************* Création d'un cadre *******************/\n\n");
-		String path = LectureClavier.lireChaine("Veuillez renseigner le chemin du cadre :\n");
-		ArrayList<Couple<Photo>> photos = new ArrayList<Couple<Photo>>();
+		String path = "";
+		ArrayList<Couple<Photo>> photos = null;
+		Cadre cadreToMod = null;
+		boolean flagUp = false;
+		if(isInModifMode){
+			while(!flagUp) {
+				System.out.println("/***************** Modification d'un Cadre *****************/\n\n");
+				ArrayList<Cadre> cadreClient = new ArrayList<Cadre>();
+				/*Requête de tous les albums du client*/
+				System.out.println("Veuillez choisir quel tirage vous souhaitez modifier :\n");
+				cadrePathToString(cadreClient, true);
+				System.out.println("0 - Retour\n");
+				reponse = LectureClavier.lireEntier("\nChoix :");
+				if(reponse == 0) {
+					return true;
+				}else if(reponse>0 && reponse<=cadreClient.size()){
+					cadreToMod = cadreClient.get(reponse-1);
+					path = cadreToMod.getPathImpression();
+					photos = (ArrayList<Couple<Photo>>) cadreToMod.getPhotos();
+					flagUp = true;
+				}
+			}
+		}else {
+			System.out.println("/******************* Création d'un cadre *******************/\n\n");
+			path = LectureClavier.lireChaine("Veuillez renseigner le chemin du cadre :\n");
+			photos = new ArrayList<Couple<Photo>>();
+		}
 		while(true) {
 			System.out.println("Cadre : "+path+"\n"
 					+ "Photos :");
@@ -945,7 +1451,14 @@ public class Client extends TypeUtilisateur {
 				reponse = LectureClavier.lireEntier("\nChoix :");
 				switch(reponse) 
 				{
-					case 5 : if(enregistrerCadre(path, photos)) return true; else break;
+					case 5 : if(!isInModifMode) {
+								if(enregistrerCadre(path, photos)) return true; else break;
+							}else {
+								cadreToMod.setPathImpression(path);
+								cadreToMod.setPhotos(photos);
+								//CRUDInterface<Cadre> cadreInterface = _GlobalControler.getCadreControler();
+								//cadreInterface.update(cadreToMod);
+							}break;
 					case 4 : path = LectureClavier.lireChaine("Veuillez renseigner le chemin du cadre :\n"); break;
 					case 3 : photos = RetirerPhoto(photos, false, false, true); break;
 					case 2 :	int length = photos.size();
@@ -958,6 +1471,23 @@ public class Client extends TypeUtilisateur {
 					default : General.erreurDeChoix(); break;
 				}
 			}
+		}
+	}
+
+	private void cadrePathToString(ArrayList<Cadre> cadreClient, boolean prefix) {
+		if(prefix)
+		{
+			for(int i=0; i<cadreClient.size();i++) {
+				System.out.println(cadreClient.size()-i+" - "+cadreClient.get(cadreClient.size()-1-i).getNumImpression()+" - "+cadreClient.get(cadreClient.size()-1-i).getPathImpression());
+			}
+			return;
+		}
+		else 
+		{
+			for(int i=0; i<cadreClient.size();i++) {
+				System.out.println(cadreClient.get(cadreClient.size()-1-i).getNumImpression()+" - "+cadreClient.get(cadreClient.size()-1-i).getPathImpression());
+			}
+			return;
 		}
 	}
 
@@ -1083,7 +1613,7 @@ public class Client extends TypeUtilisateur {
 			if(reponse == 0) {
 				return photos;
 			}else if(reponse>0 && reponse<=photos.size()){
-				photos.remove(photos.size()-reponse);
+				photos.remove(reponse-1);
 				return photos;
 			}
 		}

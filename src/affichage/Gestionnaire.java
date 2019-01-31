@@ -115,7 +115,7 @@ public class Gestionnaire extends TypeUtilisateur {
 			{
 				case "E" :
 						commande.setStatutCommande("Envoyée");
-						//_GlobalControler<Commande> commandeControler = _GlobalControler.getCommandeControler();
+						//CRUDInterface<Commande> commandeControler = _GlobalControler.getCommandeControler();
 						//commandeControler.update(commande);
 						System.out.println("La commande n°"+commande.getNumCommande()+" à été envoyée\n");
 						break;
@@ -254,7 +254,7 @@ public class Gestionnaire extends TypeUtilisateur {
 					String choix = faireImpression(impression);
 					if(choix.equals("V")) {
 						impression.setImpression_ok(true);
-						//_GlobalControler<Impression> impressionControler = _GlobalControler.getImpressionControler();
+						//CRUDInterface<Impression> impressionControler = _GlobalControler.getImpressionControler();
 						// impressionControler.update(impression);
 						System.out.println("L'impression n° "+impression.getNumImpression()+" à été réalisée.");
 					}else if(choix.equals("returnMenu")) {
