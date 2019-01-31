@@ -114,8 +114,8 @@ public class Gestionnaire extends TypeUtilisateur {
 			switch(choix) 
 			{
 				case "E" :
-						commande.setStatutCommande("Envoyï¿½e");
-						//_GlobalControler<Commande> commandeControler = _GlobalControler.getCommandeControler();
+						commande.setStatutCommande("Envoyée");
+						//CRUDInterface<Commande> commandeControler = _GlobalControler.getCommandeControler();
 						//commandeControler.update(commande);
 						System.out.println("La commande nï¿½"+commande.getNumCommande()+" ï¿½ ï¿½tï¿½ envoyï¿½e\n");
 						break;
@@ -245,7 +245,10 @@ public class Gestionnaire extends TypeUtilisateur {
 			System.out.println(	"/***************** Rï¿½alisation d'une impression *****************/\n"
 							+ 	"Voici les impressions en attente...\n");
 			ArrayList<Impression> impressions = new ArrayList<Impression>();
-			/*Requï¿½te des impressions en attente de rï¿½alisation*/Impression imp = new Impression(25894, "lepathdelimpression", new Client("l@r.com", "Reynaud", "Louis", "mdp"), false, "SUPERIEUR", "A4"); impressions.add(imp); impressions.add(imp);
+			/*Requï¿½te des impressions en attente de rï¿½alisation*/Impression imp = new Impression(25894, "lepathdelimpression", false, "SUPERIEUR", "A4");
+			imp.setClient(new Client("l@r.com", "Reynaud", "Louis", "mdp"));
+			impressions.add(imp); 
+			impressions.add(imp);
 			impressionsToString(impressions);
 			reponse = LectureClavier.lireEntier("\nChoix :");
 			for(int num = 0; num<=impressions.size(); num++) {
@@ -254,7 +257,7 @@ public class Gestionnaire extends TypeUtilisateur {
 					String choix = faireImpression(impression);
 					if(choix.equals("V")) {
 						impression.setImpression_ok(true);
-						//_GlobalControler<Impression> impressionControler = _GlobalControler.getImpressionControler();
+						//CRUDInterface<Impression> impressionControler = _GlobalControler.getImpressionControler();
 						// impressionControler.update(impression);
 						System.out.println("L'impression nï¿½ "+impression.getNumImpression()+" ï¿½ ï¿½tï¿½ rï¿½alisï¿½e.");
 					}else if(choix.equals("returnMenu")) {
