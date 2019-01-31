@@ -1,9 +1,13 @@
 package affichage;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import BDD.*;
 import BDD.Client;
+import Controler._GlobalControler;
+import serviceBD.GestionStock;
 import serviceBD.LectureClavier;
 
 public class Gestionnaire extends TypeUtilisateur {
@@ -110,7 +114,7 @@ public class Gestionnaire extends TypeUtilisateur {
 			switch(choix) 
 			{
 				case "E" :
-						commande.setStatutCommande("Envoyï¿½e");
+						commande.setStatutCommande("Envoyée");
 						//CRUDInterface<Commande> commandeControler = _GlobalControler.getCommandeControler();
 						//commandeControler.update(commande);
 						System.out.println("La commande nï¿½"+commande.getNumCommande()+" ï¿½ ï¿½tï¿½ envoyï¿½e\n");
@@ -142,8 +146,8 @@ public class Gestionnaire extends TypeUtilisateur {
 	private Commande choixCommandeAMaj() {
 		int reponse = -1;
 		ArrayList<Commande> commandes = new ArrayList<Commande>();
-		commandes.add(new Commande(General.getDateNow(), "Domicile", "Prï¿½te ï¿½ l'envoi", 51478, (float) 10, ));
-		commandes.add(new Commande(General.getDateNow(), "En retrait", "Prï¿½te ï¿½ l'envoi", 69854, (float) 10, ));
+		commandes.add(new Commande(General.getDateNow(), "Domicile", "Prï¿½te ï¿½ l'envoi", 51478, (float) 10));
+		commandes.add(new Commande(General.getDateNow(), "En retrait", "Prï¿½te ï¿½ l'envoi", 69854, (float) 10));
 		/*requï¿½te des diffï¿½rentes commandes dans l'ï¿½tat "Prï¿½te ï¿½ l'envoi"*/
 		commandesToString(commandes);
 		reponse = LectureClavier.lireEntier("\nChoix :");

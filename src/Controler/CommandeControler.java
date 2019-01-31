@@ -3,6 +3,7 @@ package Controler;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import BDD.CRUDInterface;
 import BDD.Commande;
@@ -60,7 +61,7 @@ public class CommandeControler implements CRUDInterface<Commande> {
 				montant = rs.getFloat("PRIXTOTAL");
 				System.out.println(date.toString() + " " + modeLivraison + " " + statut + " " + numCommande.toString()
 						+ " " + codePromo + " " + mail + " " + montant);
-				cmd = new Commande(date, modeLivraison, statut, numCommande, montant, );
+				cmd = new Commande(date, modeLivraison, statut, numCommande, montant);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
