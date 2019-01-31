@@ -193,7 +193,7 @@ public class Client extends TypeUtilisateur {
 				if(choix.equals("V")) {
 					CRUDInterface<FichierImage> fichierImageControler = _GlobalControler.getFichierControler();
 					//fichierImageControler.delete(fiToDelete.getPath());
-					System.out.println("Le fichier Image : "+fiToDelete.getPath()+" ï¿½ été supprimé.");
+					System.out.println("Le fichier Image : "+fiToDelete.getPath()+" à été supprimé.");
 				}else if(choix.equals("returnMenu")) {
 					return;
 				}
@@ -234,16 +234,16 @@ public class Client extends TypeUtilisateur {
 		int reponse = -1;
 		boolean flagUp = false;
 		System.out.println("/****************** Création d'une commande *******************/\n\n");
-		/*Requï¿½te des impressions appartenant aux clients.*/
+		/*Requête des impressions appartenant aux clients.*/
 			//EN ATTENDANT
-			ArrayList<Impression> impressions = new ArrayList<Impression>();
-			Impression imp1 = new Tirage(0, "imp1", false,"SUPERIEUR", "A4");
+			ArrayList<Impression> impressions = (ArrayList<Impression>) this.clientActuel.getImpressions();
+			/*Impression imp1 = new Tirage(0, "imp1", false,"SUPERIEUR", "A4");
 			imp1.setClient(this.clientActuel);
 			Impression imp2 = new Tirage(1, "imp2", false,"MOYENNE", "A4");
 			imp2.setClient(this.clientActuel);
 			Impression imp3 = new Tirage(2, "imp3", false,"SUPERIEUR", "A5");
 			imp3.setClient(this.clientActuel);
-			impressions.add(imp1);impressions.add(imp2);impressions.add(imp3);
+			impressions.add(imp1);impressions.add(imp2);impressions.add(imp3);*/
 		ArrayList<Integer> nbTaken = new ArrayList<Integer>();
 		for(int i =0; i<impressions.size(); i++) {
 			nbTaken.add(0);
@@ -281,7 +281,7 @@ public class Client extends TypeUtilisateur {
 		flagUp=false;
 		String modelivraison = "";
 		while(!flagUp) {
-			System.out.println("Comment souhaitez-vous ï¿½tre livré?\n"
+			System.out.println("Comment souhaitez-vous être livré?\n"
 					+ 	"2 - En dépot relais\n"
 					+ 	"1 - A domicile\n\n"
 					+ 	"0 - Retour au menu principal\n");
@@ -394,12 +394,12 @@ public class Client extends TypeUtilisateur {
 	private void commandesImpressionsToString(ArrayList<Impression> impressions, ArrayList<Integer> nbTaken, boolean asExemplaires) {
 		if(asExemplaires) {
 			for(int i=0; i<impressions.size();i++) {
-					System.out.println(impressions.size()+1-i+" - Impression nï¿½"+impressions.get(impressions.size()-1-i).getNumImpression()+" - "+impressions.get(impressions.size()-1-i).getPathImpression()+"("+nbTaken.get(impressions.size()-1-i)+")");
+					System.out.println(impressions.size()+1-i+" - Impression n°"+impressions.get(impressions.size()-1-i).getNumImpression()+" - "+impressions.get(impressions.size()-1-i).getPathImpression()+"("+nbTaken.get(impressions.size()-1-i)+")");
 			}System.out.println("1 - Valider la commande\n"
 							+ 	"0 - Retour au menu principal\n");
 		} else {
 			for(int i=0; i<impressions.size();i++) {
-				System.out.println(impressions.size()-i+" - Impression nï¿½"+impressions.get(impressions.size()-1-i).getNumImpression()+" - "+impressions.get(impressions.size()-1-i).getPathImpression()+"("+nbTaken.get(impressions.size()-1-i)+")");
+				System.out.println(impressions.size()-i+" - Impression n°"+impressions.get(impressions.size()-1-i).getNumImpression()+" - "+impressions.get(impressions.size()-1-i).getPathImpression()+"("+nbTaken.get(impressions.size()-1-i)+")");
 			}System.out.println("0 - Retour au menu principal\n");
 		}
 	}
@@ -613,7 +613,7 @@ public class Client extends TypeUtilisateur {
 			while(!flagUp) {
 				System.out.println("/************** Modification d'un Agenda Jours *************/\n\n");
 				ArrayList<Jour> joursClient = new ArrayList<Jour>();
-				/*Requï¿½te de tous les agenda jours du client*/
+				/*Requête de tous les agenda jours du client*/
 				System.out.println("Veuillez choisir quel agenda jour vous souhaitez modifier :\n");
 				JoursPathToString(joursClient, true);
 				System.out.println("0 - Retour\n");
@@ -749,7 +749,7 @@ public class Client extends TypeUtilisateur {
 			return true;
 		}else
 		{
-			System.out.println("Attention ce Agenda Jour existe déjï¿½, veuillez modifier le chemin.\n");
+			System.out.println("Attention ce Agenda Jour existe déjà, veuillez modifier le chemin.\n");
 		}
 		return false;
 	}
@@ -1047,7 +1047,7 @@ public class Client extends TypeUtilisateur {
 			return true;
 		}else
 		{
-			System.out.println("Attention ce calendrier mural existe déjï¿½, veuillez modifier le chemin.\n");
+			System.out.println("Attention ce calendrier mural existe déjà, veuillez modifier le chemin.\n");
 		}
 		return false;
 	}
@@ -1205,7 +1205,7 @@ public class Client extends TypeUtilisateur {
 			return true;
 		}else
 		{
-			System.out.println("Attention cet album existe déjï¿½, veuillez modifier le chemin.\n");
+			System.out.println("Attention cet album existe déjà, veuillez modifier le chemin.\n");
 		}
 		return false;
 	}
@@ -1368,7 +1368,7 @@ public class Client extends TypeUtilisateur {
 			return true;
 		}else
 		{
-			System.out.println("Attention ce tirage existe déjï¿½, veuillez modifier le chemin.\n");
+			System.out.println("Attention ce tirage existe déjà, veuillez modifier le chemin.\n");
 		}
 		return false;
 	}
@@ -1533,7 +1533,7 @@ public class Client extends TypeUtilisateur {
 				return true;
 		}else
 		{
-			System.out.println("Attention ce cadre existe déjï¿½, veuillez modifier le chemin.\n");
+			System.out.println("Attention ce cadre existe déjà, veuillez modifier le chemin.\n");
 		}
 		return false;
 	}
@@ -1602,7 +1602,7 @@ public class Client extends TypeUtilisateur {
 	
 	private ArrayList<Couple<Photo>> AjouterPhotoAPage(int nbMaxPage, ArrayList<Couple<Photo>> photos, int id, String questionNumero) {
 		int idphoto = id;
-		/*Requï¿½te pour vérifier si la photo appartient au client ou qu'il peut utiliser une photo partagée*/
+		/*Requête pour vérifier si la photo appartient au client ou qu'il peut utiliser une photo partagée*/
 			//EN ATTENDANT
 			boolean isUsableByClient = true;
 		
@@ -1612,7 +1612,7 @@ public class Client extends TypeUtilisateur {
 			do {
 				numero = LectureClavier.lireEntier(questionNumero);
 			}while(numero<1 && nbMaxPage!= 0 || numero>nbMaxPage && nbMaxPage!= 0);
-			/*Requï¿½te de récupération de la photo d'id idphoto*/
+			/*Requête de récupération de la photo d'id idphoto*/
 				//EN ATTENDANT
 				Photo photo = new Photo(idphoto,"","");
 			 	Couple<Photo> cPhoto = new Couple<Photo>(photo,numero);
@@ -1627,12 +1627,12 @@ public class Client extends TypeUtilisateur {
 	
 	private ArrayList<Couple<Photo>> AjouterPhoto(ArrayList<Couple<Photo>> photos, int id) {
 			int idphoto = id;
-			/*Requï¿½te pour vérifier si la photo appartient au client*/
+			/*Requête pour vérifier si la photo appartient au client*/
 				//EN ATTENDANT
 				boolean isUsableByClient = true;
 			
 			if(isUsableByClient) {
-				/*Requï¿½te de récupération de la photo d'id idphoto*/
+				/*Requête de récupération de la photo d'id idphoto*/
 					//EN ATTENDANT
 					Photo photo = new Photo(idphoto, "", "");
 					Couple<Photo> cPhoto = new Couple<Photo>(photo,0);
@@ -1645,13 +1645,13 @@ public class Client extends TypeUtilisateur {
 	}
 
 	private void visualiserInfosCompte() {
-		/*Requï¿½te du nombre de commandes passées.*/
+		/*Requête du nombre de commandes passées.*/
 			//EN ATTENDANT
 			int commandes = 10; 
-		/*Requï¿½te du nombre de fichiers images utilisées*/
+		/*Requête du nombre de fichiers images utilisées*/
 			//EN ATTENDANT
 			int fi = 50; 
-		/*Requï¿½te du nombre de fichier images partagées*/
+		/*Requête du nombre de fichier images partagées*/
 			//EN ATTENDANT
 			int fiPartages = 15; 
 		System.out.println(	"/***************** Informations du compte *****************/\n\n"
@@ -1672,15 +1672,15 @@ public class Client extends TypeUtilisateur {
 		ClientControler clientCtrler = _GlobalControler.getClientControler();
 		this.clientActuel = clientCtrler.readClient(email);
 		 
-		if(this.clientActuel != null && this.clientActuel.getMotDePasse().equals(mdp))
-			System.out.println("Vous ï¿½tes bien connecté\n");
-		else
+		if(this.clientActuel != null && this.clientActuel.getMotDePasse().equals(mdp)) {
+			this.connecte = true;
+			System.out.println("Vous êtes bien connecté\n");
+		}else
 			System.out.println("Erreur de connexion, Client inconnu\n");
-			/*EN ATTENDANT*/
-		this.clientActuel = new BDD.Client(email, "Louis", "Reynaud", mdp);
-		this.connecte = true;
 		
-		System.out.println("Vous ï¿½tes connecté.\n");
+			/*EN ATTENDANT*/
+			//this.clientActuel = new BDD.Client(email, "Louis", "Reynaud", mdp);		
+			//System.out.println("Vous êtes connecté.\n");
 	}
 	
 	private void sInscrire() {
@@ -1693,10 +1693,10 @@ public class Client extends TypeUtilisateur {
 		String mdp = LectureClavier.lireChaine("\nMot De Passe : ");
 		String nom = LectureClavier.lireChaine("\nNom : ");
 		String prenom = LectureClavier.lireChaine("\nPrénom : ");
-		/*Requï¿½te de vérification de non existence du client avec les informations renseignées*/
+		/*Requête de vérification de non existence du client avec les informations renseignées*/
 			/*EN ATTENDANT*/
-			System.out.println("Mail envoyé ï¿½ "+email+", merci de votre inscription.\n");
-		/*Requï¿½te de création du nouveau client avec les informations renseignées.*/
+			System.out.println("Mail envoyé à "+email+", merci de votre inscription.\n");
+		/*Requête de création du nouveau client avec les informations renseignées.*/
 
 	}
 	
