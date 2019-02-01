@@ -1,6 +1,13 @@
 package BDD;
 
+import Controler.StockControler;
+import serviceBD.BD;
+
+import javax.swing.plaf.nimbus.State;
 import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +30,46 @@ public class Commande {
 		this.numCommande = numCommande;
 		this.prixTotal = montant;
 	}
+
+	public boolean stockSufisant() {
+		Statement st = null;
+		try {
+			st = BD.getInstance().getSerializableSTMT();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		ResultSet rs;
+		int quantiteTotal = 0;
+		for(Article article: articles) {
+			try {
+				rs = st.executeQuery(reqArticle(article.getIdArticle()));
+				while(rs.next()) {
+					quantiteTotal = rs.getInt("QUANTITESTOCK");
+				}
+				if(article.getQuantite() > quantiteTotal) {
+					System.out.println("L'article: " + article.getIdArticle() + " est en quantitée insufisant en stock");
+					System.out.println("Stock: "+ quantiteTotal );
+					return false;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		System.out.println("Commande validée!");
+		return true;
+	}
+	public void reload(Article article) {
+		this.articles.clear();
+		this.articles.add(article);
+	}
+	private String reqArticle(int id) {
+		String req = "SELECT QUANTITESTOCK FROM STOCK " +
+				"NATURAL JOIN STOCKARTICLE " +
+				"NATURAL JOIN ARTICLE " +
+				"WHERE ID_ARTICLE = " + id;
+		return req;
+	}
+
 
 	public String getDate() {
 		return date;

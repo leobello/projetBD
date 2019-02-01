@@ -27,7 +27,7 @@ public class CommandeControler implements CRUDInterface<Commande> {
 		String cp = (object.getCodePromo() == null) ? "NULL" : object.getCodePromo().getCode();
 		// String req = br.insert("COMMANDE","2O19-01-28", "ADRESSE", "EN
 		// COURS", "10", "NULL", "LEOBELLO.WD@GMAIL.COM", "10");
-		String req = br.insert("COMMANDE", object.getDate().toString(), object.getModeLivraison(),
+		String req = br.insert("COMMANDE", object.getDate(), object.getModeLivraison(),
 				object.getStatutCommande(), String.valueOf(object.getNumCommande()), cp, 
 				object.getClient().getMailClient(), String.valueOf(object.getMontant()));
 		try {
@@ -62,9 +62,8 @@ public class CommandeControler implements CRUDInterface<Commande> {
 				codePromo = rs.getString("CODEPROMO");
 				mail = rs.getString("MAILCLIENT");
 				montant = rs.getFloat("PRIXTOTAL");
-				System.out.println(date.toString() + " " + modeLivraison + " " + statut + " " + numCommande.toString()
-						+ " " + codePromo + " " + mail + " " + montant);
 				cmd = new Commande(date.toString(), modeLivraison, statut, numCommande, montant);
+
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

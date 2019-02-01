@@ -1,6 +1,8 @@
 package Controler;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import BDD.CRUDInterface;
 import BDD.Stock;
 import serviceBD.BD;
@@ -23,7 +25,6 @@ public class StockControler implements CRUDInterface<Stock> {
 				stock = new Stock(result.getString("TYPE_IMPRESSION"), result.getInt("QUANTITESTOCK"),
 						result.getString("QUALITE"), result.getString("FORMAT"));
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -52,6 +53,25 @@ public class StockControler implements CRUDInterface<Stock> {
 		}
 		return checkUpdate;
 	}
+	public void updateStock(int idArticle,int quantite) {
+		String req = "SELECT TYPE_IMPRESSION, QUALITE, FORMAT FROM STOCKARTICLE WHERE ID_ARTICLE = " + idArticle;
+		String type = "";
+		String qualite = "";
+		String format = "";
+		try {
+			ResultSet rs = bd.getSerializableSTMT().executeQuery(req);
+			while(rs.next()) {
+				type = rs.getString("TYPE_IMPRESSION");
+				qualite = rs.getString("QUALITE");
+				format = rs.getString("FORMAT");
+			}
+			this.update(new Stock( type, quantite,  qualite , format));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+
 
 	//
 	@Override
