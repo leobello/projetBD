@@ -9,7 +9,7 @@ import static java.sql.Connection.*;
 public class BD {
 
     private static BD bd;    
-    private static Connexion connexion = new Connexion("saadiw", "Williams13"); // rentrer ses propres indentifiants
+    private static Connexion connexion = new Connexion("reynloui", "A3WFzCUX"); // rentrer ses propres indentifiants
 
     private BD() { }
 

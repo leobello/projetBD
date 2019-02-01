@@ -28,6 +28,7 @@ public class CommandeControler implements CRUDInterface<Commande> {
 		// String req = br.insert("COMMANDE","2O19-01-28", "ADRESSE", "EN
 		// COURS", "10", "NULL", "LEOBELLO.WD@GMAIL.COM", "10");
 		String req = br.insert("COMMANDE", object.getDate(), object.getModeLivraison(),
+
 				object.getStatutCommande(), String.valueOf(object.getNumCommande()), cp, 
 				object.getClient().getMailClient(), String.valueOf(object.getMontant()));
 		try {

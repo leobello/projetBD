@@ -21,7 +21,6 @@ public class Client {
 		this.motDePasse = motDePasse;
 		this.actif = true;
 	}
-
 	public String getMailClient() {
 		return mailClient;
 	}

@@ -148,6 +148,7 @@ public class Gestionnaire extends TypeUtilisateur {
 		ArrayList<Commande> commandes = new ArrayList<Commande>();
 		//commandes.add(new Commande(General.getDateNow(), "Domicile", "Pr�te � l'envoi", 51478, (float) 10));
 		//commandes.add(new Commande(General.getDateNow(), "En retrait", "Pr�te � l'envoi", 69854, (float) 10));
+
 		/*requ�te des diff�rentes commandes dans l'�tat "Pr�te � l'envoi"*/
 		commandesToString(commandes);
 		reponse = LectureClavier.lireEntier("\nChoix :");
